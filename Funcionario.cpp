@@ -20,7 +20,6 @@ Funcionario::Funcionario(int codigo,
 
 }
 
-
 void Funcionario::setCodigo(int codigo){
     this->codigo = codigo;
 }
@@ -74,7 +73,6 @@ void Funcionario::exibirRegistroFuncionario(){
     cout << "Designacao: " << designacao << endl;
     cout << "Salario: " << salario << endl;
 }
-
 void Funcionario::excluirFuncionario(int codigo){
 
 }
