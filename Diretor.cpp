@@ -1,19 +1,26 @@
 #include "Diretor.h"
 
-Diretor::Diretor(){
+Diretor::Diretor()
+{
 
 }
 
-void Diretor::setAreaSupervisaoDiretor(string areaSupervisaoDiretor){
+void Diretor::setAreaSupervisaoDiretor(string areaSupervisaoDiretor)
+{
     this->areaSupervisaoDiretor = areaSupervisaoDiretor;
 }
-void Diretor::setAreaFormacao(string areaFormacao){
+
+void Diretor::setAreaFormacao(string areaFormacao)
+{
     this->areaFormacao = areaFormacao;
 }
 
-string Diretor::getAreaSupervisaoDiretor(){
+string Diretor::getAreaSupervisaoDiretor()
+{
     return areaSupervisaoDiretor;
 }
-string Diretor::getAreaFormacao(){
+
+string Diretor::getAreaFormacao()
+{
     return areaFormacao;
 }
