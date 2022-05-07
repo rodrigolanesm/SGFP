@@ -6,11 +6,10 @@
 
 using namespace std;
 
-class Operador:public Funcionario{
-
+class Operador : public Funcionario
+{
 public:
     Operador();
-    
 
 private:
     

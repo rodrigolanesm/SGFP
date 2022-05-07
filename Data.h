@@ -26,5 +26,6 @@ public:
     void setAno(int newAno);
 
     //método para imprimir a data formatada
+    void lerData();
     void printData();
 };

@@ -6,8 +6,8 @@
 
 using namespace std;
 
-class Diretor : public Funcionario{
-
+class Diretor : public Funcionario
+{
 public:
     Diretor();
 

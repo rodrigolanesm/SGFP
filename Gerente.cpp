@@ -1,13 +1,16 @@
 #include "Gerente.h"
 
-Gerente::Gerente(){
+Gerente::Gerente()
+{
 
 }
 
-void Gerente::setAreaSupervisaoGerente(string areaSupervisaoGerente){
+void Gerente::setAreaSupervisaoGerente(string areaSupervisaoGerente)
+{
     this->areaSupervisaoGerente = areaSupervisaoGerente;
 }
 
-string Gerente::getAreaSupervisaoGerente(){
+string Gerente::getAreaSupervisaoGerente()
+{
     return areaSupervisaoGerente;
 }
