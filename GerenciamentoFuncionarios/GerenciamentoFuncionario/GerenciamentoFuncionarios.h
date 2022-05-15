@@ -1,6 +1,7 @@
+#pragma once
+
 #include "../../GerenciamentoFuncionarios/Data/Data.h"
 #include "../../GerenciamentoFuncionarios/Endereco/Endereco.h"
-#include "../../MainMenu/MainMenu.h"
 
 #include "../../Funcionarios/Funcionario/Funcionario.h"
 #include "../../Funcionarios/Operador/Operador.h"
@@ -10,15 +11,16 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <list>
 
 using namespace std;
 
+//lista de funcionarios
+vector <Funcionario> funcionarios;
+
 void cadastrarFuncionario()
 {
-    //lista de funcionarios
-    vector <Funcionario> funcionarios;
-
     Funcionario func;
 
     //variáveis auxiliares para a criação de um funcionário
@@ -71,6 +73,7 @@ void cadastrarFuncionario()
 
         cout << "Digite o salário do funcionário: ";
         cin >> sal;
+        cin.ignore();
         func.setSalario(sal);
 
         cout << endl << endl;
@@ -80,20 +83,95 @@ void cadastrarFuncionario()
 
 void listarFuncionarios()
 {
-    //exibir uma lista de funcionarios
-
-    
+    //exibir todos os funcionarios cadastrados
+    for(int i = 0; i < funcionarios.size(); i++)
+    {
+        cout << "Código: " << funcionarios[i].getCodigo() << " - "
+             << "Nome: " << funcionarios[i].getNome() << " - "
+             << "Designação: " << funcionarios[i].getDesignacao() << endl;
+        cout << endl;
+    }
 }
 
-void excluirFuncionarios()
+void alterarRegistroFuncionario()
 {
-    //excluir um funcionario
+    //variáveis auxiliares para a alteração de um funcionário
+    int cod;
+    string nome;
+    Endereco end;
+    string tel;
+    Data dtIngr;
+    string desig;
+    double sal;
+
+    do
+    {
+        //leitura do código do funcionário a ser alterado
+        cout << "Digite o código do funcionário: ";
+        cin >> cod;
+        cin.ignore();
+
+        //condição para sair do loop: o código de algum funcionário ser zero
+        if(!cod)
+        {
+            cout << "Código inválido!" << endl;
+        }
+    } while (cod != 0); 
+    
+
+    //condição para alterar o funcionário: o código do funcionário a ser alterado ser igual ao código digitado pelo usuário
+    for(int i = 0; i < funcionarios.size(); i++)
+    {
+        if(funcionarios[i].getCodigo() == cod)
+        {
+            //leitura dos dados do funcionário
+            cout << "Digite o nome do funcionário: ";
+            getline(cin, nome);
+            funcionarios[i].setNome(nome);
+
+            cout << endl;
+
+            end.lerEndereco();
+            funcionarios[i].setEndereco(end);
+            
+            cout << endl << endl;
+            cout << "Digite o telefone do funcionário: ";
+            getline(cin, tel);
+            funcionarios[i].setTelefone(tel);
+
+            cout << "\nSobre a data de ingresso do funcionário" << endl << endl;
+            dtIngr.lerData();
+            funcionarios[i].setDataIngresso(dtIngr);
+
+            cout << endl;
+            cout << "Digite a designação do funcionário: ";
+            getline(cin, desig);
+            funcionarios[i].setDesignacao(desig);
+
+            cout << "Digite o salário do funcionário: ";
+            cin >> sal;
+            cin.ignore();
+            funcionarios[i].setSalario(sal);
+
+            cout << "Registro alterado com sucesso!" << endl << endl;
+            return;
+        }
+    }
+}
+
+void excluirRegistroFuncionario()
+{
+    //excluir um funcionario, dado o seu código
     int cod;
     cout << "Digite o código do funcionário que deseja excluir: ";
     cin >> cod;
     cin.ignore();
-
-    
-    
-    
+    for(int i = 0; i < funcionarios.size(); i++)
+    {
+        if(funcionarios[i].getCodigo() == cod)
+        {
+            funcionarios.erase(funcionarios.begin() + i);
+        }
+    }
+        
 }

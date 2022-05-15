@@ -13,8 +13,7 @@ Data::Data()
     this->ano = 1;
 }
 
-//métodos get tornam os atributos private disponiveis em public
-
+//getters
 int Data::getDia()
 {
     return dia;
@@ -30,7 +29,7 @@ int Data::getAno()
     return ano;
 }
 
-//métodos set() recebem os novos valores, digitados na main.cpp e tornam private as entradas
+//setters
 void Data::setDia(int newDia)
 {
     dia = newDia;
@@ -46,6 +45,7 @@ void Data::setAno(int newAno)
     ano = newAno;
 }  
 
+//métodos
 void Data::lerData()
 {
     cout << "\tDigite o dia de ingresso: ";

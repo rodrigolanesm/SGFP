@@ -1,12 +1,4 @@
-#include "GerenciamentoFuncionarios/Data/Data.h"
-#include "GerenciamentoFuncionarios/Endereco/Endereco.h"
 #include "MainMenu/MainMenu.h"
-
-#include "Funcionarios/Funcionario/Funcionario.h"
-#include "Funcionarios/Operador/Operador.h"
-#include "Funcionarios/Gerente/Gerente.h"
-#include "Funcionarios/Diretor/Diretor.h"
-#include "Funcionarios/Presidente/Presidente.h"
 
 #define CLEAR "cls"
 

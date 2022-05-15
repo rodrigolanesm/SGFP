@@ -1,12 +1,6 @@
-#include "../GerenciamentoFuncionarios/Data/Data.h"
-#include "../GerenciamentoFuncionarios/Endereco/Endereco.h"
-#include "../GerenciamentoFuncionarios/GerenciamentoFuncionario/GerenciamentoFuncionarios.h"
+#pragma once
 
-#include "../Funcionarios/Funcionario/Funcionario.h"
-#include "../Funcionarios/Operador/Operador.h"
-#include "../Funcionarios/Gerente/Gerente.h"
-#include "../Funcionarios/Diretor/Diretor.h"
-#include "../Funcionarios/Presidente/Presidente.h"
+#include "../GerenciamentoFuncionarios/GerenciamentoFuncionario/GerenciamentoFuncionarios.h"
 
 #include <iostream>
 #include <string>
@@ -28,28 +22,29 @@ void escolherOpcaoMenu()
     int opcao;
     do
     {
+        cin >> opcao;
         switch (opcao)
         {
         case 1:
             cadastrarFuncionario();
             break;
         case 2:
-            /* code */
+            listarFuncionarios();
             break;
         case 3:
-            /* code */
+            alterarRegistroFuncionario();
             break;
         case 4:
-            /* code */
+            excluirRegistroFuncionario();
             break;
         case 5:
             return;
             break;
         default:
             cout << "Opção inválida" << endl;
+            break;
         }
-
     }
     while(opcao != 5);
-    
 }
+
