@@ -19,9 +19,11 @@ using namespace std;
 //lista de funcionarios
 vector <Funcionario> funcionarios;
 
+//utilizando alocação dinâmica
+Funcionario *func;
+
 void cadastrarFuncionarios()
 {
-    Funcionario func;
 
     //variáveis auxiliares para a criação de um funcionário
     int cod;
@@ -41,7 +43,7 @@ void cadastrarFuncionarios()
         cout << "Digite o código do funcionário: ";
         cin >> cod;
         cin.ignore();
-        func.setCodigo(cod);
+        func->setCodigo(cod);
 
         //condição para sair do loop: o código de algum funcionário ser zero
         if(!cod)
@@ -52,77 +54,53 @@ void cadastrarFuncionarios()
         cout << endl;
         cout << "Digite o nome do funcionário: ";
         getline(cin, nome);
-        func.setNome(nome);
+        func->setNome(nome);
 
         cout << endl;
 
         end.lerEndereco();
-        func.setEndereco(end);
+        func->setEndereco(end);
         
         cout << endl << endl;
         cout << "Digite o telefone do funcionário: ";
         getline(cin, tel);
-        func.setTelefone(tel);
+        func->setTelefone(tel);
 
         cout << "\nSobre a data de ingresso do funcionário" << endl << endl;
         dtIngr.lerData();
-        func.setDataIngresso(dtIngr);
+        func->setDataIngresso(dtIngr);
 
         cout << endl;
         cout << "Digite a designação do funcionário: ";
         getline(cin, desig);
-        func.setDesignacao(desig);
+        func->setDesignacao(desig);
 
         //associar designação às classes existentes, completando as leituras dos dados necessários
-        /* if(desig == "Operador")
+        if(desig == "Operador")
         {
-            Operador operador;
-            cout << endl;
-            cout << "Digite o salário do funcionário: ";
-            cin >> sal;
-            cin.ignore();
-            operador.setSalario(sal);
-            func.setOperador(operador);
+            func = new Operador();
         }
         else if(desig == "Gerente")
         {
-            Gerente gerente;
-            cout << endl;
-            cout << "Digite o salário do funcionário: ";
-            cin >> sal;
-            cin.ignore();
-            gerente.setSalario(sal);
-            func.setGerente(gerente);
+            func = new Gerente();
         }
         else if(desig == "Diretor")
         {
-            Diretor diretor;
-            cout << endl;
-            cout << "Digite o salário do funcionário: ";
-            cin >> sal;
-            cin.ignore();
-            diretor.setSalario(sal);
-            func.setDiretor(diretor);
+            func = new Diretor();
         }
         else if(desig == "Presidente")
         {
-            Presidente presidente;
-            cout << endl;
-            cout << "Digite o salário do funcionário: ";
-            cin >> sal;
-            cin.ignore();
-            presidente.setSalario(sal);
-            func.setPresidente(presidente);
-        } */
+            func = new Presidente();
+        }
 
         cout << "Digite o salário do funcionário: ";
         cin >> sal;
         cin.ignore();
-        func.setSalario(sal);
+        func->setSalario(sal);
 
         cout << endl << "Funcionário cadastrado com sucesso!" << endl;
         cout << endl << endl;
-        funcionarios.push_back(func);
+        funcionarios.push_back(*func);
     }
 }
 

@@ -20,26 +20,26 @@ public:
                 double salario);
 
     //setters da classe Funcionario
-    void setCodigo(int codigo);
-    void setNome(string nome);
-    void setEndereco(Endereco endereco);
-    void setTelefone(string telefone);
-    void setDataIngresso(Data dataIngresso);
-    void setDesignacao(string designacao);
-    void setSalario(double salario);
+    virtual void setCodigo(int codigo);
+    virtual void setNome(string nome);
+    virtual void setEndereco(Endereco endereco);
+    virtual void setTelefone(string telefone);
+    virtual void setDataIngresso(Data dataIngresso);
+    virtual void setDesignacao(string designacao);
+    virtual void setSalario(double salario);
 
     //getters da classe Funcionario
-    int getCodigo();
-    string getNome();
-    Endereco getEndereco();
-    string getTelefone();
-    Data getDataIngresso();
-    string getDesignacao();
-    double getSalario();
+    virtual int getCodigo();
+    virtual string getNome();
+    virtual Endereco getEndereco();
+    virtual string getTelefone();
+    virtual Data getDataIngresso();
+    virtual string getDesignacao();
+    virtual double getSalario();
 
     //metodos da classe Funcionario
-    void exibirRegistroFuncionario();
-    void excluirFuncionario(int codigo);
+    virtual void exibirRegistroFuncionario();
+    virtual void excluirFuncionario(int codigo);
 
 private:
     int codigo;
