@@ -1,6 +1,10 @@
 #include "MainMenu/MainMenu.h"
 
+#ifdef _WIN32
 #define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
 
 #include <iostream>
 #include <string>
@@ -14,8 +18,7 @@ int main(void)
     system (CLEAR);
     setlocale(LC_ALL, "pt_BR.UTF-8");
 
-    //exibir menu
-    exibeMenu();
+    //abre o menu principal
     escolherOpcaoMenu();
 
     return 0;

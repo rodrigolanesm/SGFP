@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else
+#define CLEAR "clear"
+#endif
+
 #include "../GerenciamentoFuncionarios/GerenciamentoFuncionario/GerenciamentoFuncionarios.h"
 
 #include <iostream>
@@ -21,12 +27,15 @@ void escolherOpcaoMenu()
 {
     int opcao;
     do
-    {
+    {   
+        exibeMenu();
+        cout << endl << "Selecione uma opção: ";
         cin >> opcao;
+        system(CLEAR);
         switch (opcao)
         {
         case 1:
-            cadastrarFuncionario();
+            cadastrarFuncionarios();
             break;
         case 2:
             listarFuncionarios();

@@ -19,7 +19,7 @@ using namespace std;
 //lista de funcionarios
 vector <Funcionario> funcionarios;
 
-void cadastrarFuncionario()
+void cadastrarFuncionarios()
 {
     Funcionario func;
 
@@ -32,10 +32,12 @@ void cadastrarFuncionario()
     string desig;
     double sal;
 
-    //criação de vários funcionários até que o código de um deles seja igual a zero
+    //criação de vários funcionários
     while(1)
     {
         //leitura dos dados do funcionário
+        cout << "Cadastro de Funcionário" << endl;
+        cout << "Instruções: Para sair, digite 0 e pressione ENTER" << endl;
         cout << "Digite o código do funcionário: ";
         cin >> cod;
         cin.ignore();
@@ -71,11 +73,54 @@ void cadastrarFuncionario()
         getline(cin, desig);
         func.setDesignacao(desig);
 
+        //associar designação às classes existentes, completando as leituras dos dados necessários
+        /* if(desig == "Operador")
+        {
+            Operador operador;
+            cout << endl;
+            cout << "Digite o salário do funcionário: ";
+            cin >> sal;
+            cin.ignore();
+            operador.setSalario(sal);
+            func.setOperador(operador);
+        }
+        else if(desig == "Gerente")
+        {
+            Gerente gerente;
+            cout << endl;
+            cout << "Digite o salário do funcionário: ";
+            cin >> sal;
+            cin.ignore();
+            gerente.setSalario(sal);
+            func.setGerente(gerente);
+        }
+        else if(desig == "Diretor")
+        {
+            Diretor diretor;
+            cout << endl;
+            cout << "Digite o salário do funcionário: ";
+            cin >> sal;
+            cin.ignore();
+            diretor.setSalario(sal);
+            func.setDiretor(diretor);
+        }
+        else if(desig == "Presidente")
+        {
+            Presidente presidente;
+            cout << endl;
+            cout << "Digite o salário do funcionário: ";
+            cin >> sal;
+            cin.ignore();
+            presidente.setSalario(sal);
+            func.setPresidente(presidente);
+        } */
+
         cout << "Digite o salário do funcionário: ";
         cin >> sal;
         cin.ignore();
         func.setSalario(sal);
 
+        cout << endl << "Funcionário cadastrado com sucesso!" << endl;
         cout << endl << endl;
         funcionarios.push_back(func);
     }
