@@ -16,6 +16,7 @@ public:
     
     string getAreaSupervisaoDiretor();
     string getAreaFormacao();
+    void lerDadosDiretor();
 
 private:
 

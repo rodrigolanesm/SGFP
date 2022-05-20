@@ -19,6 +19,7 @@ public:
     
     string getFormacaoAcademica();
     string getAreaFormacao();
+    void lerDadosPresidente();
 
 private:
 

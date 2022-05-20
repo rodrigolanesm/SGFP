@@ -24,3 +24,13 @@ void Presidente::setFormacaoAcademica(string formacaoAcademica){
 void Presidente::setAreaFormacao(string areaFormacao){
     this->areaFormacao = areaFormacao;
 }
+
+void Presidente::lerDadosPresidente()
+{   
+    cout << "Digite a formacao academica: ";
+    cin >> formacaoAcademica;
+    cout << "Digite a area de formacao: ";
+    cin >> areaFormacao;
+    setFormacaoAcademica(formacaoAcademica);
+    setAreaFormacao(areaFormacao);
+}

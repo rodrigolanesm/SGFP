@@ -16,6 +16,7 @@ public:
 
     string getAreaSupervisaoGerente();
     
+    void lerDadosGerente();
 
 private:
 
