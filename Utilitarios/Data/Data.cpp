@@ -48,13 +48,27 @@ void Data::setAno(int newAno)
 //métodos
 void Data::lerData()
 {
-    cout << "\tDigite o dia de ingresso: ";
-    cin >> dia;
+    do{
+        cout << "\tDigite o dia: ";
+        cin >> dia;
+        if (dia < 1 || dia > 31)
+        {
+            cout << "Dia inválido!" << endl;
+        }
+    }
+    while (dia < 1 || dia > 31);
 
-    cout << "\tDigite o mês de ingresso: ";
-    cin >> mes;
-
-    cout << "\tDigite o ano de ingresso: ";
+    do{
+        cout << "\tDigite o mês: ";
+        cin >> mes;
+        if (mes < 1 || mes > 12)
+        {
+            cout << "Mês inválido!" << endl;
+        }
+    }
+    while (mes < 1 || mes > 12);
+    
+    cout << "\tDigite o ano: ";
     cin >> ano;
 
     cin.ignore();

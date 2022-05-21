@@ -1,5 +1,5 @@
-SGFP: main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o
-	g++ main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o -o SGFP
+SGFP: main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o GerenciamentoFuncionarios.o MainMenu.o
+	g++ main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o GerenciamentoFuncionarios.o MainMenu.o -o SGFP
 	del *.o
 	
 main.o: main.cpp
@@ -20,11 +20,17 @@ Operador.o: Funcionarios/Operador/Operador.cpp
 Presidente.o: Funcionarios/Presidente/Presidente.cpp
 	g++ -c Funcionarios/Presidente/Presidente.cpp
 
-Data.o: GerenciamentoFuncionarios/Data/Data.cpp
-	g++ -c GerenciamentoFuncionarios/Data/Data.cpp
+Data.o: Utilitarios/Data/Data.cpp
+	g++ -c Utilitarios/Data/Data.cpp
 
-Endereco.o: GerenciamentoFuncionarios/Endereco/Endereco.cpp
-	g++ -c GerenciamentoFuncionarios/Endereco/Endereco.cpp
+Endereco.o: Utilitarios/Endereco/Endereco.cpp
+	g++ -c Utilitarios/Endereco/Endereco.cpp 
+
+GerenciamentoFuncionarios.o: Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.cpp
+	g++ -c Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.cpp
+
+MainMenu.o: Menu/MainMenu.cpp
+	g++ -c Menu/MainMenu.cpp
 
 clean:
 	del *.o

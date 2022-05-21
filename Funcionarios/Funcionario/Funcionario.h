@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "../../GerenciamentoFuncionarios/Endereco/Endereco.h"
-#include "../../GerenciamentoFuncionarios/Data/Data.h"
+#include "../../Utilitarios/Endereco/Endereco.h"
+#include "../../Utilitarios/Data/Data.h"
 
 using namespace std;
 
@@ -41,7 +41,7 @@ public:
     virtual void exibirRegistroFuncionario();
     virtual void excluirFuncionario(int codigo);
 
-private:
+protected:
     int codigo;
     string nome;
     Endereco endereco;

@@ -1,6 +1,6 @@
 #include "../../Funcionarios/Funcionario/Funcionario.h"
-#include "../../GerenciamentoFuncionarios/Endereco/Endereco.h"
-#include "../../GerenciamentoFuncionarios/Data/Data.h"
+#include "../../Utilitarios/Endereco/Endereco.h"
+#include "../../Utilitarios/Data/Data.h"
 
 #include <iostream>
 
@@ -29,6 +29,7 @@ Funcionario::Funcionario(int codigo,
 
 }
 
+//setters
 
 void Funcionario::setCodigo(int codigo)
 {
@@ -62,6 +63,8 @@ void Funcionario::setDesignacao(string designacao){
 void Funcionario::setSalario(double salario){
     this->salario = salario;   
 }
+
+// getters
 
 int Funcionario::getCodigo()
 {
@@ -104,12 +107,10 @@ void Funcionario::exibirRegistroFuncionario()
     cout << "Nome: " << nome << endl;
     cout << "Endereco: ";
     endereco.exibirEndereco();
-    cout << endl;
     cout << "Telefone: " << telefone << endl;
     //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
-    cout << endl;
     cout << "Designacao: " << designacao << endl;
     cout << "Salario: " << salario << endl;
 }
