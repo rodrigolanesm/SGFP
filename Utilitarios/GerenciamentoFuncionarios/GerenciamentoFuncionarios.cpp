@@ -1,5 +1,8 @@
 #include "GerenciamentoFuncionarios.h"
 #include "../../Menu/MainMenu.h"
+#include <algorithm>
+
+using namespace std;
 
 GerenciamentoFuncionarios::GerenciamentoFuncionarios()
 { 
@@ -19,22 +22,22 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
     double sal;
     Funcionario *func;
 
+    bool sair = false;
     //criação de vários funcionários
-    while(1)
+    do
     {
         //leitura dos dados do funcionário
         cout << "Cadastro de Funcionário" << endl;
-        cout << "Instruções: Para sair, digite 0 e pressione ENTER" << endl << endl;
         cout << "Digite o código do funcionário: ";
         cin >> cod;
         cin.ignore();
 
-        //condição para sair do loop: o código de algum funcionário ser zero
+        /* //condição para sair do loop: o código de algum funcionário ser zero
         if(!cod)
         {
             system(CLEAR);
             break;
-        }
+        } */
 
         cout << endl;
         cout << "Digite o nome do funcionário: ";
@@ -53,19 +56,20 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         cout << endl;
         cout << "Digite a designação do funcionário: ";
         getline(cin, desig);
+        transform(desig.begin(), desig.end(), desig.begin(), ::tolower);
 
         cout << "Digite o salário do funcionário: ";
         cin >> sal;
         cin.ignore();
 
          //casting
-        if(desig == "Operador")
+        if (desig == "operador")
         {
             Operador* func = new Operador();
             funcionarios.push_back(new Operador(cod, nome, end, tel, dtIngr, desig, sal));
         }
 
-        else if (desig == "Gerente")
+        else if (desig == "gerente")
         {
             Gerente* func = new Gerente();
             string area;
@@ -75,7 +79,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
             funcionarios.push_back(new Gerente(cod, nome, end, tel, dtIngr, desig, sal,area));
         }
 
-        else if (desig == "Diretor")
+        else if (desig == "diretor")
         {
             Diretor* func = new Diretor();
             string areaSupervisao;
@@ -91,7 +95,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
             funcionarios.push_back(new Diretor(cod, nome, end, tel, dtIngr, desig, sal,areaSupervisao,areaFormacao));
         }
 
-        else if (desig == "Presidente")
+        else if (desig == "presidente")
         {
             Presidente* func = new Presidente();
             string formacaoAcademica;
@@ -111,8 +115,15 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
 
         cout << endl << "Funcionário cadastrado com sucesso!" << endl;
         cout << endl << endl;
-    }
 
+        cout << "Deseja cadastrar outro funcionário?" << endl;
+        cout << "Digite 1 para cadastrar um novo funcionário ou 0 para retornar ao menu principal: ";
+        cin >> sair;
+        cout << endl;
+        cin.ignore();
+    }   
+    while(sair);
+    system(CLEAR);
 }
 
 void GerenciamentoFuncionarios::listarFuncionarios()
@@ -120,24 +131,24 @@ void GerenciamentoFuncionarios::listarFuncionarios()
     //exibir todos os funcionarios cadastrados
     for (int i = 0; i < funcionarios.size(); i++)
     {
-        if (funcionarios[i]->getDesignacao() == "Operador")
+        if (funcionarios[i]->getDesignacao() == "operador")
         {
             ((Operador*)funcionarios[i])->exibirDadosOperador();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == "Gerente")
+        else if (funcionarios[i]->getDesignacao() == "gerente")
         {
             ((Gerente*)funcionarios[i])->exibirDadosGerente();
         
         }
 
-        else if (funcionarios[i]->getDesignacao() == "Diretor")
+        else if (funcionarios[i]->getDesignacao() == "diretor")
         {
             ((Diretor*)funcionarios[i])->exibirDadosDiretor();
         }
 
-        else  if (funcionarios[i]->getDesignacao() == "Presidente")
+        else  if (funcionarios[i]->getDesignacao() == "presidente")
         {
             ((Presidente*)funcionarios[i])->exibirDadosPresidente();
         }
@@ -158,28 +169,29 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
     cout << "Digite a designação de funcionário que deseja listar: ";
     cin.ignore();
     getline(cin, tipoDesejado);
+    transform(tipoDesejado.begin(), tipoDesejado.end(), tipoDesejado.begin(), ::tolower);
 
     for(int i = 0; i < funcionarios.size(); i++)
     {
-        if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "Operador")
+        if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "operador")
         {
             ((Operador*)funcionarios[i])->exibirDadosOperador();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "Gerente")
+        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "gerente")
         {
             ((Gerente*)funcionarios[i])->exibirDadosGerente();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "Diretor")
+        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "diretor")
         {
             ((Diretor*)funcionarios[i])->exibirDadosDiretor();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "Presidente")
+        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "presidente")
         {
             ((Presidente*)funcionarios[i])->exibirDadosPresidente();
         
@@ -205,7 +217,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
     do
     {
         //perguntar apenas se o usuário deseja fazer nova alteração
-        if(!novaAlteracao) // == 0
+        if(novaAlteracao) // == 0
         {
             //leitura do código do funcionário a ser alterado
             cout << "Digite o código do funcionário cujo registro deve ser alterado: ";
@@ -394,6 +406,20 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
+}
+
+void GerenciamentoFuncionarios::buscarFuncionarioCep()
+{
+    //leitura do cep a ser buscado
+    string cep;
+    cout << "Digite o cep do funcionário que deseja buscar: ";
+    getline(cin, cep);
+
+    //download do arquivo json do cep
+    /* string url = "https://viacep.com.br/ws/" + cep + "/json/";
+    string json = downloadJson(url); */
+    
+
 }
 
 void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()

@@ -9,6 +9,7 @@
         "string": "cpp",
         "vector": "cpp",
         "xutility": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "initializer_list": "cpp"
     }
 }

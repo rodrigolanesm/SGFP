@@ -12,7 +12,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <time.h>  
+#include <time.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -30,6 +31,7 @@ public:
     void buscarFuncionario();
     void buscarFuncionarioNome();
     void buscarFuncionarioEndereco();
+    void buscarFuncionarioCep();
     void buscarFuncionarioDataIngresso();
 
     void gerarHorasAleatorias();
