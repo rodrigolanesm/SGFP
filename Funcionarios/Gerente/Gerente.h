@@ -3,6 +3,7 @@
 #include "../Funcionario/Funcionario.h"
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -10,15 +11,17 @@ class Gerente : public Funcionario
 {
 public:
     Gerente();
-    Gerente(string areaSupervisaoGerente);
+    Gerente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
+        double salario,string areaSupervisaoGerente);
 
     void setAreaSupervisaoGerente(string areaSupervisaoGerente);
 
     string getAreaSupervisaoGerente();
-    
-    void lerDadosGerente();
 
-private:
+    void exibirDadosGerente();
+    double calcularSalarioMensal();
+
+protected:
 
     string areaSupervisaoGerente;
     

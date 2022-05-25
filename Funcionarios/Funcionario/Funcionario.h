@@ -27,6 +27,8 @@ public:
     virtual void setDataIngresso(Data dataIngresso);
     virtual void setDesignacao(string designacao);
     virtual void setSalario(double salario);
+    virtual void setHorasNormais(int horasNormais);
+    virtual void setHorasExtras(int horasExtras);
 
     //getters da classe Funcionario
     virtual int getCodigo();
@@ -36,10 +38,13 @@ public:
     virtual Data getDataIngresso();
     virtual string getDesignacao();
     virtual double getSalario();
+    virtual int getHorasNormais();
+    virtual int getHorasExtras();
+
 
     //metodos da classe Funcionario
     virtual void exibirRegistroFuncionario();
-    virtual void excluirFuncionario(int codigo);
+    double calcularSalarioMensal();
 
 protected:
     int codigo;
@@ -49,4 +54,7 @@ protected:
     Data dataIngresso;
     string designacao;
     double salario;
+
+    int horasNormais;
+    int horasExtras;
 };

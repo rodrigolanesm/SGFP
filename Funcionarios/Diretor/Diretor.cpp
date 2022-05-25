@@ -5,6 +5,13 @@ Diretor::Diretor()
 
 }
 
+Diretor::Diretor(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
+        double salario,string areaSupervisaoDiretor, string areaFormacao) : Funcionario(codigo,nome,endereco,telefone,dataIngresso,designacao,salario)
+{
+    this->areaFormacao = areaFormacao;
+    this->areaSupervisaoDiretor = areaSupervisaoDiretor;
+}
+
 void Diretor::setAreaSupervisaoDiretor(string areaSupervisaoDiretor)
 {
     this->areaSupervisaoDiretor = areaSupervisaoDiretor;
@@ -25,10 +32,29 @@ string Diretor::getAreaFormacao()
     return areaFormacao;
 }
 
-void Diretor::lerDadosDiretor()
-{
-    cout << "Digite a área de supervisão do diretor: " << endl;
-    getline(cin, areaSupervisaoDiretor);
-    cout << "Digite a área de formação do diretor: " << endl;
-    getline(cin, areaFormacao);
+void Diretor::exibirDadosDiretor()
+{   
+    cout << "Codigo: " << codigo << endl;
+    cout << "Nome: " << nome << endl;
+    cout << "Endereco: ";
+    endereco.exibirEndereco();
+    cout << "Telefone: " << telefone << endl;
+    //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
+    cout << "Data de Ingresso: ";
+    dataIngresso.printData();
+    cout << "Designacao: " << designacao << endl;
+    cout << "Salario: " << salario << endl;
+    cout << "A área de supervisão do diretor é: " << getAreaSupervisaoDiretor() << endl;
+    cout << "A área de formação do diretor: " << getAreaFormacao() << endl;
+
 }
+
+double Diretor::calcularSalarioMensal(){
+
+    double precoHoraNormal, precoHoraExtra;
+
+    precoHoraNormal = this->getSalario()/ this->getHorasNormais();
+    precoHoraExtra = this->getSalario()/ this->getHorasExtras();
+
+    return this->getSalario() * precoHoraNormal + this->getHorasExtras() * precoHoraExtra;
+};

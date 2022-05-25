@@ -12,7 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <list>
+#include <time.h>  
 
 using namespace std;
 
@@ -32,10 +32,13 @@ public:
     void buscarFuncionarioEndereco();
     void buscarFuncionarioDataIngresso();
 
+    void gerarHorasAleatorias();
+    void calcularFolhaSalarial();
+    void calcularFolhaSalarialFuncionario();
+    void imprimirFolhaSalarialEmpresa();
+
 protected:
     //lista de funcionarios
-    vector <Funcionario*> funcionarios;
-
-    Funcionario *func;
-
+    vector <Funcionario *> funcionarios;
+    int folhaSalarial[12] = {0};
 };

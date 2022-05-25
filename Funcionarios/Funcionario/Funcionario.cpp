@@ -26,7 +26,6 @@ Funcionario::Funcionario(int codigo,
     this->dataIngresso = dataIngresso;
     this->designacao = designacao;
     this->salario = salario;
-
 }
 
 //setters
@@ -56,14 +55,26 @@ void Funcionario::setDataIngresso(Data dataIngresso)
     this->dataIngresso = dataIngresso;
 }
 
-void Funcionario::setDesignacao(string designacao){
+void Funcionario::setDesignacao(string designacao)
+{
     this->designacao = designacao;
 }
 
-void Funcionario::setSalario(double salario){
+void Funcionario::setSalario(double salario)
+{
     this->salario = salario;   
 }
 
+void Funcionario::setHorasNormais(int horasNormais)
+{
+    this->horasNormais = horasNormais;
+}
+
+void Funcionario::setHorasExtras(int horasExtras)
+{
+    this->horasExtras = horasExtras;
+}
+    
 // getters
 
 int Funcionario::getCodigo()
@@ -101,21 +112,42 @@ double Funcionario::getSalario()
     return salario;
 }
 
+int Funcionario::getHorasNormais()
+{
+    return horasNormais;
+}
+
+int Funcionario::getHorasExtras()
+{
+    return horasExtras;
+}
+
 void Funcionario::exibirRegistroFuncionario()
 {
     cout << "Codigo: " << codigo << endl;
+    
     cout << "Nome: " << nome << endl;
+
     cout << "Endereco: ";
     endereco.exibirEndereco();
+
     cout << "Telefone: " << telefone << endl;
-    //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
+
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
+
     cout << "Designacao: " << designacao << endl;
+    
     cout << "Salario: " << salario << endl;
 }
 
-void Funcionario::excluirFuncionario(int codigo)
+double Funcionario::calcularSalarioMensal()
 {
-    //lista.remove(codigo);
-}
+    double precoHoraNormal, precoHoraExtra;
+
+    precoHoraNormal = this->getSalario() / 176.0; // 8h por dia, 22 dias por mes
+    precoHoraExtra = this->getSalario() / 88.0; // 4h por dia, 22 dias por mes
+    cout << getHorasNormais() << "  " << getHorasExtras() << endl;
+
+    return ((this->getHorasNormais() * precoHoraNormal) + (this->getHorasExtras() * precoHoraExtra));
+};

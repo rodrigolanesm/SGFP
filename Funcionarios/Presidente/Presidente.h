@@ -11,19 +11,20 @@ class Presidente: public Funcionario
 
 public:
     Presidente();
-    Presidente(string formacaoAcademica,
-               string areaFormacao);
+    Presidente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
+        double salario,string formacaoAcademicaPresidente,string areaFormacaoPresidente);
 
-    void setFormacaoAcademica(string formacaoAcademica);
-    void setAreaFormacao(string areaFormacao);           
+    void setFormacaoAcademicaPresidente(string formacaoAcademicaPresidente);
+    void setAreaFormacaoPresidente(string areaFormacaoPresidente);           
     
-    string getFormacaoAcademica();
-    string getAreaFormacao();
-    void lerDadosPresidente();
+    string getFormacaoAcademicaPresidente();
+    string getAreaFormacaoPresidente();
+    void exibirDadosPresidente();
+    double calcularSalarioMensal();
 
 private:
 
-    string formacaoAcademica;
-    string areaFormacao;
+    string formacaoAcademicaPresidente;
+    string areaFormacaoPresidente;
     
 };

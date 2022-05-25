@@ -13,6 +13,9 @@ void MainMenu::exibeMenu()
     cout << "4 - Alterar registro de um funcionário" << endl;
     cout << "5 - Excluir registro de um funcionário" << endl;
     cout << "6 - Buscar funcionário" << endl;
+    cout << "7 - Calcular folha salarial" << endl;
+    cout << "8 - Calcular folha salarial de um funcionário" << endl;
+    cout << "9 - Calcular folha salarial da empresa" << endl;
     cout << "0 - Sair" << endl;
 }
 
@@ -45,6 +48,15 @@ void MainMenu::escolherOpcaoMenu()
         case 6:
             gf.buscarFuncionario();
             break;
+        case 7:
+            gf.calcularFolhaSalarial();
+            break;
+        case 8:
+            gf.calcularFolhaSalarialFuncionario();
+            break;  
+        case 9:
+            gf.imprimirFolhaSalarialEmpresa();  
+            break;         
         case 0:
             return;
             break;
