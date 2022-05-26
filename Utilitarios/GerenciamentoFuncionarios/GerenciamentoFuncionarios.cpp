@@ -32,13 +32,6 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         cin >> cod;
         cin.ignore();
 
-        /* //condição para sair do loop: o código de algum funcionário ser zero
-        if(!cod)
-        {
-            system(CLEAR);
-            break;
-        } */
-
         cout << endl;
         cout << "Digite o nome do funcionário: ";
         getline(cin, nome);
@@ -126,6 +119,86 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
     system(CLEAR);
 }
 
+void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
+{
+    fstream arq;
+
+    arq.open("Arquivos/CadastroDeFuncionarios.txt", ios::app);
+    if (arq.is_open())
+    {
+        //escrever no arquivo todos os funcionarios cadastrados
+        for (int i = 0; i < funcionarios.size(); i++)
+        {
+            if (funcionarios[i]->getDesignacao() == "operador")
+            {
+                (Operador*)funcionarios[i];
+                arq << "Codigo: " << funcionarios[i]->getCodigo() << endl;
+
+                arq << "Nome: " << funcionarios[i]->getNome() << endl;
+
+                arq << "Endereco: " << endl;
+                arq << "\tRua: " << funcionarios[i]->getEndereco().getRua() << endl
+                    << "\tNumero: " << funcionarios[i]->getEndereco().getNumero() << endl
+                    << "\tBairro: " << funcionarios[i]->getEndereco().getBairro() << endl
+                    << "\tCidade: " << funcionarios[i]->getEndereco().getCidade() << endl
+                    << "\tEstado: " << funcionarios[i]->getEndereco().getEstado() << endl
+                    << "\tCEP: " << funcionarios[i]->getEndereco().getCep() << endl;
+
+                arq << "Telefone: " << funcionarios[i]->getTelefone() << endl;
+
+                arq << "Data de Ingresso: " << endl;
+                arq << "\t" << funcionarios[i]->getDataIngresso().getDia() << "/"
+                            << funcionarios[i]->getDataIngresso().getMes() << "/"
+                            << funcionarios[i]->getDataIngresso().getAno() << endl;
+
+
+                arq << "Designacao: " << funcionarios[i]->getDesignacao() << endl;
+
+                arq << "Salario: " << funcionarios[i]->getSalario() << endl;
+                
+                arq << endl;
+                
+                arq.close();
+            }
+            else if (funcionarios[i]->getDesignacao() == "diretor")
+            {
+                (Diretor*)funcionarios[i];
+                arq << "Codigo: " << funcionarios[i]->getCodigo() << endl;
+
+                arq << "Nome: " << funcionarios[i]->getNome() << endl;
+
+                arq << "Endereco: " << endl;
+                arq << "\tRua: " << funcionarios[i]->getEndereco().getRua() << endl
+                    << "\tNumero: " << funcionarios[i]->getEndereco().getNumero() << endl
+                    << "\tBairro: " << funcionarios[i]->getEndereco().getBairro() << endl
+                    << "\tCidade: " << funcionarios[i]->getEndereco().getCidade() << endl
+                    << "\tEstado: " << funcionarios[i]->getEndereco().getEstado() << endl
+                    << "\tCEP: " << funcionarios[i]->getEndereco().getCep() << endl;
+
+                arq << "Telefone: " << funcionarios[i]->getTelefone() << endl;
+
+                arq << "Data de Ingresso: " << endl;
+                arq << "\t" << funcionarios[i]->getDataIngresso().getDia() << "/"
+                            << funcionarios[i]->getDataIngresso().getMes() << "/"
+                            << funcionarios[i]->getDataIngresso().getAno() << endl;
+
+
+                arq << "Designacao: " << funcionarios[i]->getDesignacao() << endl;
+
+                arq << "Salario: " << funcionarios[i]->getSalario() << endl;
+
+                //arq << "A área de supervisão do diretor é: " << funcionarios[i]->getAreaSupervisao() << endl;
+                
+                //arq << "A área de formação do diretor: " << (Diretor*)funcionarios[i]->getAreaFormacao() << endl;
+                
+                arq << endl;
+                
+                arq.close();
+            }
+        }
+    }
+}
+
 void GerenciamentoFuncionarios::listarFuncionarios()
 {
     //exibir todos os funcionarios cadastrados
@@ -171,7 +244,7 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
     getline(cin, tipoDesejado);
     transform(tipoDesejado.begin(), tipoDesejado.end(), tipoDesejado.begin(), ::tolower);
 
-    for(int i = 0; i < funcionarios.size(); i++)
+    for (int i = 0; i < funcionarios.size(); i++)
     {
         if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "operador")
         {
@@ -217,7 +290,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
     do
     {
         //perguntar apenas se o usuário deseja fazer nova alteração
-        if(novaAlteracao) // == 0
+        if (novaAlteracao) // != 0
         {
             //leitura do código do funcionário a ser alterado
             cout << "Digite o código do funcionário cujo registro deve ser alterado: ";
@@ -226,7 +299,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
         }
 
         //condição para alterar o funcionário: o código do funcionário a ser alterado ser igual ao código digitado pelo usuário
-        for(int i = 0; i < funcionarios.size(); i++)
+        for (int i = 0; i < funcionarios.size(); i++)
         {
             if(funcionarios[i]->getCodigo() == cod)
             {
@@ -397,7 +470,7 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
                    funcionarios[i]->getEndereco().getCidade() + ", " + 
                    funcionarios[i]->getEndereco().getEstado();
                    
-        if(endereco.find(enderecoDesejado) != -1)
+        if (endereco.find(enderecoDesejado) != -1)
         {
             funcionarios[i]->exibirRegistroFuncionario();
             cout << endl;
@@ -416,8 +489,7 @@ void GerenciamentoFuncionarios::buscarFuncionarioCep()
     getline(cin, cep);
 
     //download do arquivo json do cep
-    /* string url = "https://viacep.com.br/ws/" + cep + "/json/";
-    string json = downloadJson(url); */
+    string url = "https://viacep.com.br/ws/" + cep + "/json/";
     
 
 }

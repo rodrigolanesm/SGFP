@@ -10,6 +10,7 @@
 #include "../../Funcionarios/Presidente/Presidente.h"
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <time.h>
@@ -22,9 +23,10 @@ class GerenciamentoFuncionarios
 public:
     GerenciamentoFuncionarios();
 
-    void cadastrarFuncionarios();
-    void listarFuncionarios(); 
-    void listarFuncionariosTipo();
+    void cadastrarFuncionarios();   //arquivo
+    void EscreverArquivoCadastroFuncionario();
+    void listarFuncionarios();      //arquivo
+    void listarFuncionariosTipo();  
     void alterarRegistroFuncionario();
     void excluirRegistroFuncionario();
     void exibirMenuBusca();
@@ -37,7 +39,7 @@ public:
     void gerarHorasAleatorias();
     void calcularFolhaSalarial();
     void calcularFolhaSalarialFuncionario();
-    void imprimirFolhaSalarialEmpresa();
+    void imprimirFolhaSalarialEmpresa();    //arquivo
 
 protected:
     //lista de funcionarios

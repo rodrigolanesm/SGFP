@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 
 #include "../../Utilitarios/Endereco/Endereco.h"
 #include "../../Utilitarios/Data/Data.h"
