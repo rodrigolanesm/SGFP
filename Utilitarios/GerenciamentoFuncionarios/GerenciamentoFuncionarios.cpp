@@ -220,15 +220,18 @@ void GerenciamentoFuncionarios::listarFuncionarios()
     }
 
     //salvar todos os funcionarios cadastrados em um arquivo
-    ofstream arq;
-    arq.open("funcionarios.txt", ios::app);
-    
+    cout << endl << "Deseja salvar os dados dos funcionarios em um arquivo?" << endl;
+    cout << "Digite 1 para salvar os dados dos funcionarios ou 0 para retornar ao menu principal: ";
+    int salvar;
+    cin >> salvar;
+    cin.ignore();
+    if (salvar == 1)
+    {
+        EscreverArquivoCadastroFuncionario();
+        cout << endl << "Arquivo criado com sucesso!" << endl;
+    }
 
-    
-
-    
     cout << "Pressione qualquer tecla para continuar" << endl;
-    getchar();
     getchar();
     system(CLEAR);
 }
