@@ -158,7 +158,6 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
                 Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
                     
                 arq << endl;
-                arq.close();
             }
             else if (funcionarios[i]->getDesignacao() == "gerente")
             {
@@ -167,7 +166,6 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
                 arq << "Area de Supervisao do Gerente: " << func->getAreaSupervisaoGerente() << endl;
                 
                 arq << endl;
-                arq.close();
             }
             else if (funcionarios[i]->getDesignacao() == "diretor")
             {
@@ -177,7 +175,6 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
                 arq << "Formacao Academica do Diretor: " << func->getAreaFormacao() << endl;
                 
                 arq << endl;
-                arq.close();
             }
             else if (funcionarios[i]->getDesignacao() == "presidente")
             {
@@ -187,9 +184,9 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
                 arq << "Formacao Academica Máxima do Presidente: " << func->getFormacaoAcademicaPresidente() << endl;
                 
                 arq << endl;
-                arq.close();
             }
         }
+        arq.close();
     }
 }
 
