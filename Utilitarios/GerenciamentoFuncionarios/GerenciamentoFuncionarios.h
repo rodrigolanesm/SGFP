@@ -23,7 +23,7 @@ class GerenciamentoFuncionarios
 public:
     GerenciamentoFuncionarios();
 
-    void cadastrarFuncionarios();   //arquivo
+    void cadastrarFuncionarios();
     void EscreverArquivoCadastroFuncionario();
     void listarFuncionarios();      //arquivo
     void listarFuncionariosTipo();  

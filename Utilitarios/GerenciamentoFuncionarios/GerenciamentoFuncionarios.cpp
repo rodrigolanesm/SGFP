@@ -129,70 +129,64 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
         //escrever no arquivo todos os funcionarios cadastrados
         for (int i = 0; i < funcionarios.size(); i++)
         {
+            arq << "Codigo: " << funcionarios[i]->getCodigo() << endl;
+
+            arq << "Nome: " << funcionarios[i]->getNome() << endl;
+
+            arq << "Endereco: " << endl;
+            arq << "\tRua: " << funcionarios[i]->getEndereco().getRua() << endl
+                << "\tNumero: " << funcionarios[i]->getEndereco().getNumero() << endl
+                << "\tBairro: " << funcionarios[i]->getEndereco().getBairro() << endl
+                << "\tCidade: " << funcionarios[i]->getEndereco().getCidade() << endl
+                << "\tEstado: " << funcionarios[i]->getEndereco().getEstado() << endl
+                << "\tCEP: " << funcionarios[i]->getEndereco().getCep() << endl;
+
+            arq << "Telefone: " << funcionarios[i]->getTelefone() << endl;
+
+            arq << "Data de Ingresso: " << endl;
+            arq << "\t" << funcionarios[i]->getDataIngresso().getDia() << "/"
+                        << funcionarios[i]->getDataIngresso().getMes() << "/"
+                        << funcionarios[i]->getDataIngresso().getAno() << endl;
+
+
+            arq << "Designacao: " << funcionarios[i]->getDesignacao() << endl;
+
+            arq << "Salario: " << funcionarios[i]->getSalario() << endl;
+            
             if (funcionarios[i]->getDesignacao() == "operador")
             {
-                (Operador*)funcionarios[i];
-                arq << "Codigo: " << funcionarios[i]->getCodigo() << endl;
+                Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
+                    
+                arq << endl;
+                arq.close();
+            }
+            else if (funcionarios[i]->getDesignacao() == "gerente")
+            {
+                Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
 
-                arq << "Nome: " << funcionarios[i]->getNome() << endl;
-
-                arq << "Endereco: " << endl;
-                arq << "\tRua: " << funcionarios[i]->getEndereco().getRua() << endl
-                    << "\tNumero: " << funcionarios[i]->getEndereco().getNumero() << endl
-                    << "\tBairro: " << funcionarios[i]->getEndereco().getBairro() << endl
-                    << "\tCidade: " << funcionarios[i]->getEndereco().getCidade() << endl
-                    << "\tEstado: " << funcionarios[i]->getEndereco().getEstado() << endl
-                    << "\tCEP: " << funcionarios[i]->getEndereco().getCep() << endl;
-
-                arq << "Telefone: " << funcionarios[i]->getTelefone() << endl;
-
-                arq << "Data de Ingresso: " << endl;
-                arq << "\t" << funcionarios[i]->getDataIngresso().getDia() << "/"
-                            << funcionarios[i]->getDataIngresso().getMes() << "/"
-                            << funcionarios[i]->getDataIngresso().getAno() << endl;
-
-
-                arq << "Designacao: " << funcionarios[i]->getDesignacao() << endl;
-
-                arq << "Salario: " << funcionarios[i]->getSalario() << endl;
+                arq << "Area de Supervisao do Gerente: " << func->getAreaSupervisaoGerente() << endl;
                 
                 arq << endl;
-                
                 arq.close();
             }
             else if (funcionarios[i]->getDesignacao() == "diretor")
             {
-                (Diretor*)funcionarios[i];
-                arq << "Codigo: " << funcionarios[i]->getCodigo() << endl;
+                Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
 
-                arq << "Nome: " << funcionarios[i]->getNome() << endl;
-
-                arq << "Endereco: " << endl;
-                arq << "\tRua: " << funcionarios[i]->getEndereco().getRua() << endl
-                    << "\tNumero: " << funcionarios[i]->getEndereco().getNumero() << endl
-                    << "\tBairro: " << funcionarios[i]->getEndereco().getBairro() << endl
-                    << "\tCidade: " << funcionarios[i]->getEndereco().getCidade() << endl
-                    << "\tEstado: " << funcionarios[i]->getEndereco().getEstado() << endl
-                    << "\tCEP: " << funcionarios[i]->getEndereco().getCep() << endl;
-
-                arq << "Telefone: " << funcionarios[i]->getTelefone() << endl;
-
-                arq << "Data de Ingresso: " << endl;
-                arq << "\t" << funcionarios[i]->getDataIngresso().getDia() << "/"
-                            << funcionarios[i]->getDataIngresso().getMes() << "/"
-                            << funcionarios[i]->getDataIngresso().getAno() << endl;
-
-
-                arq << "Designacao: " << funcionarios[i]->getDesignacao() << endl;
-
-                arq << "Salario: " << funcionarios[i]->getSalario() << endl;
-
-                //arq << "A área de supervisão do diretor é: " << funcionarios[i]->getAreaSupervisao() << endl;
-                
-                //arq << "A área de formação do diretor: " << (Diretor*)funcionarios[i]->getAreaFormacao() << endl;
+                arq << "Area de Supervisao do Diretor: " << func->getAreaSupervisaoDiretor() << endl;
+                arq << "Formacao Academica do Diretor: " << func->getAreaFormacao() << endl;
                 
                 arq << endl;
+                arq.close();
+            }
+            else if (funcionarios[i]->getDesignacao() == "presidente")
+            {
+                Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
+
+                arq << "Area de Formacao do Presidente: " << func->getAreaFormacaoPresidente() << endl;
+                arq << "Formacao Academica Máxima do Presidente: " << func->getFormacaoAcademicaPresidente() << endl;
                 
+                arq << endl;
                 arq.close();
             }
         }
@@ -227,6 +221,14 @@ void GerenciamentoFuncionarios::listarFuncionarios()
         }
         cout << endl;
     }
+
+    //salvar todos os funcionarios cadastrados em um arquivo
+    ofstream arq;
+    arq.open("funcionarios.txt", ios::app);
+    
+
+    
+
     
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
