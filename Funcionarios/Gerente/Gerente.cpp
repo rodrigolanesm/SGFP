@@ -33,7 +33,7 @@ void Gerente::exibirDadosGerente(){
     dataIngresso.printData();
     cout << "Designacao: " << designacao << endl;
     cout << "Salario: " << salario << endl;
-    cout << "A área de supervisão do gerente é: " << getAreaSupervisaoGerente() << " " << endl;
+    cout << "Área de supervisão do gerente: " << getAreaSupervisaoGerente() << " " << endl;
 };
 
 double Gerente::calcularSalarioMensal(){

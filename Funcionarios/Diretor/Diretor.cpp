@@ -44,8 +44,8 @@ void Diretor::exibirDadosDiretor()
     dataIngresso.printData();
     cout << "Designacao: " << designacao << endl;
     cout << "Salario: " << salario << endl;
-    cout << "A área de supervisão do diretor é: " << getAreaSupervisaoDiretor() << endl;
-    cout << "A área de formação do diretor: " << getAreaFormacao() << endl;
+    cout << "Área de supervisão do diretor: " << getAreaSupervisaoDiretor() << endl;
+    cout << "Área de formação do diretor: " << getAreaFormacao() << endl;
 
 }
 

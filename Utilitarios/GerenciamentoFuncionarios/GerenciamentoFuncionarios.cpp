@@ -225,7 +225,7 @@ void GerenciamentoFuncionarios::listarFuncionarios()
         {
             ((Presidente*)funcionarios[i])->exibirDadosPresidente();
         }
-        
+        cout << endl;
     }
     
     cout << "Pressione qualquer tecla para continuar" << endl;
@@ -271,6 +271,7 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
         }
         
     }
+    cout << endl;
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
@@ -286,81 +287,86 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
     double sal;
 
     //bool auxiliar
-    bool novaAlteracao = 0;
+    bool novaAlteracao = 1;
     do
     {
         //perguntar apenas se o usuário deseja fazer nova alteração
         if (novaAlteracao) // != 0
         {
             //leitura do código do funcionário a ser alterado
-            cout << "Digite o código do funcionário cujo registro deve ser alterado: ";
+            cout << "Digite o código do funcionário cujo registro deve ser alterado." << endl;
+            cout << "Caso não queira alterar algum registro, digite 0." << endl;
+            cout << "Código: ";
             cin >> cod;
             cin.ignore();
         }
 
-        //condição para alterar o funcionário: o código do funcionário a ser alterado ser igual ao código digitado pelo usuário
-        for (int i = 0; i < funcionarios.size(); i++)
+        if (cod) // != 0
         {
-            if(funcionarios[i]->getCodigo() == cod)
-            {
-                int opcao;
-                cout << "Digite a informação que deseja alterar: " << endl;
-                cout << "\t1 - Nome" << endl;
-                cout << "\t2 - Endereço" << endl;
-                cout << "\t3 - Telefone" << endl;
-                cout << "\t4 - Data de ingresso" << endl;
-                cout << "\t5 - Designação" << endl;
-                cout << "\t6 - Salário" << endl;
-                cout << "\t0 - Sair" << endl;
-                
-                cin >> opcao;
-                cin.ignore();
-
-                switch (opcao)
+            for (int i = 0; i < funcionarios.size(); i++)
+            {            
+                //condição para alterar o funcionário: o código do funcionário a ser alterado ser igual ao código digitado pelo usuário
+                if(funcionarios[i]->getCodigo() == cod)
                 {
-                    case 1:
-                        cout << "Digite o novo nome: ";
-                        getline(cin, str);
-                        funcionarios[i]->setNome(str);
-                        break;
-                    case 2:
-                        end.lerEndereco();
-                        funcionarios[i]->setEndereco(end);
-                        break;
-                    case 3:
-                        cout << "Digite o novo telefone: ";
-                        getline(cin, str);
-                        funcionarios[i]->setTelefone(str);
-                        break;
-                    case 4:
-                        dt.lerData();
-                        funcionarios[i]->setDataIngresso(dt);
-                        break;
-                    case 5:
-                        cout << "Digite a nova designação: ";
-                        getline(cin, str);
-                        funcionarios[i]->setDesignacao(str);
-                        break;
-                    case 6:
-                        cout << "Digite o novo salário: ";
-                        cin >> sal;
-                        cin.ignore();
-                        funcionarios[i]->setSalario(sal);
-                        break;
-                    case 0:
-                        return;
-                    default:
-                        cout << "Opção inválida!" << endl;
-                        break;
-                }   
+                    int opcao;
+                    cout << "Digite a informação que deseja alterar: " << endl;
+                    cout << "\t1 - Nome" << endl;
+                    cout << "\t2 - Endereço" << endl;
+                    cout << "\t3 - Telefone" << endl;
+                    cout << "\t4 - Data de ingresso" << endl;
+                    cout << "\t5 - Designação" << endl;
+                    cout << "\t6 - Salário" << endl;
+                    cout << "\t0 - Sair" << endl;
+                    
+                    cin >> opcao;
+                    cin.ignore();
+
+                    switch (opcao)
+                    {
+                        case 1:
+                            cout << "Digite o novo nome: ";
+                            getline(cin, str);
+                            funcionarios[i]->setNome(str);
+                            break;
+                        case 2:
+                            end.lerEndereco();
+                            funcionarios[i]->setEndereco(end);
+                            break;
+                        case 3:
+                            cout << "Digite o novo telefone: ";
+                            getline(cin, str);
+                            funcionarios[i]->setTelefone(str);
+                            break;
+                        case 4:
+                            dt.lerData();
+                            funcionarios[i]->setDataIngresso(dt);
+                            break;
+                        case 5:
+                            cout << "Digite a nova designação: ";
+                            getline(cin, str);
+                            funcionarios[i]->setDesignacao(str);
+                            break;
+                        case 6:
+                            cout << "Digite o novo salário: ";
+                            cin >> sal;
+                            cin.ignore();
+                            funcionarios[i]->setSalario(sal);
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            cout << "Opção inválida!" << endl;
+                            break;
+                    }   
+                }
             }
             cout << "Deseja fazer outra alteração nesse registro?" << endl;
             cout << "\t1 - Sim" << endl;
             cout << "\t0 - Não" << endl;
-            novaAlteracao = 0;
             cin >> novaAlteracao;
-            system(CLEAR);
         }
+        system(CLEAR);
+        novaAlteracao = 0;  //comando auxiliar para sair do loop caso o codigo digitado seja 0
     }
     while (novaAlteracao);
 }
@@ -369,19 +375,61 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
 {
     //excluir um funcionario, dado o seu código
     int cod;
-    cout << "Digite o código do funcionário que deseja excluir: ";
-    cin >> cod;
-    cin.ignore();
-    
-    for (int i = 0; i < funcionarios.size(); i++)
+    int opcao = 0;
+
+    do
     {
-        if (funcionarios[i]->getCodigo() == cod)
+        cout << "Digite o código do funcionário que deseja excluir."  << endl;
+        cout << "Caso não queira excluir algum registro, digite 0." << endl;
+        cout << "Código: ";
+        cin >> cod;
+        cin.ignore();
+        
+        if(cod)
         {
-            funcionarios.erase(funcionarios.begin() + i);
+            for (int i = 0; i < funcionarios.size(); i++)
+            {
+                //verificar se o codigo digitado pertence a algum funcionario, caso contrário, exibe mensagem de erro
+                if(i == (funcionarios.size() - 1) && funcionarios[i]->getCodigo() != cod)
+                {
+                    cout << "Não existe um funcionário com esse código!" << endl;
+                    
+                    //tentar novamente
+                    cout << "Deseja tentar novamente?" << endl;
+                    cout << "\t1 - Sim" << endl;
+                    cout << "\t0 - Não" << endl;
+                    cin >> opcao;
+                    cin.ignore();
+                    break;
+                }
+
+                if (funcionarios[i]->getCodigo() == cod)
+                {
+                    //Designações iguais a "presidente" e "diretor" não podem ser excluídas
+                    if (funcionarios[i]->getDesignacao() == "presidente" ||
+                        funcionarios[i]->getDesignacao() == "Presidente" ||
+                        funcionarios[i]->getDesignacao() == "PRESIDENTE")
+                    {
+                        cout << "Não é possível excluir o presidente!" << endl;
+                    }
+                    else if (funcionarios[i]->getDesignacao() == "diretor" ||
+                            funcionarios[i]->getDesignacao() == "Diretor" ||
+                            funcionarios[i]->getDesignacao() == "DIRETOR")
+                    {
+                        cout << "Não é possível excluir o diretor!" << endl;
+                    }
+                    else
+                    {
+                        funcionarios.erase(funcionarios.begin() + i);
+                        cout << "Funcionário excluído com sucesso!" << endl;
+                        opcao = 0;
+                        break;
+                    }
+                }
+            }
         }
-    }
+    }while(opcao);
     
-    cout << "Funcionário excluído com sucesso!" << endl;
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
@@ -505,15 +553,25 @@ void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()
 
     for (int i = 0; i < funcionarios.size(); i++)
     {
-        if (funcionarios[i]->getDataIngresso().getDia() >= dtInicio.getDia() &&
-            funcionarios[i]->getDataIngresso().getMes() >= dtInicio.getMes() &&
-            funcionarios[i]->getDataIngresso().getAno() >= dtInicio.getAno() &&
-            funcionarios[i]->getDataIngresso().getDia() <= dtFim.getDia() &&
-            funcionarios[i]->getDataIngresso().getMes() <= dtFim.getMes() &&
-            funcionarios[i]->getDataIngresso().getAno() <= dtFim.getAno())
+        if (         funcionarios[i]->getDataIngresso().getDia()
+            + 31*   (funcionarios[i]->getDataIngresso().getMes() - 1) 
+            + 31*12*(funcionarios[i]->getDataIngresso().getAno()) >= 
+                     dtInicio.getDia() 
+            + 31*   (dtInicio.getMes() - 1) 
+            + 31*12*(dtInicio.getAno() - 1) &&
+                     funcionarios[i]->getDataIngresso().getDia() 
+            + 31*   (funcionarios[i]->getDataIngresso().getMes() - 1) 
+            + 31*12*(funcionarios[i]->getDataIngresso().getAno()) <=    
+                     dtFim.getDia() 
+            + 31*   (dtFim.getMes() - 1)  
+            + 31*12*(dtFim.getAno()))
         {
             funcionarios[i]->exibirRegistroFuncionario();
             cout << endl;
+        }
+        else
+        {
+            cout << "Funcionário não encontrado!" << endl;
         }
     }
     cout << "Pressione qualquer tecla para continuar" << endl;
