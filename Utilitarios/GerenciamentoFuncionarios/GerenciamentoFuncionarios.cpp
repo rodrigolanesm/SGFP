@@ -408,15 +408,15 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                 if (funcionarios[i]->getCodigo() == cod)
                 {
                     //Designações iguais a "presidente" e "diretor" não podem ser excluídas
-                    if (funcionarios[i]->getDesignacao() == "presidente" ||
+                    if (funcionarios[i]->getDesignacao() == "presidente"/* ||
                         funcionarios[i]->getDesignacao() == "Presidente" ||
-                        funcionarios[i]->getDesignacao() == "PRESIDENTE")
+                        funcionarios[i]->getDesignacao() == "PRESIDENTE"*/)
                     {
                         cout << "Não é possível excluir o presidente!" << endl;
                     }
-                    else if (funcionarios[i]->getDesignacao() == "diretor" ||
+                    else if (funcionarios[i]->getDesignacao() == "diretor"/* ||
                             funcionarios[i]->getDesignacao() == "Diretor" ||
-                            funcionarios[i]->getDesignacao() == "DIRETOR")
+                            funcionarios[i]->getDesignacao() == "DIRETOR"*/)
                     {
                         cout << "Não é possível excluir o diretor!" << endl;
                     }
@@ -430,7 +430,8 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                 }
             }
         }
-    }while(opcao);
+    }
+    while(opcao);
     
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
@@ -609,16 +610,16 @@ void GerenciamentoFuncionarios::calcularFolhaSalarial()
 
         if (escolha < 1 || escolha > 12) 
         {
-            cout << "Mes inválido, tente novamente por favor." << endl;
+            cout << "Mês inválido, tente novamente por favor." << endl;
         }
 
     }
     while (escolha < 1 || escolha > 12);
     
 
-    if (folhaSalarial[escolha] != 0) 
+    if (folhaSalarial[escolha]/*!= 0*/) 
     {
-        cout << "Este mes já foi calculado." << endl;
+        cout << "Este mês já foi calculado." << endl;
     }
     else
     {   
@@ -716,7 +717,7 @@ void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
             }
             while (opcao < 1 || opcao > 12);
 
-                folha = folhaSalarial[opcao];
+            folha = folhaSalarial[opcao];
             
             break;
         default:
