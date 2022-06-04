@@ -1,6 +1,5 @@
 #include "GerenciamentoFuncionarios.h"
 #include "../../Menu/MainMenu.h"
-#include <algorithm>
 
 using namespace std;
 
@@ -198,38 +197,47 @@ void GerenciamentoFuncionarios::listarFuncionarios()
         if (funcionarios[i]->getDesignacao() == "operador")
         {
             ((Operador*)funcionarios[i])->exibirDadosOperador();
-        
+            cout << endl;
         }
         
         else if (funcionarios[i]->getDesignacao() == "gerente")
         {
             ((Gerente*)funcionarios[i])->exibirDadosGerente();
-        
+            cout << endl;
         }
 
         else if (funcionarios[i]->getDesignacao() == "diretor")
         {
             ((Diretor*)funcionarios[i])->exibirDadosDiretor();
+            cout << endl;
         }
 
         else  if (funcionarios[i]->getDesignacao() == "presidente")
         {
             ((Presidente*)funcionarios[i])->exibirDadosPresidente();
+            cout << endl;
         }
         cout << endl;
     }
 
     //salvar todos os funcionarios cadastrados em um arquivo
-    cout << endl << "Deseja salvar os dados dos funcionarios em um arquivo?" << endl;
-    cout << "Digite 1 para salvar os dados dos funcionarios ou 0 para retornar ao menu principal: ";
     int salvar;
-    cin >> salvar;
-    cin.ignore();
-    if (salvar == 1)
+    do
     {
-        EscreverArquivoCadastroFuncionario();
-        cout << endl << "Arquivo criado com sucesso!" << endl;
+        cout << endl << "Deseja salvar os dados dos funcionarios em um arquivo?" << endl;
+        cout << "Digite 1 para salvar os dados dos funcionarios ou 0 para retornar ao menu principal: ";
+        cin >> salvar;
+        cin.ignore();
+        
+        if (salvar == 1)
+        {
+            EscreverArquivoCadastroFuncionario();
+            cout << endl << "Arquivo criado com sucesso!" << endl;
+        }
     }
+    while (salvar != 1 && salvar != 0);
+    
+
 
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
@@ -413,12 +421,14 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                         funcionarios[i]->getDesignacao() == "PRESIDENTE")
                     {
                         cout << "Não é possível excluir o presidente!" << endl;
+                        break;
                     }
                     else if (funcionarios[i]->getDesignacao() == "diretor" ||
                             funcionarios[i]->getDesignacao() == "Diretor" ||
                             funcionarios[i]->getDesignacao() == "DIRETOR")
                     {
                         cout << "Não é possível excluir o diretor!" << endl;
+                        break;
                     }
                     else
                     {
@@ -430,7 +440,8 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                 }
             }
         }
-    }while(opcao);
+    }
+    while(opcao);
     
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
@@ -488,10 +499,14 @@ void GerenciamentoFuncionarios::buscarFuncionarioNome()
     string nome;
     cout << "Digite um nome (ou parte do nome) do funcionário que deseja buscar: ";
     getline(cin, nome);
+    transform(nome.begin(), nome.end(), nome.begin(), ::tolower);
 
+    string teste;
     for (int i = 0; i < funcionarios.size(); i++)
     {
-        if(funcionarios[i]->getNome().find(nome) != -1)
+        teste = funcionarios[i]->getNome();
+        transform(teste.begin(), teste.end(), teste.begin(), ::tolower);
+        if(teste.find(nome) != -1)
         {
             funcionarios[i]->exibirRegistroFuncionario();
             cout << endl;
@@ -507,10 +522,11 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
     //buscar um funcionário dado parte de seu endereço
 
     //endereco é a concatenação de todos os campos do endereço
-    string endereco, enderecoDesejado;
+    string endereco, enderecoDesejado, teste;
 
     cout << "Digite um endereço (ou parte do endereço) do funcionário que deseja buscar: ";
     getline(cin, enderecoDesejado);
+    transform(enderecoDesejado.begin(), enderecoDesejado.end(), enderecoDesejado.begin(), ::tolower);
 
     for (int i = 0; i < funcionarios.size(); i++)
     {
@@ -519,8 +535,11 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
                    funcionarios[i]->getEndereco().getBairro() + ", " + 
                    funcionarios[i]->getEndereco().getCidade() + ", " + 
                    funcionarios[i]->getEndereco().getEstado();
-                   
-        if (endereco.find(enderecoDesejado) != -1)
+        
+        teste = endereco;
+        transform(teste.begin(), teste.end(), teste.begin(), ::tolower);
+
+        if (teste.find(enderecoDesejado) != -1)
         {
             funcionarios[i]->exibirRegistroFuncionario();
             cout << endl;
@@ -579,149 +598,4 @@ void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
-}
-
-void GerenciamentoFuncionarios::gerarHorasAleatorias()
-{
-    int normais, extras;
-
-    for (int i = 0; i < funcionarios.size(); i++)
-    {   
-        srand(time(NULL));
-
-        funcionarios[i]->setHorasNormais(rand()%176);
-
-        funcionarios[i]->setHorasExtras(rand()%88); 
-        srand (1);
-    }
-}
-
-void GerenciamentoFuncionarios::calcularFolhaSalarial()
-{   
-    int escolha;
-
-    do
-    {
-        cout << "Escolha o mes para calcular a folha salarial: " << endl << endl;
-
-        cout << "Escolha: ";
-        cin >> escolha;
-
-        if (escolha < 1 || escolha > 12) 
-        {
-            cout << "Mes inválido, tente novamente por favor." << endl;
-        }
-
-    }
-    while (escolha < 1 || escolha > 12);
-    
-
-    if (folhaSalarial[escolha] != 0) 
-    {
-        cout << "Este mes já foi calculado." << endl;
-    }
-    else
-    {   
-        for (int i = 0; i < funcionarios.size(); i++)
-        {  
-            cout << "Codigo: " << funcionarios[i]->getCodigo() 
-                 << " - Nome: " << funcionarios[i]->getNome() 
-                 << " - Salário base:" << funcionarios[i]->getSalario() << endl;
-
-            this->gerarHorasAleatorias();
-            folhaSalarial[escolha]+= funcionarios[i]->calcularSalarioMensal();
-        }
-    }
-
-    cout << "O valor total da folha salarial é de R$ " << folhaSalarial[escolha] << endl;
-
-    cout << "Pressione qualquer tecla para continuar" << endl;
-    getchar();
-    system(CLEAR);
-}
-
-void GerenciamentoFuncionarios::calcularFolhaSalarialFuncionario()
-{
-
-    string nome;
-    cout << "Digite um nome (ou parte do nome) do funcionário que deseja buscar: ";
-    getline(cin, nome);
-
-    for (int i = 0; i < funcionarios.size(); i++)
-    {
-        if (funcionarios[i]->getNome().find(nome) != -1)
-        {
-            cout << "A folha salarial do funcionário " <<
-            funcionarios[i]->getNome() << " é:" << 
-            " Salário base: R$ " << funcionarios[i]->getSalario() <<
-            " descontos: R$ " << funcionarios[i]->getSalario() + funcionarios[i]->calcularSalarioMensal() <<
-            " Salário líquido: R$ " << funcionarios[i]->calcularSalarioMensal() << endl;
-        }
-    }
-    cout << "Pressione qualquer tecla para continuar" << endl;
-    getchar();
-    system(CLEAR);
-}
-
-void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
-{
-
-    int opcao;
-    double folha = 0;
-
-    do
-    {
-
-        cout << "Qual folha salarial deseja buscar?" << endl << endl
-            << " 1 - Anual " << endl
-            << " 2 - mensal " << endl
-            << endl;
-         
-        cout << "opção: ";
-        cin >> opcao;
-        cin.ignore();  
-
-        if (opcao > 2 || opcao < 1)
-        {
-            cout << "Opcao inválida, por favor, tente novamente." << endl;
-        }
-
-    }
-    while (opcao > 2 || opcao < 1);
-    
-    switch (opcao)
-    {
-        case 1:
-            for (int i = 0; i < 12; i++)
-            {
-                folha += folhaSalarial[i];
-            }
-        
-            break;
-        case 2:
-            do
-            {
-                cout << "Digite o mês o qual deseja buscar: ";
-                cout << endl;
-
-                cout << "opção: ";
-                cin >> opcao;
-                cin.ignore();
-
-                if (opcao < 1 || opcao > 12)
-                {
-                    cout << "Opcao inválida, por favor, tente novamente" << endl;
-                }
-
-            }
-            while (opcao < 1 || opcao > 12);
-
-                folha = folhaSalarial[opcao];
-            
-            break;
-        default:
-            break;
-    }
-
-    cout << "Total calculado: R$ " << folha << endl;
 }

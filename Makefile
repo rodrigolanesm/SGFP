@@ -1,5 +1,5 @@
-SGFP: main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o GerenciamentoFuncionarios.o MainMenu.o
-	g++ main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o GerenciamentoFuncionarios.o MainMenu.o -o SGFP
+SGFP: main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o GerenciamentoFuncionarios.o Salarios.o MainMenu.o
+	g++ main.o Diretor.o Funcionario.o Gerente.o Operador.o Presidente.o Data.o Endereco.o GerenciamentoFuncionarios.o Salarios.o MainMenu.o -o SGFP
 	del *.o
 	
 main.o: main.cpp
@@ -28,6 +28,9 @@ Endereco.o: Utilitarios/Endereco/Endereco.cpp
 
 GerenciamentoFuncionarios.o: Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.cpp
 	g++ -c Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.cpp
+
+Salarios.o: Utilitarios/Salarios/Salarios.cpp
+	g++ -c Utilitarios/Salarios/Salarios.cpp
 
 MainMenu.o: Menu/MainMenu.cpp
 	g++ -c Menu/MainMenu.cpp

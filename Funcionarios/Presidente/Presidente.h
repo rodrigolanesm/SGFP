@@ -20,7 +20,6 @@ public:
     string getFormacaoAcademicaPresidente();
     string getAreaFormacaoPresidente();
     void exibirDadosPresidente();
-    double calcularSalarioMensal();
 
 private:
 

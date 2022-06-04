@@ -13,14 +13,13 @@ Operador::Operador(int codigo,string nome,Endereco endereco,string telefone,Data
 
 void Operador::exibirDadosOperador()
 {
-    cout << "Codigo: " << codigo << endl;
+    cout << "Código: " << codigo << endl;
     cout << "Nome: " << nome << endl;
-    cout << "Endereco: ";
+    cout << "Endereço: ";
     endereco.exibirEndereco();
     cout << "Telefone: " << telefone << endl;
-    //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
-    cout << "Designacao: " << designacao << endl;
-    cout << "Salario: " << salario << endl;
+    cout << "Designação: " << designacao << endl;
+    cout << "Salário: " << salario << endl;
 }

@@ -23,25 +23,15 @@ string Gerente::getAreaSupervisaoGerente()
 
 void Gerente::exibirDadosGerente(){
 
-    cout << "Codigo: " << codigo << endl;
+    cout << "Código: " << codigo << endl;
     cout << "Nome: " << nome << endl;
-    cout << "Endereco: ";
+    cout << "Endereço: ";
     endereco.exibirEndereco();
     cout << "Telefone: " << telefone << endl;
     //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
-    cout << "Designacao: " << designacao << endl;
-    cout << "Salario: " << salario << endl;
+    cout << "Designação: " << designacao << endl;
+    cout << "Salário: " << salario << endl;
     cout << "Área de supervisão do gerente: " << getAreaSupervisaoGerente() << " " << endl;
-};
-
-double Gerente::calcularSalarioMensal(){
-
-    double precoHoraNormal, precoHoraExtra;
-
-    precoHoraNormal = this->getSalario()/ this->getHorasNormais();
-    precoHoraExtra = this->getSalario()/ this->getHorasExtras();
-
-    return this->getSalario() * precoHoraNormal + this->getHorasExtras() * precoHoraExtra;
 };

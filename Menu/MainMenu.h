@@ -7,6 +7,7 @@
 #endif
 
 #include "../Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.h"
+#include "../Utilitarios/Salarios/Salarios.h"
 
 #include <iostream>
 #include <string>
@@ -23,4 +24,5 @@ public:
     void escolherOpcaoMenu();
 
     GerenciamentoFuncionarios gf;
+    Salarios slr;
 };

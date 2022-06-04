@@ -19,7 +19,6 @@ public:
     string getAreaSupervisaoGerente();
 
     void exibirDadosGerente();
-    double calcularSalarioMensal();
 
 protected:
 

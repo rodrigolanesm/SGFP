@@ -30,19 +30,16 @@ public:
     void alterarRegistroFuncionario();
     void excluirRegistroFuncionario();
     void exibirMenuBusca();
+
     void buscarFuncionario();
     void buscarFuncionarioNome();
     void buscarFuncionarioEndereco();
     void buscarFuncionarioCep();
     void buscarFuncionarioDataIngresso();
 
-    void gerarHorasAleatorias();
-    void calcularFolhaSalarial();
-    void calcularFolhaSalarialFuncionario();
-    void imprimirFolhaSalarialEmpresa();    //arquivo
+    
 
 protected:
     //lista de funcionarios
     vector <Funcionario *> funcionarios;
-    int folhaSalarial[12] = {0};
 };

@@ -27,8 +27,9 @@ void MainMenu::escolherOpcaoMenu()
         exibeMenu();
         cout << endl << "Selecione uma opção: ";
         cin >> opcao;
+        cin.ignore();
         system(CLEAR);
-        switch (opcao)
+        switch (opcao)      // exceção
         {
         case 1:
             gf.cadastrarFuncionarios();
@@ -49,13 +50,13 @@ void MainMenu::escolherOpcaoMenu()
             gf.buscarFuncionario();
             break;
         case 7:
-            gf.calcularFolhaSalarial();
+            slr.calcularFolhaSalarial();
             break;
         case 8:
-            gf.calcularFolhaSalarialFuncionario();
+            slr.calcularFolhaSalarialFuncionario();
             break;  
         case 9:
-            gf.imprimirFolhaSalarialEmpresa();  
+            slr.imprimirFolhaSalarialEmpresa();  
             break;         
         case 0:
             return;
