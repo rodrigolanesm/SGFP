@@ -28,7 +28,7 @@ public:
     void calcularFolhaSalarial();
     void calcularFolhaSalarialFuncionario();
     void imprimirFolhaSalarialEmpresa();    //arquivo
-
+    
     void descontosImpostoRenda();
     void descontosPrevidenciaSocial();
 
