@@ -27,10 +27,25 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
     {
         //leitura dos dados do funcionário
         cout << "Cadastro de Funcionário" << endl;
-        cout << "Digite o código do funcionário: ";
-        cin >> cod;
-        cin.ignore();
-
+        do
+        {
+            cout << "Digite o código do funcionário: ";
+            cin >> cod;
+            cin.ignore();
+            if (!cod)
+            {
+                cout << "Desculpe o transtorno! O código não pode ser 0." << endl << endl;
+            }
+            for (int i = 0; i < funcionarios.size(); i++)
+            {
+                if (cod == funcionarios[i]->getCodigo())
+                {
+                    cout << "Já existe um funcionário com esse código. Por favor, tente novamente!" << endl << endl;
+                }
+            }
+        }
+        while (!cod); // cod == 0
+        
         cout << endl;
         cout << "Digite o nome do funcionário: ";
         getline(cin, nome);
@@ -58,12 +73,14 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         if (desig == "operador")
         {
             Operador* func = new Operador();
+            desig = "Operador";
             funcionarios.push_back(new Operador(cod, nome, end, tel, dtIngr, desig, sal));
         }
 
         else if (desig == "gerente")
         {
             Gerente* func = new Gerente();
+            desig = "Gerente";
             string area;
             cout << "Digite a área de supervisão do gerente: ";
             getline(cin, area);
@@ -74,6 +91,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         else if (desig == "diretor")
         {
             Diretor* func = new Diretor();
+            desig = "Diretor";
             string areaSupervisao;
             string areaFormacao;
             cout << "Digite a área de supervisão do diretor: ";
@@ -90,6 +108,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         else if (desig == "presidente")
         {
             Presidente* func = new Presidente();
+            desig = "Presidente";
             string formacaoAcademica;
             string areaFormacao;
 
@@ -194,25 +213,25 @@ void GerenciamentoFuncionarios::listarFuncionarios()
     //exibir todos os funcionarios cadastrados
     for (int i = 0; i < funcionarios.size(); i++)
     {
-        if (funcionarios[i]->getDesignacao() == "operador")
+        if (funcionarios[i]->getDesignacao() == "Operador")
         {
             ((Operador*)funcionarios[i])->exibirDadosOperador();
             cout << endl;
         }
         
-        else if (funcionarios[i]->getDesignacao() == "gerente")
+        else if (funcionarios[i]->getDesignacao() == "Gerente")
         {
             ((Gerente*)funcionarios[i])->exibirDadosGerente();
             cout << endl;
         }
 
-        else if (funcionarios[i]->getDesignacao() == "diretor")
+        else if (funcionarios[i]->getDesignacao() == "Diretor")
         {
             ((Diretor*)funcionarios[i])->exibirDadosDiretor();
             cout << endl;
         }
 
-        else  if (funcionarios[i]->getDesignacao() == "presidente")
+        else  if (funcionarios[i]->getDesignacao() == "Presidente")
         {
             ((Presidente*)funcionarios[i])->exibirDadosPresidente();
             cout << endl;
@@ -247,34 +266,37 @@ void GerenciamentoFuncionarios::listarFuncionarios()
 void GerenciamentoFuncionarios::listarFuncionariosTipo()
 {
     //exibir todos os funcionarios cadastrados dependendo do tipo de funcionario especificado pelo usuario
-    string tipoDesejado;
+    string tipoDesejado, tipoComparacao;
 
     cout << "Digite a designação de funcionário que deseja listar: ";
-    cin.ignore();
+    // cin.ignore();
     getline(cin, tipoDesejado);
     transform(tipoDesejado.begin(), tipoDesejado.end(), tipoDesejado.begin(), ::tolower);
 
     for (int i = 0; i < funcionarios.size(); i++)
     {
-        if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "operador")
+        tipoComparacao = funcionarios[i]->getDesignacao();
+        transform(tipoComparacao.begin(), tipoComparacao.end(), tipoComparacao.begin(), ::tolower);
+
+        if (tipoComparacao == tipoDesejado && tipoDesejado == "operador")
         {
             ((Operador*)funcionarios[i])->exibirDadosOperador();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "gerente")
+        else if (tipoComparacao == tipoDesejado && tipoDesejado == "gerente")
         {
             ((Gerente*)funcionarios[i])->exibirDadosGerente();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "diretor")
+        else if (tipoComparacao == tipoDesejado && tipoDesejado == "diretor")
         {
             ((Diretor*)funcionarios[i])->exibirDadosDiretor();
         
         }
         
-        else if (funcionarios[i]->getDesignacao() == tipoDesejado && tipoDesejado == "presidente")
+        else if (tipoComparacao == tipoDesejado && tipoDesejado == "presidente")
         {
             ((Presidente*)funcionarios[i])->exibirDadosPresidente();
         
@@ -316,7 +338,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
             for (int i = 0; i < funcionarios.size(); i++)
             {            
                 //condição para alterar o funcionário: o código do funcionário a ser alterado ser igual ao código digitado pelo usuário
-                if(funcionarios[i]->getCodigo() == cod)
+                if (cod == funcionarios[i]->getCodigo())
                 {
                     int opcao;
                     cout << "Digite a informação que deseja alterar: " << endl;
@@ -354,7 +376,108 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                         case 5:
                             cout << "Digite a nova designação: ";
                             getline(cin, str);
+                            transform(str.begin(), str.end(), str.begin(), ::tolower);
+                            /* if (str == "operador")
+                            {
+                                str = "Operador";
+                            }
+                            else if (str == "gerente")
+                            {
+                                str = "Gerente";
+                            }
+                            else if (str == "diretor")
+                            {
+                                str = "Diretor";
+                            }
+                            else if (str == "presidente")
+                            {
+                                str = "Presidente";
+                            } */
+
+                            
+                             //casting
+                            if (str == "operador")
+                            {
+                                Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
+                                str = "Operador";
+
+                                funcionarios.push_back(new Operador(funcionarios[i]->getCodigo(),
+                                                                    funcionarios[i]->getNome(), 
+                                                                    funcionarios[i]->getEndereco(), 
+                                                                    funcionarios[i]->getTelefone(),
+                                                                    funcionarios[i]->getDataIngresso(), 
+                                                                    str, funcionarios[i]->getSalario()));
+                                funcionarios.erase(funcionarios.begin()+i);
+                            }
+
+                            else if (str == "gerente")
+                            {
+                                Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
+                                str = "Gerente";
+
+                                string areaSupervisaoGerente;
+
+                                cout << "Digite a área de supervisão do gerente: ";
+                                getline(cin, areaSupervisaoGerente);
+
+                                funcionarios.push_back(new Gerente(funcionarios[i]->getCodigo(),
+                                                                    funcionarios[i]->getNome(), 
+                                                                    funcionarios[i]->getEndereco(), 
+                                                                    funcionarios[i]->getTelefone(),
+                                                                    funcionarios[i]->getDataIngresso(),
+                                                                    str, funcionarios[i]->getSalario(),
+                                                                    areaSupervisaoGerente));
+                                funcionarios.erase(funcionarios.begin()+i);
+                                
+                            }
+
+                            else if (str == "diretor")
+                            {
+                                Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
+                                str = "Diretor";
+
+                                string areaSupervisaoDiretor, areaFormacaoDiretor;
+                                
+                                cout << "Digite a área de supervisão do diretor: ";
+                                getline(cin, areaSupervisaoDiretor);
+
+                                cout << "Digite a área de formação do diretor: ";
+                                getline(cin, areaFormacaoDiretor);
+
+                                funcionarios.push_back(new Diretor( funcionarios[i]->getCodigo(),
+                                                                    funcionarios[i]->getNome(), 
+                                                                    funcionarios[i]->getEndereco(), 
+                                                                    funcionarios[i]->getTelefone(),
+                                                                    funcionarios[i]->getDataIngresso(),
+                                                                    str, funcionarios[i]->getSalario(),
+                                                                    areaSupervisaoDiretor, areaFormacaoDiretor));
+                            }
+
+                            else if (str == "presidente")
+                            {
+                                Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
+                                str = "Presidente";
+
+                                string formacaoAcademica;
+                                string areaFormacaoPresidente;
+
+                                cout << "Digite a formação acadêmica do presidente: ";
+                                getline(cin, formacaoAcademica);
+
+                                cout << "Digite a área de formação do presidente: ";
+                                getline(cin, areaFormacaoPresidente);
+                                funcionarios.push_back(new Presidente(funcionarios[i]->getCodigo(),
+                                                                      funcionarios[i]->getNome(), 
+                                                                      funcionarios[i]->getEndereco(), 
+                                                                      funcionarios[i]->getTelefone(),
+                                                                      funcionarios[i]->getDataIngresso(),
+                                                                      str, funcionarios[i]->getSalario(),
+                                                                      formacaoAcademica, areaFormacaoPresidente));
+                            }
+                           
+
                             funcionarios[i]->setDesignacao(str);
+                            
                             break;
                         case 6:
                             cout << "Digite o novo salário: ";

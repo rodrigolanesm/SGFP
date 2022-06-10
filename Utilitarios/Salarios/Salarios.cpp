@@ -44,9 +44,9 @@ void Salarios::calcularFolhaSalarial()
 
     do
     {
-        cout << "Escolha um mês para calcular a folha salarial." << endl << endl;
+        cout << "Escolha um mês para calcular a folha salarial." << endl << endl
+             << "Número do mês escolhido: ";
 
-        cout << "Número do mês escolhido: ";
         cin >> mes;
         cin.ignore();
 
@@ -78,19 +78,18 @@ void Salarios::calcularFolhaSalarial()
             //folhaSalarial[mes] += (funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial());
 
             //exibir a quantidade de horas trabalhadas por cada funcionário
-            cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl;
-            cout << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl;
-            cout << "Salário mensal: " << funcionarios[i]->calcularSalarioMensal() << endl;
-            cout << "Descontos imposto de renda: " << funcionarios[i]->descontosImpostoRenda() << endl;
-            cout << "Descontos previdência social: " << funcionarios[i]->descontosPrevidenciaSocial() << endl;
-            cout << "Salário líquido: " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl << endl;
+            cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl
+                 << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl
+                 << "Salário mensal: " << funcionarios[i]->calcularSalarioMensal() << endl
+                 << "Descontos imposto de renda: " << funcionarios[i]->descontosImpostoRenda() << endl
+                 << "Descontos previdência social: " << funcionarios[i]->descontosPrevidenciaSocial() << endl
+                 << "Salário líquido: " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl << endl;
             
         }
     }
 
-    cout << "O valor total da folha salarial é de R$ " << folhaSalarial[mes - 1] << endl;
-
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "O valor total da folha salarial é de R$ " << folhaSalarial[mes - 1] << endl
+         << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -106,8 +105,8 @@ void Salarios::calcularFolhaSalarialFuncionario()
     do
     {    
         cout << "Deseja pesquisar o funcionário por nome ou código?" << endl
-            << "\t1 - Nome (ou parte do nome)" << endl
-            << "\t2 - Código" << endl;
+             << "\t1 - Nome (ou parte do nome)" << endl
+             << "\t2 - Código" << endl;
         
         cout << "Digite: ";
         cin >> opcao;
@@ -142,12 +141,12 @@ void Salarios::calcularFolhaSalarialFuncionario()
         {
             cout << "Folha salarial do funcionário " << funcionarios[i]->getNome() << ":" << endl << endl;
 
-            cout << "Salário base: R$ " << funcionarios[i]->getSalario() << endl;
-            cout << "Salário mensal: R$ " << funcionarios[i]->calcularSalarioMensal() << endl;
-            cout << "Desconto referente ao imposto de renda: R$ " << funcionarios[i]->descontosImpostoRenda() << endl;
-            cout << "Desconto referente a previdência social: R$ " << funcionarios[i]->descontosPrevidenciaSocial() << endl;
-            cout << "Desconto salarial total : R$ " << funcionarios[i]->descontosImpostoRenda() + funcionarios[i]->descontosPrevidenciaSocial() << endl;
-            cout << "Salário líquido: R$ " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl;
+            cout << "Salário base: R$ " << funcionarios[i]->getSalario() << endl
+                 << "Salário mensal: R$ " << funcionarios[i]->calcularSalarioMensal() << endl
+                 << "Desconto referente ao imposto de renda: R$ " << funcionarios[i]->descontosImpostoRenda() << endl
+                 << "Desconto referente a previdência social: R$ " << funcionarios[i]->descontosPrevidenciaSocial() << endl
+                 << "Desconto salarial total : R$ " << funcionarios[i]->descontosImpostoRenda() + funcionarios[i]->descontosPrevidenciaSocial() << endl
+                 << "Salário líquido: R$ " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl;
         }
     }
 
@@ -167,7 +166,7 @@ void Salarios::imprimirFolhaSalarialEmpresa()
 
         cout << "Qual folha salarial deseja buscar?" << endl << endl
             << " 1 - Anual " << endl
-            << " 2 - mensal " << endl
+            << " 2 - Mensal " << endl
             << endl;
          
         cout << "opção: ";

@@ -5,8 +5,7 @@ Gerente::Gerente()
 
 }
 
-Gerente::Gerente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,
-string designacao,double salario,string areaSupervisaoGerente): Funcionario( codigo,nome,endereco,telefone,dataIngresso,designacao,salario)
+Gerente::Gerente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,double salario,string areaSupervisaoGerente): Funcionario( codigo,nome,endereco,telefone,dataIngresso,designacao,salario)
 {
     this->areaSupervisaoGerente = areaSupervisaoGerente;
 }
