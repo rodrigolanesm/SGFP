@@ -50,14 +50,14 @@ void MainMenu::escolherOpcaoMenu()
             gf.buscarFuncionario();
             break;
         case 7:
-            slr.calcularFolhaSalarial();
+            gf.calcularFolhaSalarial();
             break;
         case 8:
-            slr.calcularFolhaSalarialFuncionario();
+            gf.calcularFolhaSalarialFuncionario();
             break;  
         case 9:
-            slr.imprimirFolhaSalarialEmpresa();  
-            break;         
+            gf.imprimirFolhaSalarialEmpresa();
+            break;
         case 0:
             return;
             break;

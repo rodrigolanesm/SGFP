@@ -31,7 +31,6 @@ public:
     
     void descontosImpostoRenda();
     void descontosPrevidenciaSocial();
-
 private:
     int folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };

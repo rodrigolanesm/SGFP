@@ -29,17 +29,26 @@ public:
     void listarFuncionariosTipo();  
     void alterarRegistroFuncionario();
     void excluirRegistroFuncionario();
+    void excluirRegistroFuncionario(int codigo);
     void exibirMenuBusca();
 
     void buscarFuncionario();
     void buscarFuncionarioNome();
     void buscarFuncionarioEndereco();
     void buscarFuncionarioCep();
+    void parseCEP();
     void buscarFuncionarioDataIngresso();
 
+    void gerarHorasAleatorias();
+    void calcularFolhaSalarial();
+    void calcularFolhaSalarialFuncionario();
+    void imprimirFolhaSalarialEmpresa();    //arquivo
     
+    void descontosImpostoRenda();
+    void descontosPrevidenciaSocial();
 
 protected:
     //lista de funcionarios
     vector <Funcionario *> funcionarios;
+    int folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };

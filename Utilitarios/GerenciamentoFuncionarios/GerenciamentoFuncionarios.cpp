@@ -1,6 +1,8 @@
 #include "GerenciamentoFuncionarios.h"
 #include "../../Menu/MainMenu.h"
 
+#include <iomanip>
+
 using namespace std;
 
 GerenciamentoFuncionarios::GerenciamentoFuncionarios()
@@ -69,7 +71,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         cin >> sal;
         cin.ignore();
 
-         //casting
+        // casting
         if (desig == "operador")
         {
             Operador* func = new Operador();
@@ -265,7 +267,7 @@ void GerenciamentoFuncionarios::listarFuncionarios()
 
 void GerenciamentoFuncionarios::listarFuncionariosTipo()
 {
-    //exibir todos os funcionarios cadastrados dependendo do tipo de funcionario especificado pelo usuario
+    // exibir todos os funcionarios cadastrados dependendo do tipo de funcionario especificado pelo usuario
     string tipoDesejado, tipoComparacao;
 
     cout << "Digite a designação de funcionário que deseja listar: ";
@@ -311,21 +313,21 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
 
 void GerenciamentoFuncionarios::alterarRegistroFuncionario()
 {
-    //variáveis auxiliares para a alteração de um funcionário
+    // variáveis auxiliares para a alteração de um funcionário
     int cod;
     string str;
     Endereco end;
     Data dt;
     double sal;
 
-    //bool auxiliar
+    // bool auxiliar
     bool novaAlteracao = 1;
     do
     {
-        //perguntar apenas se o usuário deseja fazer nova alteração
+        // perguntar apenas se o usuário deseja fazer nova alteração
         if (novaAlteracao) // != 0
         {
-            //leitura do código do funcionário a ser alterado
+            // leitura do código do funcionário a ser alterado
             cout << "Digite o código do funcionário cujo registro deve ser alterado." << endl;
             cout << "Caso não queira alterar algum registro, digite 0." << endl;
             cout << "Código: ";
@@ -337,161 +339,158 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
         {
             for (int i = 0; i < funcionarios.size(); i++)
             {            
-                //condição para alterar o funcionário: o código do funcionário a ser alterado ser igual ao código digitado pelo usuário
-                if (cod == funcionarios[i]->getCodigo())
+                // condição para alterar o funcionário: o código digitado pelo usuário ao código do funcionário a ser alterado
+                
+                int opcao;
+                cout << "Digite a informação que deseja alterar: " << endl;
+                cout << "\t1 - Nome" << endl;
+                cout << "\t2 - Endereço" << endl;
+                cout << "\t3 - Telefone" << endl;
+                cout << "\t4 - Data de ingresso" << endl;
+                cout << "\t5 - Designação" << endl;
+                cout << "\t6 - Salário" << endl;
+                cout << "\t0 - Sair" << endl;
+                
+                cin >> opcao;
+                cin.ignore();
+
+                switch (opcao)
                 {
-                    int opcao;
-                    cout << "Digite a informação que deseja alterar: " << endl;
-                    cout << "\t1 - Nome" << endl;
-                    cout << "\t2 - Endereço" << endl;
-                    cout << "\t3 - Telefone" << endl;
-                    cout << "\t4 - Data de ingresso" << endl;
-                    cout << "\t5 - Designação" << endl;
-                    cout << "\t6 - Salário" << endl;
-                    cout << "\t0 - Sair" << endl;
-                    
-                    cin >> opcao;
-                    cin.ignore();
+                    case 1:
+                        cout << "Digite o novo nome: ";
+                        getline(cin, str);
+                        funcionarios[i]->setNome(str);
+                        break;
+                    case 2:
+                        end.lerEndereco();
+                        funcionarios[i]->setEndereco(end);
+                        break;
+                    case 3:
+                        cout << "Digite o novo telefone: ";
+                        getline(cin, str);
+                        funcionarios[i]->setTelefone(str);
+                        break;
+                    case 4:
+                        dt.lerData();
+                        funcionarios[i]->setDataIngresso(dt);
+                        break;
+                    case 5:
+                        cout << "Digite a nova designação: ";
+                        getline(cin, str);
+                        transform(str.begin(), str.end(), str.begin(), ::tolower);
 
-                    switch (opcao)
-                    {
-                        case 1:
-                            cout << "Digite o novo nome: ";
-                            getline(cin, str);
-                            funcionarios[i]->setNome(str);
-                            break;
-                        case 2:
-                            end.lerEndereco();
-                            funcionarios[i]->setEndereco(end);
-                            break;
-                        case 3:
-                            cout << "Digite o novo telefone: ";
-                            getline(cin, str);
-                            funcionarios[i]->setTelefone(str);
-                            break;
-                        case 4:
-                            dt.lerData();
-                            funcionarios[i]->setDataIngresso(dt);
-                            break;
-                        case 5:
-                            cout << "Digite a nova designação: ";
-                            getline(cin, str);
-                            transform(str.begin(), str.end(), str.begin(), ::tolower);
-                            /* if (str == "operador")
-                            {
-                                str = "Operador";
-                            }
-                            else if (str == "gerente")
-                            {
-                                str = "Gerente";
-                            }
-                            else if (str == "diretor")
-                            {
-                                str = "Diretor";
-                            }
-                            else if (str == "presidente")
-                            {
-                                str = "Presidente";
-                            } */
+                        // casting
 
+                        if (str == "operador")
+                        {
+                            Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
+                            str = "Operador";
+
+
+                            funcionarios.push_back(new Operador(funcionarios[i]->getCodigo(),
+                                                                funcionarios[i]->getNome(), 
+                                                                funcionarios[i]->getEndereco(), 
+                                                                funcionarios[i]->getTelefone(),
+                                                                funcionarios[i]->getDataIngresso(), 
+                                                                str, funcionarios[i]->getSalario()));
+
+                            // LA GAMBIARRA
+                            funcionarios[i]->setCodigo(0);
+                            excluirRegistroFuncionario(0);
+                            break;
+                        }
+
+                        else if (str == "gerente")
+                        {
+                            Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
+                            str = "Gerente";
+
+                            string areaSupervisaoGerente;
+
+                            cout << "Digite a área de supervisão do gerente: ";
+                            getline(cin, areaSupervisaoGerente);
+
+                            funcionarios.push_back(new Gerente(funcionarios[i]->getCodigo(),
+                                                                funcionarios[i]->getNome(), 
+                                                                funcionarios[i]->getEndereco(), 
+                                                                funcionarios[i]->getTelefone(),
+                                                                funcionarios[i]->getDataIngresso(),
+                                                                str, funcionarios[i]->getSalario(),
+                                                                areaSupervisaoGerente));
+                            // LA GAMBIARRA
+                            funcionarios[i]->setCodigo(0);
+                            excluirRegistroFuncionario(0);
+                            break;
+                        }
+
+                        else if (str == "diretor")
+                        {
+                            Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
+                            str = "Diretor";
+
+                            string areaSupervisaoDiretor, areaFormacaoDiretor;
                             
-                             //casting
-                            if (str == "operador")
-                            {
-                                Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
-                                str = "Operador";
+                            cout << "Digite a área de supervisão do diretor: ";
+                            getline(cin, areaSupervisaoDiretor);
 
-                                funcionarios.push_back(new Operador(funcionarios[i]->getCodigo(),
-                                                                    funcionarios[i]->getNome(), 
-                                                                    funcionarios[i]->getEndereco(), 
-                                                                    funcionarios[i]->getTelefone(),
-                                                                    funcionarios[i]->getDataIngresso(), 
-                                                                    str, funcionarios[i]->getSalario()));
-                                funcionarios.erase(funcionarios.begin()+i);
-                            }
+                            cout << "Digite a área de formação do diretor: ";
+                            getline(cin, areaFormacaoDiretor);
 
-                            else if (str == "gerente")
-                            {
-                                Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
-                                str = "Gerente";
+                            funcionarios.push_back(new Diretor( funcionarios[i]->getCodigo(),
+                                                                funcionarios[i]->getNome(), 
+                                                                funcionarios[i]->getEndereco(), 
+                                                                funcionarios[i]->getTelefone(),
+                                                                funcionarios[i]->getDataIngresso(),
+                                                                str, funcionarios[i]->getSalario(),
+                                                                areaSupervisaoDiretor, areaFormacaoDiretor));
 
-                                string areaSupervisaoGerente;
+                            // LA GAMBIARRA
+                            funcionarios[i]->setCodigo(0);
+                            excluirRegistroFuncionario(0);
+                            break;
+                        }
 
-                                cout << "Digite a área de supervisão do gerente: ";
-                                getline(cin, areaSupervisaoGerente);
+                        else if (str == "presidente")
+                        {
+                            Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
+                            str = "Presidente";
 
-                                funcionarios.push_back(new Gerente(funcionarios[i]->getCodigo(),
+                            string formacaoAcademica;
+                            string areaFormacaoPresidente;
+
+                            cout << "Digite a formação acadêmica do presidente: ";
+                            getline(cin, formacaoAcademica);
+
+                            cout << "Digite a área de formação do presidente: ";
+                            getline(cin, areaFormacaoPresidente);
+                            funcionarios.push_back(new Presidente(funcionarios[i]->getCodigo(),
                                                                     funcionarios[i]->getNome(), 
                                                                     funcionarios[i]->getEndereco(), 
                                                                     funcionarios[i]->getTelefone(),
                                                                     funcionarios[i]->getDataIngresso(),
                                                                     str, funcionarios[i]->getSalario(),
-                                                                    areaSupervisaoGerente));
-                                funcionarios.erase(funcionarios.begin()+i);
-                                
-                            }
+                                                                    formacaoAcademica, areaFormacaoPresidente));
 
-                            else if (str == "diretor")
-                            {
-                                Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
-                                str = "Diretor";
-
-                                string areaSupervisaoDiretor, areaFormacaoDiretor;
-                                
-                                cout << "Digite a área de supervisão do diretor: ";
-                                getline(cin, areaSupervisaoDiretor);
-
-                                cout << "Digite a área de formação do diretor: ";
-                                getline(cin, areaFormacaoDiretor);
-
-                                funcionarios.push_back(new Diretor( funcionarios[i]->getCodigo(),
-                                                                    funcionarios[i]->getNome(), 
-                                                                    funcionarios[i]->getEndereco(), 
-                                                                    funcionarios[i]->getTelefone(),
-                                                                    funcionarios[i]->getDataIngresso(),
-                                                                    str, funcionarios[i]->getSalario(),
-                                                                    areaSupervisaoDiretor, areaFormacaoDiretor));
-                            }
-
-                            else if (str == "presidente")
-                            {
-                                Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
-                                str = "Presidente";
-
-                                string formacaoAcademica;
-                                string areaFormacaoPresidente;
-
-                                cout << "Digite a formação acadêmica do presidente: ";
-                                getline(cin, formacaoAcademica);
-
-                                cout << "Digite a área de formação do presidente: ";
-                                getline(cin, areaFormacaoPresidente);
-                                funcionarios.push_back(new Presidente(funcionarios[i]->getCodigo(),
-                                                                      funcionarios[i]->getNome(), 
-                                                                      funcionarios[i]->getEndereco(), 
-                                                                      funcionarios[i]->getTelefone(),
-                                                                      funcionarios[i]->getDataIngresso(),
-                                                                      str, funcionarios[i]->getSalario(),
-                                                                      formacaoAcademica, areaFormacaoPresidente));
-                            }
-                           
-
-                            funcionarios[i]->setDesignacao(str);
-                            
+                            // LA GAMBIARRA
+                            funcionarios[i]->setCodigo(0);
+                            excluirRegistroFuncionario(0);
                             break;
-                        case 6:
-                            cout << "Digite o novo salário: ";
-                            cin >> sal;
-                            cin.ignore();
-                            funcionarios[i]->setSalario(sal);
-                            break;
-                        case 0:
-                            return;
-                        default:
-                            cout << "Opção inválida!" << endl;
-                            break;
-                    }   
-                }
+                        }
+                        
+                        break;
+                    case 6:
+                        cout << "Digite o novo salário: ";
+                        cin >> sal;
+                        cin.ignore();
+                        funcionarios[i]->setSalario(sal);
+                        break;
+                    case 0:
+                        return;
+                        break; //gambiarra
+                    default:
+                        cout << "Opção inválida!" << endl;
+                        break;
+                }   
             }
             cout << "Deseja fazer outra alteração nesse registro?" << endl;
             cout << "\t1 - Sim" << endl;
@@ -539,16 +538,12 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                 if (funcionarios[i]->getCodigo() == cod)
                 {
                     //Designações iguais a "presidente" e "diretor" não podem ser excluídas
-                    if (funcionarios[i]->getDesignacao() == "presidente" ||
-                        funcionarios[i]->getDesignacao() == "Presidente" ||
-                        funcionarios[i]->getDesignacao() == "PRESIDENTE")
+                    if (funcionarios[i]->getDesignacao() == "Presidente")
                     {
                         cout << "Não é possível excluir o presidente!" << endl;
                         break;
                     }
-                    else if (funcionarios[i]->getDesignacao() == "diretor" ||
-                            funcionarios[i]->getDesignacao() == "Diretor" ||
-                            funcionarios[i]->getDesignacao() == "DIRETOR")
+                    else if (funcionarios[i]->getDesignacao() == "Diretor")
                     {
                         cout << "Não é possível excluir o diretor!" << endl;
                         break;
@@ -569,6 +564,62 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
+}
+
+void GerenciamentoFuncionarios::excluirRegistroFuncionario(int codigo)
+{
+    //excluir um funcionario, dado o seu código
+    int opcao = 0;
+
+    do
+    {
+
+        if (!codigo)
+        {
+            for (int i = 0; i < funcionarios.size(); i++)
+            {
+                //verificar se o codigo digitado pertence a algum funcionario, caso contrário, exibe mensagem de erro
+                if (i == (funcionarios.size() - 1) && funcionarios[i]->getCodigo() != codigo)
+                {
+                    cout << "Não existe um funcionário com esse código!" << endl;
+                    
+                    //tentar novamente
+                    cout << "Deseja tentar novamente?" << endl;
+                    cout << "\t1 - Sim" << endl;
+                    cout << "\t0 - Não" << endl;
+                    cin >> opcao;
+                    cin.ignore();
+                    break;
+                }
+
+                if (funcionarios[i]->getCodigo() == codigo)
+                {
+                    //Designações iguais a "presidente" e "diretor" não podem ser excluídas
+                    if (funcionarios[i]->getDesignacao() == "Presidente")
+                    {
+                        cout << "Não é possível excluir o presidente!" << endl;
+                        break;
+                    }
+                    else if (funcionarios[i]->getDesignacao() == "Diretor")
+                    {
+                        cout << "Não é possível excluir o diretor!" << endl;
+                        break;
+                    }
+                    else
+                    {
+                        funcionarios.erase(funcionarios.begin() + i);
+                        //cout << "Funcionário excluído com sucesso!" << endl;
+                        opcao = 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    while (opcao);
+    
+    //getchar();
+    //system(CLEAR);
 }
 
 void GerenciamentoFuncionarios::exibirMenuBusca()
@@ -667,6 +718,13 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
             funcionarios[i]->exibirRegistroFuncionario();
             cout << endl;
         }
+        
+        //procurar pelo cep
+        if (enderecoDesejado == funcionarios[i]->getEndereco().getCep())
+        {
+            buscarFuncionarioCep();
+            cout << endl;
+        }
     }
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
@@ -675,15 +733,57 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
 
 void GerenciamentoFuncionarios::buscarFuncionarioCep()
 {
-    //leitura do cep a ser buscado
     string cep;
-    cout << "Digite o cep do funcionário que deseja buscar: ";
-    getline(cin, cep);
-
-    //download do arquivo json do cep
-    string url = "https://viacep.com.br/ws/" + cep + "/json/";
+    cout << "digite o cep:";
+    cin >> cep;
     
+    system("notepad");
+  
+    string url = "https://viacep.com.br/ws/" + cep + "/json/";
+  
+    cout << "URL: " << url << endl;
+  
+    string command = "wget -O cep.txt" + url;
+  
+    cout << "command: " << command << endl;
+  
+    system(command.c_str());
 
+    funcionarios[0]->exibirRegistroFuncionario();
+    parseCEP();
+
+    cout << "Pressione qualquer tecla para continuar" << endl;
+    getchar();
+    system(CLEAR);
+}
+
+void GerenciamentoFuncionarios::parseCEP(){
+  fstream fs;
+  string linha, dado;
+  string rua, bairro, cidade, estado;
+  int i;
+  int pos2pt;
+  
+  fs.open("cep.txt", fstream::in);
+  if(!fs.is_open()){
+    cout << "erro ao abrir arquivo" << endl;
+    return;
+  }
+  
+  while(!fs.eof()){
+    getline(fs, linha);
+    if (i == 2 || i == 4 || i == 5 || i == 6){
+      pos2pt = linha.find(':');   //no arquivo json, os atributos estão salvos da seguinte forma: "logradouro":	"Praça da Sé"
+      dado = linha.substr(pos2pt + 3); //apos os ':', ainda há mais 2 caracteres inúteis: um espaço, um ". Logo, é necessário capturar o endereço do 3º caractere pós 2-pontos
+      dado = dado.substr(0, dado.size() - 2);
+      cout << dado << endl;
+      if(i == 2) rua = dado;
+      else if(i == 4) bairro = dado;
+      else if(i == 5) cidade = dado;
+      else if(i == 6) estado = dado;
+    }
+    i++;
+  }
 }
 
 void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()
@@ -721,4 +821,209 @@ void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()
     cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
+}
+
+void GerenciamentoFuncionarios::gerarHorasAleatorias()
+{
+    int normais = 0, extras = 0;
+
+    for (int i = 0; i < funcionarios.size(); i++)
+    {   
+        //gerar valor aleatório
+        srand(time(NULL));
+
+        //44 horas por semana * 4 semanas por mês
+        //além de 44h normais, o funcionário pode trabalhar 22h extras
+        normais = rand() % (44 * 4);        
+        funcionarios[i]->setHorasNormais(normais); 
+
+        //só há hora extra se o funcionário trabalhar mais de 44 horas por semana
+        if (funcionarios[i]->getHorasNormais() > 44)
+        {
+            extras = rand() % (22 * 4);
+            funcionarios[i]->setHorasExtras(extras);
+        }
+        else
+        {
+            funcionarios[i]->setHorasExtras(0);
+        }
+    }
+}
+
+void GerenciamentoFuncionarios::calcularFolhaSalarial()
+{   
+    int mes;
+
+    do
+    {
+        cout << "Escolha um mês para calcular a folha salarial." << endl << endl
+             << "Número do mês escolhido: ";
+
+        cin >> mes;
+        cin.ignore();
+
+        cout << endl << endl;
+
+        if (mes < 1 || mes > 12) 
+        {
+            cout << "Mês inválido, tente novamente por favor." << endl;
+        }
+
+    }
+    while (mes < 1 || mes > 12);
+    
+    if (folhaSalarial[mes - 1]) // != 0
+    {
+        cout << "Este mês já foi calculado." << endl;
+    }
+    else
+    {   
+        for (int i = 0; i < funcionarios.size(); i++)
+        {  
+            cout << "Código: " << funcionarios[i]->getCodigo() 
+                 << " - Nome: " << funcionarios[i]->getNome() 
+                 << " - Salário base: " << funcionarios[i]->getSalario() << endl << endl;
+
+            //atribuir a quantidade de horas trabalhadas no mês com a função de gerar horas aleatórias
+            gerarHorasAleatorias();
+        
+            //folhaSalarial[mes] += (funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial());
+
+            cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl
+                 << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl
+                 << "Salário mensal: " << funcionarios[i]->calcularSalarioMensal() << endl
+                 << "Descontos imposto de renda: " << funcionarios[i]->descontosImpostoRenda() << endl
+                 << "Descontos previdência social: " << funcionarios[i]->descontosPrevidenciaSocial() << endl
+                 << "Salário líquido: " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl << endl;
+        }
+    }
+
+    cout << "O valor total da folha salarial é de R$ " << folhaSalarial[mes - 1] << endl
+         << "Pressione qualquer tecla para continuar" << endl;
+    getchar();
+    system(CLEAR);
+}
+
+void GerenciamentoFuncionarios::calcularFolhaSalarialFuncionario()
+{
+
+    string nome, nomeLow;
+    int cod, codTeste;
+    int opcao;
+
+    //escolher entre pesquisar por código ou por nome
+    do
+    {    
+        cout << "Deseja pesquisar o funcionário por nome ou código?" << endl
+             << "\t1 - Nome (ou parte do nome)" << endl
+             << "\t2 - Código" << endl;
+        
+        cout << "Digite: ";
+        cin >> opcao;
+        cin.ignore();
+
+        if (opcao != 1 && opcao != 2)
+        {
+            cout << "Opção inválida!" << endl;
+        }
+    }
+    while (opcao != 1 && opcao != 2);
+
+    if (opcao == 1)
+    {
+        cout << "Digite o nome (ou parte do nome) do funcionário que deseja buscar: ";
+        getline(cin, nome);
+    }
+    else if (opcao == 2)
+    {
+        cout << "Digite o código do funcionário que deseja buscar: ";
+        cin >> codTeste;
+    }
+
+    for (int i = 0; i < funcionarios.size(); i++)
+    {
+        nomeLow = funcionarios[i]->getNome();
+        transform(nomeLow.begin(), nomeLow.end(), nomeLow.begin(), ::tolower);
+    
+        cod = funcionarios[i]->getCodigo();
+
+        if (nomeLow.find(nome) != -1 || cod == codTeste)
+        {
+            cout << "Folha salarial do funcionário " << funcionarios[i]->getNome() << ":" << endl << endl;
+
+            cout << "Salário base: R$ " << funcionarios[i]->getSalario() << endl
+                 << "Salário mensal: R$ " << funcionarios[i]->calcularSalarioMensal() << endl
+                 << "Desconto referente ao imposto de renda: R$ " << funcionarios[i]->descontosImpostoRenda() << endl
+                 << "Desconto referente a previdência social: R$ " << funcionarios[i]->descontosPrevidenciaSocial() << endl
+                 << "Desconto salarial total : R$ " << funcionarios[i]->descontosImpostoRenda() + funcionarios[i]->descontosPrevidenciaSocial() << endl
+                 << "Salário líquido: R$ " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl;
+        }
+    }
+
+    cout << "Pressione qualquer tecla para continuar" << endl;
+    getchar();
+    system(CLEAR);
+}
+
+void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
+{
+
+    int opcao;
+    double folha = 0;
+
+    do
+    {
+
+        cout << "Qual folha salarial deseja buscar?" << endl << endl
+            << " 1 - Anual " << endl
+            << " 2 - Mensal " << endl
+            << endl;
+         
+        cout << "opção: ";
+        cin >> opcao;
+        cin.ignore();  
+
+        if (opcao > 2 || opcao < 1)
+        {
+            cout << "Opção inválida, por favor, tente novamente." << endl;
+        }
+
+    }
+    while (opcao > 2 || opcao < 1);
+    
+    switch (opcao)
+    {
+        case 1:
+            for (int i = 0; i < 12; i++)
+            {
+                folha += folhaSalarial[i];
+            }
+        
+            break;
+        case 2:
+            do
+            {
+                cout << "Digite o mês o qual deseja buscar: ";
+                cout << endl;
+
+                cout << "opção: ";
+                cin >> opcao;
+                cin.ignore();
+
+                if (opcao < 1 || opcao > 12)
+                {
+                    cout << "Opção inválida, por favor, tente novamente" << endl;
+                }
+
+            }
+            while (opcao < 1 || opcao > 12);
+
+            folha = folhaSalarial[opcao];
+            
+            break;
+        default:
+            break;
+    }
+
+    cout << "Total calculado: R$ " << folha << endl;
 }

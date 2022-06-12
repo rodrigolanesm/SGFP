@@ -157,7 +157,8 @@ double Funcionario::calcularSalarioMensal()
     return salarioMensal;
 };
 
-double Funcionario::descontosImpostoRenda(){
+double Funcionario::descontosImpostoRenda()
+{
     // o imposto de renda é calculado por faixas de renda
     // Basta fazer o seguinte cálculo: (salário após descontos do INSS x percentual de alíquota) - valor a ser deduzido
     /* 
@@ -167,30 +168,31 @@ double Funcionario::descontosImpostoRenda(){
     faixa 4: R$ 3751,06 a R$ 4664,68 | IR: 22,5% | deduções: R$ 636,13
     faixa 5: R$ 4664,69 a R$ 5541,59 | IR: 27,5% | deduções: R$ 869,36    
     */
-
-    if (this->getSalario() <= 1903.98)
+    double slr = calcularSalarioMensal() - descontosPrevidenciaSocial();
+    if (slr <= 1903.98)
     {
         return 0;
     }
-    else if (this->getSalario() >= 1903.99 && this->getSalario() <= 2826.65)
+    else if (1903.99 <= slr <= 2826.65)
     {
-        return (this->getSalario() - this->descontosPrevidenciaSocial()) * 0.075 - 142.8;
+        return slr * 0.075 - 142.8;
     }
-    else if (this->getSalario() >= 2826.66 && this->getSalario() <= 3751.05)
+    else if (2826.66 <= slr <= 3751.05)
     {
-        return (this->getSalario() - this->descontosPrevidenciaSocial()) * 0.15 - 354.80;
+        return slr * 0.15 - 354.80;
     }
-    else if (this->getSalario() >= 3751.06  && this->getSalario() <= 4664.68)
+    else if (3751.06 <= slr <= 4664.68)
     {
-        return (this->getSalario() - this->descontosPrevidenciaSocial()) * 0.225 - 636.13;
+        return slr * 0.225 - 636.13;
     }
     else
     {
-        return (this->getSalario() - this->descontosPrevidenciaSocial()) * 0.275 - 869.36;
+        return slr * 0.275 - 869.36;
     }
 }
 
-double Funcionario::descontosPrevidenciaSocial(){
+double Funcionario::descontosPrevidenciaSocial()
+{
     //tabela de descontos de previdencia social/INSS
     /* 
     salario bruto : 0.00 - 1212.00 | desconto : 7.5%
@@ -199,24 +201,28 @@ double Funcionario::descontosPrevidenciaSocial(){
     salario bruto : 3641.04 - 7087.22 | desconto : 14%
     */
 
-    if (this->getSalario() <= 1212)
+   double deducao = 0;
+   double slr = calcularSalarioMensal();
+
+    if (slr <= 1212)
     {
-        return this->getSalario() * 0.075;
+        deducao = slr * 0.075;
     }
-    else if (this->getSalario() >  1212 && this->getSalario() <= 2427.35)
+    else if (1212.01 <= slr <= 2427.35)
     {
-        return this->getSalario() * 0.09;
+        deducao = 1212 * 0.075 + (slr - 1212.00) * 0.09; 
     }
-    else if (this->getSalario() >=  2427.36 && this->getSalario() <= 3641.03 )
+    else if (2427.36 <= slr <= 3641.03)
     {
-        return this->getSalario() * 0.12;
+        deducao = 1212 * 0.075 + (2427.35 - 1212.01) * 0.09 + (slr - 3641.03) * 0.12;
     }
-    else if (this->getSalario() >=  3641.03  && this->getSalario() <= 7087.22)
+    else if (3641.04 <= slr <= 7087.22)
     {
-        return this->getSalario() * 0.14;
+        deducao = 1212 * 0.075 + (2427.35 - 1212.01) * 0.09 + (3641.03 - 2427.35) * 0.12 + (slr - 3641.04) * 0.14;
     }
     else
     {
-        return -1;
+        deducao = 1212 * 0.075 + (2427.35 - 1212.01) * 0.09 + (3641.03 - 2427.35) * 0.12 + (7087.22 - 3641.04) * 0.14;
     }
+    return deducao;
 }
