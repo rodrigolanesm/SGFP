@@ -36,25 +36,15 @@ void Diretor::exibirDadosDiretor()
 {   
     cout << "Codigo: " << codigo << endl;
     cout << "Nome: " << nome << endl;
-    cout << "Endereco: ";
+    cout << "Endereço: ";
     endereco.exibirEndereco();
     cout << "Telefone: " << telefone << endl;
     //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
-    cout << "Designacao: " << designacao << endl;
-    cout << "Salario: " << salario << endl;
+    cout << "Designação: " << designacao << endl;
+    cout << "Salário: " << salario << endl;
     cout << "Área de supervisão do diretor: " << getAreaSupervisaoDiretor() << endl;
     cout << "Área de formação do diretor: " << getAreaFormacao() << endl;
 
 }
-
-double Diretor::calcularSalarioMensal(){
-
-    double precoHoraNormal, precoHoraExtra;
-
-    precoHoraNormal = this->getSalario()/ this->getHorasNormais();
-    precoHoraExtra = this->getSalario()/ this->getHorasExtras();
-
-    return this->getSalario() * precoHoraNormal + this->getHorasExtras() * precoHoraExtra;
-};

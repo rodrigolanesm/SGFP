@@ -2,6 +2,7 @@
 
 #include "../../Utilitarios/Data/Data.h"
 #include "../../Utilitarios/Endereco/Endereco.h"
+#include "../../Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.h"
 
 #include "../../Funcionarios/Funcionario/Funcionario.h"
 #include "../../Funcionarios/Operador/Operador.h"
@@ -15,29 +16,13 @@
 #include <vector>
 #include <time.h>
 #include <algorithm>
+#include <dos.h>
 
-using namespace std;
-
-class GerenciamentoFuncionarios
+class Salarios : public GerenciamentoFuncionarios
 {
 public:
-    GerenciamentoFuncionarios();
-
-    void cadastrarFuncionarios();
-    void EscreverArquivoCadastroFuncionario();
-    void listarFuncionarios();      //arquivo
-    void listarFuncionariosTipo();  
-    void alterarRegistroFuncionario();
-    void excluirRegistroFuncionario();
-    void excluirRegistroFuncionario(int codigo);
-    void exibirMenuBusca();
-
-    void buscarFuncionario();
-    void buscarFuncionarioNome();
-    void buscarFuncionarioEndereco();
-    void buscarFuncionarioCep();
-    void parseCEP();
-    void buscarFuncionarioDataIngresso();
+    Salarios();
+    ~Salarios();
 
     void gerarHorasAleatorias();
     void calcularFolhaSalarial();
@@ -46,9 +31,6 @@ public:
     
     void descontosImpostoRenda();
     void descontosPrevidenciaSocial();
-
-protected:
-    //lista de funcionarios
-    vector <Funcionario *> funcionarios;
+private:
     int folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };

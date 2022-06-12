@@ -19,7 +19,6 @@ public:
     string getAreaSupervisaoDiretor();
     string getAreaFormacao();
     void exibirDadosDiretor();
-    double calcularSalarioMensal();
 
 private:
 

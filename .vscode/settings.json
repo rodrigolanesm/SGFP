@@ -10,6 +10,8 @@
         "vector": "cpp",
         "xutility": "cpp",
         "istream": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "algorithm": "cpp",
+        "iomanip": "cpp"
     }
 }
