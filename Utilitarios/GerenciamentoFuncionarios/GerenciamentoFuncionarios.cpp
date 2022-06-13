@@ -1,6 +1,6 @@
 #include "GerenciamentoFuncionarios.h"
 #include "../../Menu/MainMenu.h"
-
+#include <stdlib.h>
 #include <iomanip>
 
 using namespace std;
@@ -538,24 +538,12 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                 if (funcionarios[i]->getCodigo() == cod)
                 {
                     //Designações iguais a "presidente" e "diretor" não podem ser excluídas
-<<<<<<< HEAD
-                    if (funcionarios[i]->getDesignacao() == "presidente"/* ||
-                        funcionarios[i]->getDesignacao() == "Presidente" ||
-                        funcionarios[i]->getDesignacao() == "PRESIDENTE"*/)
-=======
                     if (funcionarios[i]->getDesignacao() == "Presidente")
->>>>>>> b5
                     {
                         cout << "Não é possível excluir o presidente!" << endl;
                         break;
                     }
-<<<<<<< HEAD
-                    else if (funcionarios[i]->getDesignacao() == "diretor"/* ||
-                            funcionarios[i]->getDesignacao() == "Diretor" ||
-                            funcionarios[i]->getDesignacao() == "DIRETOR"*/)
-=======
                     else if (funcionarios[i]->getDesignacao() == "Diretor")
->>>>>>> b5
                     {
                         cout << "Não é possível excluir o diretor!" << endl;
                         break;
@@ -745,57 +733,71 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
 
 void GerenciamentoFuncionarios::buscarFuncionarioCep()
 {
-    string cep;
-    cout << "digite o cep:";
-    cin >> cep;
-    
-    system("notepad");
-  
-    string url = "https://viacep.com.br/ws/" + cep + "/json/";
-  
-    cout << "URL: " << url << endl;
-  
-    string command = "wget -O cep.txt" + url;
-  
+    string cep, url, command;
+
+    cout << "Digite o cep: ";
+    getline (cin, cep);
+
+
+    url = "viacep.com.br/ws/" + cep + "/json/";
+
+    cout << "url: " << url << endl;
+
+    command = "wget -O cep.txt " + url + " -q";
     cout << "command: " << command << endl;
-  
-    system(command.c_str());
 
-    funcionarios[0]->exibirRegistroFuncionario();
+    system(command.c_str()); // aqui ele entra num loop no codeblocks
     parseCEP();
-
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    
+    cout << "Digite qualquer tecla para continuar" << endl;
     getchar();
-    system(CLEAR);
+    
 }
 
-void GerenciamentoFuncionarios::parseCEP(){
-  fstream fs;
-  string linha, dado;
-  string rua, bairro, cidade, estado;
-  int i;
-  int pos2pt;
-  
-  fs.open("cep.txt", fstream::in);
-  if(!fs.is_open()){
-    cout << "erro ao abrir arquivo" << endl;
-    return;
-  }
-  
-  while(!fs.eof()){
-    getline(fs, linha);
-    if (i == 2 || i == 4 || i == 5 || i == 6){
-      pos2pt = linha.find(':');   //no arquivo json, os atributos estão salvos da seguinte forma: "logradouro":	"Praça da Sé"
-      dado = linha.substr(pos2pt + 3); //apos os ':', ainda há mais 2 caracteres inúteis: um espaço, um ". Logo, é necessário capturar o endereço do 3º caractere pós 2-pontos
-      dado = dado.substr(0, dado.size() - 2);
-      cout << dado << endl;
-      if(i == 2) rua = dado;
-      else if(i == 4) bairro = dado;
-      else if(i == 5) cidade = dado;
-      else if(i == 6) estado = dado;
+void GerenciamentoFuncionarios::parseCEP()
+{
+    fstream fs;
+    string linha, dado, rua, bairro, cidade, uf;
+    fs.open("cep.txt", fstream::in);
+
+    if (!fs.is_open())
+    {
+        cout << "Erro ao abrir arquivo" << endl;
+        return;
     }
-    i++;
-  }
+
+    int i = 0, pos2pt = 0;
+    while(!fs.eof())
+    {
+        getline(fs, linha);
+        if (i == 2 || i == 4 || i == 5 || i == 6)
+        {
+            pos2pt = linha.find(':');
+            dado = linha.substr(pos2pt + 3, dado.size() - 2 - pos2pt - 3);
+
+            // dado = sub.substr(0, dado.size() - 2); // outra alternativa
+            // cout << linha << endl; // para teste
+            cout << dado << endl;
+            switch (i) // poderia ser if else, mas switch case deixa mais elegante
+            {
+                case 2:
+                    rua = dado;
+                    break;
+                case 4:
+                    bairro = dado;
+                    break;
+                case 5:
+                    cidade = dado;
+                    break;
+                case 6:
+                    uf = dado;
+                    break;
+                default:
+                    break;
+            }
+        }
+        i++;
+    }
 }
 
 void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()
@@ -884,12 +886,7 @@ void GerenciamentoFuncionarios::calcularFolhaSalarial()
     }
     while (mes < 1 || mes > 12);
     
-<<<<<<< HEAD
-
-    if (folhaSalarial[escolha]/*!= 0*/) 
-=======
     if (folhaSalarial[mes - 1]) // != 0
->>>>>>> b5
     {
         cout << "Este mês já foi calculado." << endl;
     }
