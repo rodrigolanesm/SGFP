@@ -17,6 +17,7 @@ void MainMenu::exibeMenu()
     cout << "8 - Calcular folha salarial" << endl;
     cout << "9 - Calcular folha salarial de um funcionário" << endl;
     cout << "10 - Calcular folha salarial da empresa" << endl;
+    cout << "11 - Conceder aumento salarial para os funcionários" << endl;
     cout << "0 - Sair" << endl;
 }
 
@@ -61,6 +62,9 @@ void MainMenu::escolherOpcaoMenu()
             break;  
         case 10:
             gf.imprimirFolhaSalarialEmpresa();
+            break;
+        case 11:
+            gf.concederAumentoSalarial();
             break;
         case 0:
             return;

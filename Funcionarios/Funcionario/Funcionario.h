@@ -47,8 +47,8 @@ public:
     virtual void exibirRegistroFuncionario();
     double   calcularSalarioMensal();
 
-    double descontosImpostoRenda();
-    double descontosPrevidenciaSocial();
+    double descontosImpostoRenda(double salarioMensal);
+    double descontosPrevidenciaSocial(double salarioMensal);
 
 protected:
     int codigo;

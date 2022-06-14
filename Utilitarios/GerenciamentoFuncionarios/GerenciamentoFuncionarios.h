@@ -48,6 +48,8 @@ public:
     void descontosImpostoRenda();
     void descontosPrevidenciaSocial();
 
+    void concederAumentoSalarial();
+
 protected:
     //lista de funcionarios
     vector <Funcionario *> funcionarios;

@@ -20,6 +20,10 @@ public:
     string getAreaFormacao();
     void exibirDadosDiretor();
 
+    double taxaAumento();
+    
+    string toString();
+
 private:
 
     string areaSupervisaoDiretor;

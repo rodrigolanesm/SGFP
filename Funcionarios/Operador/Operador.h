@@ -15,6 +15,8 @@ public:
 
     void exibirDadosOperador();    
 
+    double taxaAumento(); 
+
 private:
     
 };

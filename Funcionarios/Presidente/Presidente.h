@@ -21,6 +21,8 @@ public:
     string getAreaFormacaoPresidente();
     void exibirDadosPresidente();
 
+    double taxaAumento();
+
 private:
 
     string formacaoAcademicaPresidente;

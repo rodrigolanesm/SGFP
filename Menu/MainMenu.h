@@ -25,6 +25,6 @@ public:
     void exibeMenu();
     void escolherOpcaoMenu();
 
-    GerenciamentoFuncionarios gf;
-    Salarios slr;
+    //GerenciamentoFuncionarios gf;
+    Salarios gf;
 };

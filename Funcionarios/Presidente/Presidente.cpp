@@ -48,3 +48,10 @@ void Presidente::exibirDadosPresidente()
     cout << "Área de formação do Presidente: " << getAreaFormacaoPresidente() << endl;
 
 }
+
+double Presidente::taxaAumento()
+{
+    double taxaAumento = 0.3;
+
+    return taxaAumento;
+}

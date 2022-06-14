@@ -23,3 +23,10 @@ void Operador::exibirDadosOperador()
     cout << "Designação: " << designacao << endl;
     cout << "Salário: " << salario << endl;
 }
+
+double Operador::taxaAumento()
+{
+    double taxaAumento = 0.05;
+
+    return taxaAumento;
+}

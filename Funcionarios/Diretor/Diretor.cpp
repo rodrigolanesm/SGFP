@@ -48,3 +48,18 @@ void Diretor::exibirDadosDiretor()
     cout << "Área de formação do diretor: " << getAreaFormacao() << endl;
 
 }
+
+double Diretor::taxaAumento()
+{
+    double taxaAumento = 0.2;
+
+    return taxaAumento;
+}
+
+string Diretor::toString(){
+  string result =  codigo + "\n"
+  result += nome + "\n";
+  
+  result += this->getAreaSupervisaoDiretor();
+
+} 

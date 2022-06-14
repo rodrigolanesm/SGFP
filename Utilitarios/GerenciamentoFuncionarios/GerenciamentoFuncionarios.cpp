@@ -297,6 +297,10 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
         //escrever no arquivo todos os funcionarios cadastrados
         for (int i = 0; i < funcionarios.size(); i++)
         {
+            
+            arq << funcionarios[i]->toString() << endl;
+            
+            
             arq << funcionarios[i]->getCodigo() << endl;
 
             arq << funcionarios[i]->getNome() << endl;
@@ -995,20 +999,22 @@ void GerenciamentoFuncionarios::gerarHorasAleatorias()
 
         int qtdMaxHorasMensais = rand() % (176 + 88);    //176 horas normais + 88 horas extras
 
-        normais = rand() % (176);        
-        funcionarios[i]->setHorasNormais(normais);
+        if(qtdMaxHorasMensais >= 0 && qtdMaxHorasMensais <= 176)
+        {
+            normais = qtdMaxHorasMensais;
+            funcionarios[i]->setHorasNormais(normais);
+            extras = 0;
+            funcionarios[i]->setHorasExtras(extras);
+        }
+        else if (qtdMaxHorasMensais > 176)
+        {
+            normais = 176;
+            funcionarios[i]->setHorasNormais(normais);
+            extras = qtdMaxHorasMensais - 176;
+            funcionarios[i]->setHorasExtras(extras);
+            extras = 0;
+        }
 
-        if (qtdMaxHorasMensais > 176)
-        {
-            extras = qtdMaxHorasMensais - normais;
-            funcionarios[i]->setHorasExtras(extras);
-            extras = 0;
-        }
-        else
-        {
-            extras = 0;
-            funcionarios[i]->setHorasExtras(extras);
-        }
         Sleep(1234);
     }
 }
@@ -1232,4 +1238,46 @@ void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
         default:
             break;
     }
+}
+
+void GerenciamentoFuncionarios::concederAumentoSalarial(){
+
+    string tipoComparacao;
+    double valorAumento;
+
+    for (int i = 0; i < funcionarios.size(); i++)
+    {
+        tipoComparacao = funcionarios[i]->getDesignacao();
+        transform(tipoComparacao.begin(), tipoComparacao.end(), tipoComparacao.begin(), ::tolower);
+
+        if (tipoComparacao == "operador")
+        {
+            valorAumento = ((Operador*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
+            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+        }
+        
+        else if (tipoComparacao == "gerente")
+        {
+            valorAumento = ((Gerente*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
+            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+        }
+        
+        else if (tipoComparacao == "diretor")
+        {
+            valorAumento = ((Diretor*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
+            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+        }
+        
+        else if (tipoComparacao == "presidente")
+        {
+            valorAumento = ((Presidente*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
+            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+        }
+        
+    }
+    cout << endl;
+    cout << "Aumento salarial concedido aos funcionários com sucesso." << endl;
+    cout << "Pressione qualquer tecla para continuar" << endl;
+    getchar();
+    system(CLEAR);
 }

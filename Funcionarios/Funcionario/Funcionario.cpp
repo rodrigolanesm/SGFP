@@ -157,7 +157,7 @@ double Funcionario::calcularSalarioMensal()
     return salarioMensal;
 };
 
-double Funcionario::descontosImpostoRenda()
+double Funcionario::descontosImpostoRenda(double salarioMensal)
 {
     // o imposto de renda é calculado por faixas de renda
     // Basta fazer o seguinte cálculo: (salário após descontos do INSS x percentual de alíquota) - valor a ser deduzido
@@ -202,7 +202,8 @@ double Funcionario::descontosPrevidenciaSocial()
     */
 
    double deducao = 0;
-   double slr = calcularSalarioMensal();
+   salarioMensal = calcularSalarioMensal();
+   double slr = salarioMensal;
 
     if (slr <= 1212)
     {

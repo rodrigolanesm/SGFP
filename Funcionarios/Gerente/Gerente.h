@@ -20,6 +20,8 @@ public:
 
     void exibirDadosGerente();
 
+    double taxaAumento();
+
 protected:
 
     string areaSupervisaoGerente;

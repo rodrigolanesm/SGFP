@@ -48,4 +48,11 @@ void Gerente::exibirDadosGerente()
     cout << "Designação: " << designacao << endl;
     cout << "Salário: " << salario << endl;
     cout << "Área de supervisão do gerente: " << getAreaSupervisaoGerente() << " " << endl;
-};
+}
+
+double Gerente::taxaAumento()
+{
+    double taxaAumento = 0.1;
+
+    return taxaAumento;
+}
