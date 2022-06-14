@@ -2,8 +2,10 @@
 
 #ifdef _WIN32
 #define CLEAR "cls"
+#include <Windows.h>
 #else
 #define CLEAR "clear"
+#include <unistd.h>
 #endif
 
 #include "../Utilitarios/GerenciamentoFuncionarios/GerenciamentoFuncionarios.h"

@@ -23,9 +23,10 @@ class GerenciamentoFuncionarios
 public:
     GerenciamentoFuncionarios();
 
-    void cadastrarFuncionarios();
+    void cadastrarFuncionarios();   // cadastro manual dos funcionários
+    void lerArquivoCadastroFuncionario();    // cadastro automático dos funcionarios, feito a partir de um arquivo
     void EscreverArquivoCadastroFuncionario();
-    void listarFuncionarios();      //arquivo
+    void listarFuncionarios(); // aqui está a opção de salvar os registros dos funcionarios em arquivo
     void listarFuncionariosTipo();  
     void alterarRegistroFuncionario();
     void excluirRegistroFuncionario();
@@ -35,7 +36,7 @@ public:
     void buscarFuncionario();
     void buscarFuncionarioNome();
     void buscarFuncionarioEndereco();
-    void buscarFuncionarioCep();
+    void buscarFuncionarioCep(int i);
     void parseCEP();
     void buscarFuncionarioDataIngresso();
 
@@ -50,5 +51,6 @@ public:
 protected:
     //lista de funcionarios
     vector <Funcionario *> funcionarios;
-    int folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    double folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    double folhaSalarialComImp[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };

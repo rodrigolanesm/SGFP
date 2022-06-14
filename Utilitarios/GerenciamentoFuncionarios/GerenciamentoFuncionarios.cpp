@@ -3,6 +3,12 @@
 #include <stdlib.h>
 #include <iomanip>
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 using namespace std;
 
 GerenciamentoFuncionarios::GerenciamentoFuncionarios()
@@ -12,7 +18,6 @@ GerenciamentoFuncionarios::GerenciamentoFuncionarios()
 
 void GerenciamentoFuncionarios::cadastrarFuncionarios()
 {
-
     //variáveis auxiliares para a criação de um funcionário
     int cod;
     string nome;
@@ -139,6 +144,149 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
     system(CLEAR);
 }
 
+void GerenciamentoFuncionarios::lerArquivoCadastroFuncionario()
+{
+    // ler do arquivo "Arquivos/Cadastro de Funcionarios.txt" os funcionários já cadastrados manualmente
+    fstream fs;
+
+    fs.open("Arquivos/CadastroDeFuncionarios.txt", ios::in);
+    if (fs.is_open())
+    { 
+        // variável auxiliar à leitura do arquivo
+        string linha;
+
+        // variáveis auxiliares para a criação de um funcionário
+        int cod=1;
+        string nome;
+
+        Endereco end;
+        string rua, numero, bairro, cidade, estado, cep;
+        
+        string tel;
+        
+        Data dtIngr;
+        int dia=1, mes=1, ano=1;
+        
+        string desig;
+        double sal;
+        
+        Funcionario *func;
+
+        bool sair = false;
+        // criação de vários funcionários
+        do
+        {
+            // leitura dos dados do funcionário
+            cout << "Cadastro de Funcionário" << endl;
+            
+            // CODIGO
+            getline(fs, linha);
+            //cod = stoi(linha);
+
+            // NOME
+            getline(fs, linha);
+            nome = linha;
+
+            // ENDEREÇO
+            getline(fs, linha);
+            rua = linha;
+            getline(fs, linha);
+            numero = linha;
+            getline(fs, linha);
+            bairro = linha;
+            getline(fs, linha);
+            cidade = linha;
+            getline(fs, linha);
+            estado = linha;
+            getline(fs, linha);
+            cep = linha;
+            end = Endereco(rua, numero, bairro, cidade, estado, cep);
+
+            // TELEFONE            
+            getline(fs, linha);
+            tel = linha;
+
+            // DATA
+            getline(fs, linha);
+            //dia = stoi(linha);
+            getline(fs, linha);
+            //mes = stoi(linha);
+            getline(fs, linha);
+            //ano = stoi(linha);
+            dtIngr = Data(dia, mes, ano);
+
+            // DESIGNAÇÃO
+            getline(fs, linha);
+            desig = linha;
+            transform(desig.begin(), desig.end(), desig.begin(), ::tolower);
+
+            // SALÁRIO
+            getline(fs, linha);
+            sal = stod(linha);
+
+            // casting
+            if (desig == "operador")
+            {
+                Operador* func = new Operador();
+                desig = "Operador";
+                funcionarios.push_back(new Operador(cod, nome, end, tel, dtIngr, desig, sal));
+            }
+
+            else if (desig == "gerente")
+            {
+                Gerente* func = new Gerente();
+                desig = "Gerente";
+                string area;
+                getline(fs, linha);
+                area = linha;
+                funcionarios.push_back(new Gerente(cod, nome, end, tel, dtIngr, desig, sal, area));
+            }
+
+            else if (desig == "diretor")
+            {
+                Diretor* func = new Diretor();
+                desig = "Diretor";
+                string areaSupervisao;
+                string areaFormacao;
+                getline(fs, linha);
+                areaSupervisao = linha;
+
+                getline(fs, linha);
+                areaFormacao = linha;
+
+                funcionarios.push_back(new Diretor(cod, nome, end, tel, dtIngr, desig, sal,areaSupervisao,areaFormacao));
+            }
+
+            else if (desig == "presidente")
+            {
+                Presidente* func = new Presidente();
+                desig = "Presidente";
+                string formacaoAcademica;
+                string areaFormacao;
+
+                getline(fs, linha);
+                formacaoAcademica = linha;
+
+                getline(fs, linha);
+                areaFormacao = linha;
+
+                funcionarios.push_back(new Presidente(cod, nome, end, tel, dtIngr, desig, sal,formacaoAcademica,areaFormacao));
+            }
+
+            cout << endl << "Funcionário(s) cadastrado(s) com sucesso!" << endl;
+            cout << endl << endl;
+        }
+        while(!fs.eof());
+    }
+    else
+    {
+        cout << "Erro ao abrir arquivo" << endl;
+    }
+
+    fs.close();
+    
+}
+
 void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
 {
     fstream arq;
@@ -149,41 +297,39 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
         //escrever no arquivo todos os funcionarios cadastrados
         for (int i = 0; i < funcionarios.size(); i++)
         {
-            arq << "Codigo: " << funcionarios[i]->getCodigo() << endl;
+            arq << funcionarios[i]->getCodigo() << endl;
 
-            arq << "Nome: " << funcionarios[i]->getNome() << endl;
+            arq << funcionarios[i]->getNome() << endl;
 
-            arq << "Endereco: " << endl;
-            arq << "\tRua: " << funcionarios[i]->getEndereco().getRua() << endl
-                << "\tNumero: " << funcionarios[i]->getEndereco().getNumero() << endl
-                << "\tBairro: " << funcionarios[i]->getEndereco().getBairro() << endl
-                << "\tCidade: " << funcionarios[i]->getEndereco().getCidade() << endl
-                << "\tEstado: " << funcionarios[i]->getEndereco().getEstado() << endl
-                << "\tCEP: " << funcionarios[i]->getEndereco().getCep() << endl;
+            arq  << funcionarios[i]->getEndereco().getRua() << endl
+                 << funcionarios[i]->getEndereco().getNumero() << endl
+                 << funcionarios[i]->getEndereco().getBairro() << endl
+                 << funcionarios[i]->getEndereco().getCidade() << endl
+                 << funcionarios[i]->getEndereco().getEstado() << endl
+                 << funcionarios[i]->getEndereco().getCep() << endl;
 
-            arq << "Telefone: " << funcionarios[i]->getTelefone() << endl;
+            arq << funcionarios[i]->getTelefone() << endl;
 
-            arq << "Data de Ingresso: " << endl;
-            arq << "\t" << funcionarios[i]->getDataIngresso().getDia() << "/"
-                        << funcionarios[i]->getDataIngresso().getMes() << "/"
-                        << funcionarios[i]->getDataIngresso().getAno() << endl;
+            arq << funcionarios[i]->getDataIngresso().getDia() << endl
+                << funcionarios[i]->getDataIngresso().getMes() << endl
+                << funcionarios[i]->getDataIngresso().getAno() << endl;
 
 
-            arq << "Designacao: " << funcionarios[i]->getDesignacao() << endl;
+            arq  << funcionarios[i]->getDesignacao() << endl;
 
-            arq << "Salario: " << funcionarios[i]->getSalario() << endl;
+            arq << funcionarios[i]->getSalario() << endl;
             
             if (funcionarios[i]->getDesignacao() == "operador")
             {
                 Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
-                    
+
                 arq << endl;
             }
             else if (funcionarios[i]->getDesignacao() == "gerente")
             {
                 Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
 
-                arq << "Area de Supervisao do Gerente: " << func->getAreaSupervisaoGerente() << endl;
+                arq << func->getAreaSupervisaoGerente() << endl;
                 
                 arq << endl;
             }
@@ -191,8 +337,8 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
             {
                 Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
 
-                arq << "Area de Supervisao do Diretor: " << func->getAreaSupervisaoDiretor() << endl;
-                arq << "Formacao Academica do Diretor: " << func->getAreaFormacao() << endl;
+                arq << func->getAreaSupervisaoDiretor() << endl;
+                arq << func->getAreaFormacao() << endl;
                 
                 arq << endl;
             }
@@ -200,11 +346,12 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
             {
                 Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
 
-                arq << "Area de Formacao do Presidente: " << func->getAreaFormacaoPresidente() << endl;
-                arq << "Formacao Academica Máxima do Presidente: " << func->getFormacaoAcademicaPresidente() << endl;
+                arq << func->getAreaFormacaoPresidente() << endl;
+                arq << func->getFormacaoAcademicaPresidente() << endl;
                 
                 arq << endl;
             }
+            arq << endl;
         }
         arq.close();
     }
@@ -722,7 +869,7 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
         //procurar pelo cep
         if (enderecoDesejado == funcionarios[i]->getEndereco().getCep())
         {
-            buscarFuncionarioCep();
+            buscarFuncionarioCep(i);
             cout << endl;
         }
     }
@@ -731,26 +878,26 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
     system(CLEAR);
 }
 
-void GerenciamentoFuncionarios::buscarFuncionarioCep()
+void GerenciamentoFuncionarios::buscarFuncionarioCep(int i)
 {
     string cep, url, command;
 
-    cout << "Digite o cep: ";
-    getline (cin, cep);
-
+    /* cout << "Digite o cep: ";
+    getline (cin, cep); */
+    cep = funcionarios[i]->getEndereco().getCep();
 
     url = "viacep.com.br/ws/" + cep + "/json/";
 
-    cout << "url: " << url << endl;
+    /* cout << "url: " << url << endl; */
 
     command = "wget -O cep.txt " + url + " -q";
-    cout << "command: " << command << endl;
+    /* cout << "command: " << command << endl; */
 
     system(command.c_str()); // aqui ele entra num loop no codeblocks
     parseCEP();
-    
-    cout << "Digite qualquer tecla para continuar" << endl;
-    getchar();
+
+    cout << endl;
+    funcionarios[i]->exibirRegistroFuncionario();
     
 }
 
@@ -773,7 +920,7 @@ void GerenciamentoFuncionarios::parseCEP()
         if (i == 2 || i == 4 || i == 5 || i == 6)
         {
             pos2pt = linha.find(':');
-            dado = linha.substr(pos2pt + 3, dado.size() - 2 - pos2pt - 3);
+            dado = linha.substr(pos2pt + 3, linha.size() - 2 - pos2pt - 3);
 
             // dado = sub.substr(0, dado.size() - 2); // outra alternativa
             // cout << linha << endl; // para teste
@@ -843,24 +990,26 @@ void GerenciamentoFuncionarios::gerarHorasAleatorias()
 
     for (int i = 0; i < funcionarios.size(); i++)
     {   
-        //gerar valor aleatório
+        //gerar semente para achar valor aleatório
         srand(time(NULL));
 
-        //44 horas por semana * 4 semanas por mês
-        //além de 44h normais, o funcionário pode trabalhar 22h extras
-        normais = rand() % (44 * 4);        
-        funcionarios[i]->setHorasNormais(normais); 
+        int qtdMaxHorasMensais = rand() % (176 + 88);    //176 horas normais + 88 horas extras
 
-        //só há hora extra se o funcionário trabalhar mais de 44 horas por semana
-        if (funcionarios[i]->getHorasNormais() > 44)
+        normais = rand() % (176);        
+        funcionarios[i]->setHorasNormais(normais);
+
+        if (qtdMaxHorasMensais > 176)
         {
-            extras = rand() % (22 * 4);
+            extras = qtdMaxHorasMensais - normais;
             funcionarios[i]->setHorasExtras(extras);
+            extras = 0;
         }
         else
         {
-            funcionarios[i]->setHorasExtras(0);
+            extras = 0;
+            funcionarios[i]->setHorasExtras(extras);
         }
+        Sleep(1234);
     }
 }
 
@@ -899,21 +1048,28 @@ void GerenciamentoFuncionarios::calcularFolhaSalarial()
                  << " - Salário base: " << funcionarios[i]->getSalario() << endl << endl;
 
             //atribuir a quantidade de horas trabalhadas no mês com a função de gerar horas aleatórias
+            cout << "Aguarde um pouco, estamos gerando o salário de " << funcionarios[i]->getNome() << "..." << endl;
             gerarHorasAleatorias();
-        
-            //folhaSalarial[mes] += (funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial());
 
+            double salarioLiquido = funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
+            
             cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl
                  << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl
                  << "Salário mensal: " << funcionarios[i]->calcularSalarioMensal() << endl
                  << "Descontos imposto de renda: " << funcionarios[i]->descontosImpostoRenda() << endl
                  << "Descontos previdência social: " << funcionarios[i]->descontosPrevidenciaSocial() << endl
-                 << "Salário líquido: " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl << endl;
+                 << "Salário líquido: " << salarioLiquido << endl << endl;
+            
+            folhaSalarial[mes - 1] += funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
+            folhaSalarialComImp[mes - 1] += funcionarios[i]->calcularSalarioMensal();
         }
     }
 
-    cout << "O valor total da folha salarial é de R$ " << folhaSalarial[mes - 1] << endl
-         << "Pressione qualquer tecla para continuar" << endl;
+
+    cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << folhaSalarial[mes - 1] << endl
+         << "O valor total da folha salarial com os impostos é de R$ " << folhaSalarialComImp[mes - 1] << endl << endl;
+    
+    cout << "Pressione qualquer tecla para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -922,7 +1078,7 @@ void GerenciamentoFuncionarios::calcularFolhaSalarialFuncionario()
 {
 
     string nome, nomeLow;
-    int cod, codTeste;
+    int cod=0, codTeste;
     int opcao;
 
     //escolher entre pesquisar por código ou por nome
@@ -947,6 +1103,8 @@ void GerenciamentoFuncionarios::calcularFolhaSalarialFuncionario()
     {
         cout << "Digite o nome (ou parte do nome) do funcionário que deseja buscar: ";
         getline(cin, nome);
+        transform(nome.begin(), nome.end(), nome.begin(), ::tolower);
+        codTeste = 0;
     }
     else if (opcao == 2)
     {
@@ -958,14 +1116,20 @@ void GerenciamentoFuncionarios::calcularFolhaSalarialFuncionario()
     {
         nomeLow = funcionarios[i]->getNome();
         transform(nomeLow.begin(), nomeLow.end(), nomeLow.begin(), ::tolower);
-    
         cod = funcionarios[i]->getCodigo();
 
         if (nomeLow.find(nome) != -1 || cod == codTeste)
         {
+            cout << "Funcionário encontrado." << endl;
+            Sleep(529);
+            cout << "Aguarde um pouco, estamos gerando o salário de " << funcionarios[i]->getNome() << "..." << endl;
+            gerarHorasAleatorias();
+
             cout << "Folha salarial do funcionário " << funcionarios[i]->getNome() << ":" << endl << endl;
 
-            cout << "Salário base: R$ " << funcionarios[i]->getSalario() << endl
+            cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl
+                 << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl
+                 << "Salário base: R$ " << funcionarios[i]->getSalario() << endl
                  << "Salário mensal: R$ " << funcionarios[i]->calcularSalarioMensal() << endl
                  << "Desconto referente ao imposto de renda: R$ " << funcionarios[i]->descontosImpostoRenda() << endl
                  << "Desconto referente a previdência social: R$ " << funcionarios[i]->descontosPrevidenciaSocial() << endl
@@ -983,7 +1147,7 @@ void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
 {
 
     int opcao;
-    double folha = 0;
+    double folha = 0, folhaComImp = 0;
 
     do
     {
@@ -1008,19 +1172,39 @@ void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
     switch (opcao)
     {
         case 1:
-            for (int i = 0; i < 12; i++)
+            int j;
+
+            cout << "Aguarde um pouco, por favor. Estamos gerando a folha de salário anual. Deve demorar um pouco..." << endl;
+            for (int j = 0; j < 12; j++)
             {
-                folha += folhaSalarial[i];
+                for (int i = 0; i < funcionarios.size(); i++)
+                {  
+                    //atribuir a quantidade de horas trabalhadas no mês com a função de gerar horas aleatórias
+                    gerarHorasAleatorias();
+
+                    double salarioLiquido = funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
+                    
+                    folhaSalarial[j - 1] += funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
+                    folhaSalarialComImp[j - 1] += funcionarios[i]->calcularSalarioMensal();
+                    
+                    folha += folhaSalarial[j-1];
+                    folhaComImp += folhaSalarial[j-1];
+                }
             }
-        
+    
+            cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << folha << endl
+                 << "O valor total da folha salarial com os impostos é de R$ " << folhaComImp << endl << endl;
+            
+            cout << "Pressione qualquer tecla para continuar" << endl;
+            getchar();
+            system(CLEAR);
+
             break;
+
         case 2:
             do
             {
                 cout << "Digite o mês o qual deseja buscar: ";
-                cout << endl;
-
-                cout << "opção: ";
                 cin >> opcao;
                 cin.ignore();
 
@@ -1028,16 +1212,24 @@ void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
                 {
                     cout << "Opção inválida, por favor, tente novamente" << endl;
                 }
-
             }
             while (opcao < 1 || opcao > 12);
 
-            folha = folhaSalarial[opcao];
-            
+            for (int i = 0; i < funcionarios.size(); i++)
+            {
+                gerarHorasAleatorias();
+                folhaSalarial[opcao - 1] += funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
+                folhaSalarialComImp[opcao - 1] += funcionarios[i]->calcularSalarioMensal();
+            }
+
+            folha = folhaSalarial[opcao - 1];
+            folhaComImp = folhaSalarialComImp[opcao-1];
+
+            cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << folha << endl
+                 << "O valor total da folha salarial com os impostos é de R$ " << folhaComImp << endl << endl;
             break;
+            
         default:
             break;
     }
-
-    cout << "Total calculado: R$ " << folha << endl;
 }

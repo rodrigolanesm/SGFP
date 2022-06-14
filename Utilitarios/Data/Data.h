@@ -13,7 +13,8 @@ private:
 
 public:
     //construtor padrão
-    Data(); 
+    Data();
+    Data(int dia, int mes, int ano);
 
     //getters da classe Data
     int getDia();
