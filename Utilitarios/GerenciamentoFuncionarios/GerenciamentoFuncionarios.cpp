@@ -222,7 +222,7 @@ void GerenciamentoFuncionarios::lerArquivoCadastroFuncionario()
 
             // SALÁRIO
             getline(fs, linha);
-            sal = stod(linha);
+            //sal = stod(linha);
 
             // casting
             if (desig == "operador")
@@ -296,12 +296,12 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
     {
         //escrever no arquivo todos os funcionarios cadastrados
         for (int i = 0; i < funcionarios.size(); i++)
-        {
-            
+        {   
             arq << funcionarios[i]->toString() << endl;
+
             
             
-            arq << funcionarios[i]->getCodigo() << endl;
+            /* arq << funcionarios[i]->getCodigo() << endl;
 
             arq << funcionarios[i]->getNome() << endl;
 
@@ -355,7 +355,7 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
                 
                 arq << endl;
             }
-            arq << endl;
+            arq << endl; */
         }
         arq.close();
     }
@@ -411,7 +411,7 @@ void GerenciamentoFuncionarios::listarFuncionarios()
     
 
 
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -457,7 +457,7 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
         
     }
     cout << endl;
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -712,7 +712,7 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
     }
     while(opcao);
     
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -813,7 +813,7 @@ void GerenciamentoFuncionarios::buscarFuncionario()
     }
     while (opcao);
 
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -837,7 +837,7 @@ void GerenciamentoFuncionarios::buscarFuncionarioNome()
             cout << endl;
         }
     }
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -877,7 +877,7 @@ void GerenciamentoFuncionarios::buscarFuncionarioEndereco()
             cout << endl;
         }
     }
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }
@@ -983,301 +983,7 @@ void GerenciamentoFuncionarios::buscarFuncionarioDataIngresso()
             cout << "Funcionário não encontrado!" << endl;
         }
     }
-    cout << "Pressione qualquer tecla para continuar" << endl;
-    getchar();
-    system(CLEAR);
-}
-
-void GerenciamentoFuncionarios::gerarHorasAleatorias()
-{
-    int normais = 0, extras = 0;
-
-    for (int i = 0; i < funcionarios.size(); i++)
-    {   
-        //gerar semente para achar valor aleatório
-        srand(time(NULL));
-
-        int qtdMaxHorasMensais = rand() % (176 + 88);    //176 horas normais + 88 horas extras
-
-        if(qtdMaxHorasMensais >= 0 && qtdMaxHorasMensais <= 176)
-        {
-            normais = qtdMaxHorasMensais;
-            funcionarios[i]->setHorasNormais(normais);
-            extras = 0;
-            funcionarios[i]->setHorasExtras(extras);
-        }
-        else if (qtdMaxHorasMensais > 176)
-        {
-            normais = 176;
-            funcionarios[i]->setHorasNormais(normais);
-            extras = qtdMaxHorasMensais - 176;
-            funcionarios[i]->setHorasExtras(extras);
-            extras = 0;
-        }
-
-        Sleep(1234);
-    }
-}
-
-void GerenciamentoFuncionarios::calcularFolhaSalarial()
-{   
-    int mes;
-
-    do
-    {
-        cout << "Escolha um mês para calcular a folha salarial." << endl << endl
-             << "Número do mês escolhido: ";
-
-        cin >> mes;
-        cin.ignore();
-
-        cout << endl << endl;
-
-        if (mes < 1 || mes > 12) 
-        {
-            cout << "Mês inválido, tente novamente por favor." << endl;
-        }
-
-    }
-    while (mes < 1 || mes > 12);
-    
-    if (folhaSalarial[mes - 1]) // != 0
-    {
-        cout << "Este mês já foi calculado." << endl;
-    }
-    else
-    {   
-        for (int i = 0; i < funcionarios.size(); i++)
-        {  
-            cout << "Código: " << funcionarios[i]->getCodigo() 
-                 << " - Nome: " << funcionarios[i]->getNome() 
-                 << " - Salário base: " << funcionarios[i]->getSalario() << endl << endl;
-
-            //atribuir a quantidade de horas trabalhadas no mês com a função de gerar horas aleatórias
-            cout << "Aguarde um pouco, estamos gerando o salário de " << funcionarios[i]->getNome() << "..." << endl;
-            gerarHorasAleatorias();
-
-            double salarioLiquido = funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
-            
-            cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl
-                 << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl
-                 << "Salário mensal: " << funcionarios[i]->calcularSalarioMensal() << endl
-                 << "Descontos imposto de renda: " << funcionarios[i]->descontosImpostoRenda() << endl
-                 << "Descontos previdência social: " << funcionarios[i]->descontosPrevidenciaSocial() << endl
-                 << "Salário líquido: " << salarioLiquido << endl << endl;
-            
-            folhaSalarial[mes - 1] += funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
-            folhaSalarialComImp[mes - 1] += funcionarios[i]->calcularSalarioMensal();
-        }
-    }
-
-
-    cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << folhaSalarial[mes - 1] << endl
-         << "O valor total da folha salarial com os impostos é de R$ " << folhaSalarialComImp[mes - 1] << endl << endl;
-    
-    cout << "Pressione qualquer tecla para continuar" << endl;
-    getchar();
-    system(CLEAR);
-}
-
-void GerenciamentoFuncionarios::calcularFolhaSalarialFuncionario()
-{
-
-    string nome, nomeLow;
-    int cod=0, codTeste;
-    int opcao;
-
-    //escolher entre pesquisar por código ou por nome
-    do
-    {    
-        cout << "Deseja pesquisar o funcionário por nome ou código?" << endl
-             << "\t1 - Nome (ou parte do nome)" << endl
-             << "\t2 - Código" << endl;
-        
-        cout << "Digite: ";
-        cin >> opcao;
-        cin.ignore();
-
-        if (opcao != 1 && opcao != 2)
-        {
-            cout << "Opção inválida!" << endl;
-        }
-    }
-    while (opcao != 1 && opcao != 2);
-
-    if (opcao == 1)
-    {
-        cout << "Digite o nome (ou parte do nome) do funcionário que deseja buscar: ";
-        getline(cin, nome);
-        transform(nome.begin(), nome.end(), nome.begin(), ::tolower);
-        codTeste = 0;
-    }
-    else if (opcao == 2)
-    {
-        cout << "Digite o código do funcionário que deseja buscar: ";
-        cin >> codTeste;
-    }
-
-    for (int i = 0; i < funcionarios.size(); i++)
-    {
-        nomeLow = funcionarios[i]->getNome();
-        transform(nomeLow.begin(), nomeLow.end(), nomeLow.begin(), ::tolower);
-        cod = funcionarios[i]->getCodigo();
-
-        if (nomeLow.find(nome) != -1 || cod == codTeste)
-        {
-            cout << "Funcionário encontrado." << endl;
-            Sleep(529);
-            cout << "Aguarde um pouco, estamos gerando o salário de " << funcionarios[i]->getNome() << "..." << endl;
-            gerarHorasAleatorias();
-
-            cout << "Folha salarial do funcionário " << funcionarios[i]->getNome() << ":" << endl << endl;
-
-            cout << "Horas normais trabalhadas: " << funcionarios[i]->getHorasNormais() << endl
-                 << "Horas extras trabalhadas: " << funcionarios[i]->getHorasExtras() << endl
-                 << "Salário base: R$ " << funcionarios[i]->getSalario() << endl
-                 << "Salário mensal: R$ " << funcionarios[i]->calcularSalarioMensal() << endl
-                 << "Desconto referente ao imposto de renda: R$ " << funcionarios[i]->descontosImpostoRenda() << endl
-                 << "Desconto referente a previdência social: R$ " << funcionarios[i]->descontosPrevidenciaSocial() << endl
-                 << "Desconto salarial total : R$ " << funcionarios[i]->descontosImpostoRenda() + funcionarios[i]->descontosPrevidenciaSocial() << endl
-                 << "Salário líquido: R$ " << funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial() << endl;
-        }
-    }
-
-    cout << "Pressione qualquer tecla para continuar" << endl;
-    getchar();
-    system(CLEAR);
-}
-
-void GerenciamentoFuncionarios::imprimirFolhaSalarialEmpresa()
-{
-
-    int opcao;
-    double folha = 0, folhaComImp = 0;
-
-    do
-    {
-
-        cout << "Qual folha salarial deseja buscar?" << endl << endl
-            << " 1 - Anual " << endl
-            << " 2 - Mensal " << endl
-            << endl;
-         
-        cout << "opção: ";
-        cin >> opcao;
-        cin.ignore();  
-
-        if (opcao > 2 || opcao < 1)
-        {
-            cout << "Opção inválida, por favor, tente novamente." << endl;
-        }
-
-    }
-    while (opcao > 2 || opcao < 1);
-    
-    switch (opcao)
-    {
-        case 1:
-            int j;
-
-            cout << "Aguarde um pouco, por favor. Estamos gerando a folha de salário anual. Deve demorar um pouco..." << endl;
-            for (int j = 0; j < 12; j++)
-            {
-                for (int i = 0; i < funcionarios.size(); i++)
-                {  
-                    //atribuir a quantidade de horas trabalhadas no mês com a função de gerar horas aleatórias
-                    gerarHorasAleatorias();
-
-                    double salarioLiquido = funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
-                    
-                    folhaSalarial[j - 1] += funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
-                    folhaSalarialComImp[j - 1] += funcionarios[i]->calcularSalarioMensal();
-                    
-                    folha += folhaSalarial[j-1];
-                    folhaComImp += folhaSalarial[j-1];
-                }
-            }
-    
-            cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << folha << endl
-                 << "O valor total da folha salarial com os impostos é de R$ " << folhaComImp << endl << endl;
-            
-            cout << "Pressione qualquer tecla para continuar" << endl;
-            getchar();
-            system(CLEAR);
-
-            break;
-
-        case 2:
-            do
-            {
-                cout << "Digite o mês o qual deseja buscar: ";
-                cin >> opcao;
-                cin.ignore();
-
-                if (opcao < 1 || opcao > 12)
-                {
-                    cout << "Opção inválida, por favor, tente novamente" << endl;
-                }
-            }
-            while (opcao < 1 || opcao > 12);
-
-            for (int i = 0; i < funcionarios.size(); i++)
-            {
-                gerarHorasAleatorias();
-                folhaSalarial[opcao - 1] += funcionarios[i]->calcularSalarioMensal() - funcionarios[i]->descontosImpostoRenda() - funcionarios[i]->descontosPrevidenciaSocial();
-                folhaSalarialComImp[opcao - 1] += funcionarios[i]->calcularSalarioMensal();
-            }
-
-            folha = folhaSalarial[opcao - 1];
-            folhaComImp = folhaSalarialComImp[opcao-1];
-
-            cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << folha << endl
-                 << "O valor total da folha salarial com os impostos é de R$ " << folhaComImp << endl << endl;
-            break;
-            
-        default:
-            break;
-    }
-}
-
-void GerenciamentoFuncionarios::concederAumentoSalarial(){
-
-    string tipoComparacao;
-    double valorAumento;
-
-    for (int i = 0; i < funcionarios.size(); i++)
-    {
-        tipoComparacao = funcionarios[i]->getDesignacao();
-        transform(tipoComparacao.begin(), tipoComparacao.end(), tipoComparacao.begin(), ::tolower);
-
-        if (tipoComparacao == "operador")
-        {
-            valorAumento = ((Operador*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
-            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
-        }
-        
-        else if (tipoComparacao == "gerente")
-        {
-            valorAumento = ((Gerente*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
-            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
-        }
-        
-        else if (tipoComparacao == "diretor")
-        {
-            valorAumento = ((Diretor*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
-            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
-        }
-        
-        else if (tipoComparacao == "presidente")
-        {
-            valorAumento = ((Presidente*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
-            funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
-        }
-        
-    }
-    cout << endl;
-    cout << "Aumento salarial concedido aos funcionários com sucesso." << endl;
-    cout << "Pressione qualquer tecla para continuar" << endl;
+    cout << "Pressione ENTER para continuar" << endl;
     getchar();
     system(CLEAR);
 }

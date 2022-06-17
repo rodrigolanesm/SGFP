@@ -12,6 +12,7 @@
         "istream": "cpp",
         "initializer_list": "cpp",
         "algorithm": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "fstream": "cpp"
     }
 }

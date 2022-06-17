@@ -75,6 +75,11 @@ void Funcionario::setHorasExtras(int horasExtras)
     this->horasExtras = horasExtras;
 }
     
+void Funcionario::setSalarioMensal(double salarioMensal)
+{
+    this->salarioMensal = salarioMensal;
+}
+
 // getters
 
 int Funcionario::getCodigo()
@@ -120,6 +125,11 @@ int Funcionario::getHorasNormais()
 int Funcionario::getHorasExtras()
 {
     return horasExtras;
+}
+
+double Funcionario::getSalarioMensal()
+{
+    return salarioMensal;
 }
 
 void Funcionario::exibirRegistroFuncionario()
@@ -168,20 +178,20 @@ double Funcionario::descontosImpostoRenda(double salarioMensal)
     faixa 4: R$ 3751,06 a R$ 4664,68 | IR: 22,5% | deduções: R$ 636,13
     faixa 5: R$ 4664,69 a R$ 5541,59 | IR: 27,5% | deduções: R$ 869,36    
     */
-    double slr = calcularSalarioMensal() - descontosPrevidenciaSocial();
+    double slr = salarioMensal - descontosPrevidenciaSocial(salarioMensal);
     if (slr <= 1903.98)
     {
         return 0;
     }
-    else if (1903.99 <= slr <= 2826.65)
+    else if (1903.99 <= slr && slr <= 2826.65)
     {
         return slr * 0.075 - 142.8;
     }
-    else if (2826.66 <= slr <= 3751.05)
+    else if (2826.66 <= slr && slr <= 3751.05)
     {
         return slr * 0.15 - 354.80;
     }
-    else if (3751.06 <= slr <= 4664.68)
+    else if (3751.06 <= slr && slr <= 4664.68)
     {
         return slr * 0.225 - 636.13;
     }
@@ -191,7 +201,7 @@ double Funcionario::descontosImpostoRenda(double salarioMensal)
     }
 }
 
-double Funcionario::descontosPrevidenciaSocial()
+double Funcionario::descontosPrevidenciaSocial(double salarioMensal)
 {
     //tabela de descontos de previdencia social/INSS
     /* 
@@ -202,22 +212,21 @@ double Funcionario::descontosPrevidenciaSocial()
     */
 
    double deducao = 0;
-   salarioMensal = calcularSalarioMensal();
    double slr = salarioMensal;
 
     if (slr <= 1212)
     {
         deducao = slr * 0.075;
     }
-    else if (1212.01 <= slr <= 2427.35)
+    else if (1212.01 <= slr && slr <= 2427.35)
     {
         deducao = 1212 * 0.075 + (slr - 1212.00) * 0.09; 
     }
-    else if (2427.36 <= slr <= 3641.03)
+    else if (2427.36 <= slr && slr <= 3641.03)
     {
         deducao = 1212 * 0.075 + (2427.35 - 1212.01) * 0.09 + (slr - 3641.03) * 0.12;
     }
-    else if (3641.04 <= slr <= 7087.22)
+    else if (3641.04 <= slr && slr <= 7087.22)
     {
         deducao = 1212 * 0.075 + (2427.35 - 1212.01) * 0.09 + (3641.03 - 2427.35) * 0.12 + (slr - 3641.04) * 0.14;
     }
@@ -226,4 +235,34 @@ double Funcionario::descontosPrevidenciaSocial()
         deducao = 1212 * 0.075 + (2427.35 - 1212.01) * 0.09 + (3641.03 - 2427.35) * 0.12 + (7087.22 - 3641.04) * 0.14;
     }
     return deducao;
+}
+
+string Funcionario::toString()
+{
+    string cod = to_string(getCodigo());
+    string dia = to_string(getDataIngresso().getDia());
+    string mes = to_string(getDataIngresso().getMes());
+    string ano = to_string(getDataIngresso().getAno());
+    string str;
+    str = cod + "\n" +
+          getNome() + "\n" +
+          getEndereco().getRua() + "\n" +
+          getEndereco().getNumero() + "\n" +
+          getEndereco().getBairro() + "\n" +
+          getEndereco().getCidade() + "\n" +
+          getEndereco().getEstado() + "\n" +
+          getEndereco().getCep() + "\n" +
+          getTelefone() + "\n" +
+          dia + "\n" +
+          mes + "\n" +
+          ano + "\n" +
+          getDesignacao() + "\n" +
+          AtributosEspecificos(designacao);
+
+    return str;
+}
+
+string Funcionario::AtributosEspecificos(string designacao)
+{
+    
 }

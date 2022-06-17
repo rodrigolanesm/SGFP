@@ -30,6 +30,7 @@ public:
     virtual void setSalario(double salario);
     virtual void setHorasNormais(int horasNormais);
     virtual void setHorasExtras(int horasExtras);
+    virtual void setSalarioMensal(double salarioMensal);
 
     //getters da classe Funcionario
     virtual int getCodigo();
@@ -41,6 +42,7 @@ public:
     virtual double getSalario();
     virtual int getHorasNormais();
     virtual int getHorasExtras();
+    virtual double getSalarioMensal();
 
 
     //metodos da classe Funcionario
@@ -50,6 +52,9 @@ public:
     double descontosImpostoRenda(double salarioMensal);
     double descontosPrevidenciaSocial(double salarioMensal);
 
+    virtual string toString();
+    virtual string AtributosEspecificos(string designacao);
+
 protected:
     int codigo;
     string nome;
@@ -58,6 +63,8 @@ protected:
     Data dataIngresso;
     string designacao;
     double salario;
+
+    double salarioMensal;   //variável auxiliar para os métodos de desconto de impostos
 
     int horasNormais;
     int horasExtras;

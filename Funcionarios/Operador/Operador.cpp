@@ -30,3 +30,13 @@ double Operador::taxaAumento()
 
     return taxaAumento;
 }
+
+string Operador::toString()
+{
+
+}
+
+string Operador::AtributosEspecificos()
+{
+
+}

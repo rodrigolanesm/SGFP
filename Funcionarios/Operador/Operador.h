@@ -17,6 +17,9 @@ public:
 
     double taxaAumento(); 
 
+    string toString();
+    string AtributosEspecificos();
+
 private:
     
 };

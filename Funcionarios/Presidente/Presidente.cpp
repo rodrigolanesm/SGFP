@@ -55,3 +55,14 @@ double Presidente::taxaAumento()
 
     return taxaAumento;
 }
+
+string Presidente::toString()
+{
+
+}
+
+string Presidente::AtributosEspecificos()
+{
+    string str = getFormacaoAcademicaPresidente() + "\n" + getAreaFormacaoPresidente() + "\n";
+    return str;
+}

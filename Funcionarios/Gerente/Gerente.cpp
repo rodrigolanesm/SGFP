@@ -56,3 +56,13 @@ double Gerente::taxaAumento()
 
     return taxaAumento;
 }
+
+string Gerente::toString()
+{
+
+}
+
+string Gerente::AtributosEspecificos()
+{
+    return getAreaSupervisaoGerente();
+}

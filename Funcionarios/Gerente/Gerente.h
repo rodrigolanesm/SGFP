@@ -22,6 +22,9 @@ public:
 
     double taxaAumento();
 
+    string toString();
+    string AtributosEspecificos();
+
 protected:
 
     string areaSupervisaoGerente;

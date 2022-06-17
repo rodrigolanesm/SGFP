@@ -40,7 +40,7 @@ public:
     void parseCEP();
     void buscarFuncionarioDataIngresso();
 
-    void gerarHorasAleatorias();
+/*     void gerarHorasAleatorias();
     void calcularFolhaSalarial();
     void calcularFolhaSalarialFuncionario();
     void imprimirFolhaSalarialEmpresa();    //arquivo
@@ -48,7 +48,7 @@ public:
     void descontosImpostoRenda();
     void descontosPrevidenciaSocial();
 
-    void concederAumentoSalarial();
+    void concederAumentoSalarial(); */
 
 protected:
     //lista de funcionarios

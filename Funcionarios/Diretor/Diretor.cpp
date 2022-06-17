@@ -56,10 +56,16 @@ double Diretor::taxaAumento()
     return taxaAumento;
 }
 
-/* string Diretor::toString(){
-  string result =  codigo + "\n";
+string Diretor::toString(){
+  /* string result =  codigo + "\n";
   result += nome + "\n";
   
-  result += this->getAreaSupervisaoDiretor();
+  result += this->getAreaSupervisaoDiretor(); */
 
-}  */
+} 
+
+string Diretor::AtributosEspecificos()
+{
+    string str = getAreaSupervisaoDiretor() + "\n" + getAreaFormacao() + "\n";
+    return str;
+}

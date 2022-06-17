@@ -17,6 +17,7 @@
 #include <time.h>
 #include <algorithm>
 #include <dos.h>
+#include <iomanip>
 
 class Salarios : public GerenciamentoFuncionarios
 {
@@ -28,9 +29,7 @@ public:
     void calcularFolhaSalarial();
     void calcularFolhaSalarialFuncionario();
     void imprimirFolhaSalarialEmpresa();    //arquivo
-    
-    void descontosImpostoRenda();
-    void descontosPrevidenciaSocial();
+    void concederAumentoSalarial();
 private:
     int folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
