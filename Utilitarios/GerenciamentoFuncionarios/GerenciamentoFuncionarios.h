@@ -40,16 +40,6 @@ public:
     void parseCEP();
     void buscarFuncionarioDataIngresso();
 
-/*     void gerarHorasAleatorias();
-    void calcularFolhaSalarial();
-    void calcularFolhaSalarialFuncionario();
-    void imprimirFolhaSalarialEmpresa();    //arquivo
-    
-    void descontosImpostoRenda();
-    void descontosPrevidenciaSocial();
-
-    void concederAumentoSalarial(); */
-
 protected:
     //lista de funcionarios
     vector <Funcionario *> funcionarios;

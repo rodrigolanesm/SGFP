@@ -53,7 +53,7 @@ public:
     double descontosPrevidenciaSocial(double salarioMensal);
 
     virtual string toString();
-    virtual string AtributosEspecificos(string designacao);
+    virtual string AtributosEspecificos();
 
 protected:
     int codigo;

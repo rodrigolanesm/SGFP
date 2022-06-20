@@ -257,12 +257,12 @@ string Funcionario::toString()
           mes + "\n" +
           ano + "\n" +
           getDesignacao() + "\n" +
-          AtributosEspecificos(designacao);
+          AtributosEspecificos();
 
     return str;
 }
 
-string Funcionario::AtributosEspecificos(string designacao)
+string Funcionario::AtributosEspecificos()
 {
-    
+    return "";
 }

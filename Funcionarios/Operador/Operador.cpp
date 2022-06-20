@@ -33,10 +33,10 @@ double Operador::taxaAumento()
 
 string Operador::toString()
 {
-
+    return "";
 }
 
 string Operador::AtributosEspecificos()
 {
-
+    return "";
 }

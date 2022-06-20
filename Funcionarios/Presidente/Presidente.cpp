@@ -58,11 +58,12 @@ double Presidente::taxaAumento()
 
 string Presidente::toString()
 {
-
+    string str = Funcionario::toString() + AtributosEspecificos();
+    return str;
 }
 
 string Presidente::AtributosEspecificos()
 {
-    string str = getFormacaoAcademicaPresidente() + "\n" + getAreaFormacaoPresidente() + "\n";
+    string str = getFormacaoAcademicaPresidente()+ "\n" + getAreaFormacaoPresidente() + "\n";
     return str;
 }

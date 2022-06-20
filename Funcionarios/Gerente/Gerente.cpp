@@ -59,10 +59,12 @@ double Gerente::taxaAumento()
 
 string Gerente::toString()
 {
-
+    string str = Funcionario::toString() + AtributosEspecificos();
+    return str;
 }
 
 string Gerente::AtributosEspecificos()
 {
-    return getAreaSupervisaoGerente();
+    string str = getAreaSupervisaoGerente() + "\n";
+    return str;
 }

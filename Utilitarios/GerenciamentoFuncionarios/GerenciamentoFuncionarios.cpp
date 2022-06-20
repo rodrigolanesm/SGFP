@@ -36,12 +36,14 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         cout << "Cadastro de Funcionário" << endl;
         do
         {
-            cout << "Digite o código do funcionário: ";
+            cout << "Digite o código do funcionário. ";
+            cout << "OBS.: São aceitos apenas códigos com números maiores que zero." << endl;
+            cout << "Código: ";
             cin >> cod;
             cin.ignore();
-            if (!cod)
+            if (cod <= 0)
             {
-                cout << "Desculpe o transtorno! O código não pode ser 0." << endl << endl;
+                cout << "Desculpe o transtorno! O código precisa ser um número positivo." << endl << endl;
             }
             for (int i = 0; i < funcionarios.size(); i++)
             {
@@ -51,7 +53,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
                 }
             }
         }
-        while (!cod); // cod == 0
+        while (cod <= 0);
         
         cout << endl;
         cout << "Digite o nome do funcionário: ";
@@ -299,8 +301,6 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
         {   
             arq << funcionarios[i]->toString() << endl;
 
-            
-            
             /* arq << funcionarios[i]->getCodigo() << endl;
 
             arq << funcionarios[i]->getNome() << endl;
@@ -486,7 +486,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
             cin.ignore();
         }
 
-        if (cod) // != 0
+        if (cod > 0) // != 0
         {
             for (int i = 0; i < funcionarios.size(); i++)
             {            
@@ -526,6 +526,13 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                         funcionarios[i]->setDataIngresso(dt);
                         break;
                     case 5:
+                        /* if (funcionarios[i]->getDesignacao() == "Presidente" 
+                            || funcionarios[i]->getDesignacao() == "Diretor")
+                        {
+                            cout << "Desculpe. Não podemos alterar o registro do " << funcionarios[i]->getDesignacao() << endl;
+                            break;
+                        } */
+                        cout << funcionarios[i]->getDesignacao() << endl;
                         cout << "Digite a nova designação: ";
                         getline(cin, str);
                         transform(str.begin(), str.end(), str.begin(), ::tolower);
@@ -536,8 +543,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                         {
                             Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
                             str = "Operador";
-
-
+                            //Cria-se um novo funcionário com as novas informações
                             funcionarios.push_back(new Operador(funcionarios[i]->getCodigo(),
                                                                 funcionarios[i]->getNome(), 
                                                                 funcionarios[i]->getEndereco(), 
@@ -545,7 +551,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                                                                 funcionarios[i]->getDataIngresso(), 
                                                                 str, funcionarios[i]->getSalario()));
 
-                            // LA GAMBIARRA
+                            // Método para excluir os funcionários alterados
                             funcionarios[i]->setCodigo(0);
                             excluirRegistroFuncionario(0);
                             break;
@@ -560,7 +566,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
 
                             cout << "Digite a área de supervisão do gerente: ";
                             getline(cin, areaSupervisaoGerente);
-
+                            //Cria-se um novo funcionário com as novas informações
                             funcionarios.push_back(new Gerente(funcionarios[i]->getCodigo(),
                                                                 funcionarios[i]->getNome(), 
                                                                 funcionarios[i]->getEndereco(), 
@@ -568,7 +574,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                                                                 funcionarios[i]->getDataIngresso(),
                                                                 str, funcionarios[i]->getSalario(),
                                                                 areaSupervisaoGerente));
-                            // LA GAMBIARRA
+                            // Método para excluir os funcionários alterados
                             funcionarios[i]->setCodigo(0);
                             excluirRegistroFuncionario(0);
                             break;
@@ -586,7 +592,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
 
                             cout << "Digite a área de formação do diretor: ";
                             getline(cin, areaFormacaoDiretor);
-
+                            //Cria-se um novo funcionário com as novas informações
                             funcionarios.push_back(new Diretor( funcionarios[i]->getCodigo(),
                                                                 funcionarios[i]->getNome(), 
                                                                 funcionarios[i]->getEndereco(), 
@@ -595,7 +601,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                                                                 str, funcionarios[i]->getSalario(),
                                                                 areaSupervisaoDiretor, areaFormacaoDiretor));
 
-                            // LA GAMBIARRA
+                            // Método para excluir os funcionários alterados
                             funcionarios[i]->setCodigo(0);
                             excluirRegistroFuncionario(0);
                             break;
@@ -614,6 +620,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
 
                             cout << "Digite a área de formação do presidente: ";
                             getline(cin, areaFormacaoPresidente);
+                            //Cria-se um novo funcionário com as novas informações
                             funcionarios.push_back(new Presidente(funcionarios[i]->getCodigo(),
                                                                     funcionarios[i]->getNome(), 
                                                                     funcionarios[i]->getEndereco(), 
@@ -622,7 +629,7 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                                                                     str, funcionarios[i]->getSalario(),
                                                                     formacaoAcademica, areaFormacaoPresidente));
 
-                            // LA GAMBIARRA
+                            // Método para excluir os funcionários alterados
                             funcionarios[i]->setCodigo(0);
                             excluirRegistroFuncionario(0);
                             break;
