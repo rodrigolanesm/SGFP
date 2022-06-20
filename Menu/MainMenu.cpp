@@ -11,13 +11,14 @@ void MainMenu::exibeMenu()
     cout << "2 - Cadastrar automaticamente o funcionário via arquivo" << endl;
     cout << "3 - Listar funcionários" << endl;
     cout << "4 - Listar funcionários por tipo" << endl;
-    cout << "5 - Alterar registro de um funcionário" << endl;
-    cout << "6 - Excluir registro de um funcionário" << endl;
-    cout << "7 - Buscar funcionário" << endl;
-    cout << "8 - Calcular folha salarial" << endl;
-    cout << "9 - Calcular folha salarial de um funcionário" << endl;
-    cout << "10 - Calcular folha salarial da empresa" << endl;
-    cout << "11 - Conceder aumento salarial para os funcionários" << endl;
+    cout << "5 - Exibir registro de um funcionário" << endl;
+    cout << "6 - Alterar registro de um funcionário" << endl;
+    cout << "7 - Excluir registro de um funcionário" << endl;
+    cout << "8 - Buscar funcionário" << endl;
+    cout << "9 - Calcular folha salarial" << endl;
+    cout << "10 - Calcular folha salarial de um funcionário" << endl;
+    cout << "11 - Calcular folha salarial da empresa" << endl;
+    cout << "12 - Conceder aumento salarial para os funcionários" << endl;
     cout << "0 - Sair" << endl;
 }
 
@@ -44,26 +45,29 @@ void MainMenu::escolherOpcaoMenu()
             break;
         case 4:
             gf.listarFuncionariosTipo();
-            break;    
+            break;
         case 5:
-            gf.alterarRegistroFuncionario();
+            gf.exibirRegistroFuncionario();
             break;
         case 6:
-            gf.excluirRegistroFuncionario();
+            gf.alterarRegistroFuncionario();
             break;
         case 7:
-            gf.buscarFuncionario();
+            gf.excluirRegistroFuncionario();
             break;
         case 8:
-            gf.calcularFolhaSalarial();
+            gf.buscarFuncionario();
             break;
         case 9:
+            gf.calcularFolhaSalarial();
+            break;
+        case 10:
             gf.calcularFolhaSalarialFuncionario();
             break;  
-        case 10:
+        case 11:
             gf.imprimirFolhaSalarialEmpresa();
             break;
-        case 11:
+        case 12:
             gf.concederAumentoSalarial();
             break;
         case 0:

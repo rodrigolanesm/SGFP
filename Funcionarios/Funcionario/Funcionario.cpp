@@ -135,19 +135,13 @@ double Funcionario::getSalarioMensal()
 void Funcionario::exibirRegistroFuncionario()
 {
     cout << "Codigo: " << codigo << endl;
-    
     cout << "Nome: " << nome << endl;
-
     cout << "Endereco: ";
     endereco.exibirEndereco();
-
     cout << "Telefone: " << telefone << endl;
-
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
-
     cout << "Designacao: " << designacao << endl;
-    
     cout << "Salario: " << salario << endl;
 }
 

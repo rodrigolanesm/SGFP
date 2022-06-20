@@ -47,7 +47,7 @@ public:
 
     //metodos da classe Funcionario
     virtual void exibirRegistroFuncionario();
-    double   calcularSalarioMensal();
+    double calcularSalarioMensal();
 
     double descontosImpostoRenda(double salarioMensal);
     double descontosPrevidenciaSocial(double salarioMensal);

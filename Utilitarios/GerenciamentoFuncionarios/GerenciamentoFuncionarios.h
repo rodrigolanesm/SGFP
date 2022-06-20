@@ -27,12 +27,12 @@ public:
     void lerArquivoCadastroFuncionario();    // cadastro automático dos funcionarios, feito a partir de um arquivo
     void EscreverArquivoCadastroFuncionario();
     void listarFuncionarios(); // aqui está a opção de salvar os registros dos funcionarios em arquivo
-    void listarFuncionariosTipo();  
+    void listarFuncionariosTipo(); 
+    void exibirRegistroFuncionario(); 
     void alterarRegistroFuncionario();
     void excluirRegistroFuncionario();
     void excluirRegistroFuncionario(int codigo);
     void exibirMenuBusca();
-
     void buscarFuncionario();
     void buscarFuncionarioNome();
     void buscarFuncionarioEndereco();

@@ -94,7 +94,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
             cout << "Digite a área de supervisão do gerente: ";
             getline(cin, area);
             func->setAreaSupervisaoGerente(area);
-            funcionarios.push_back(new Gerente(cod, nome, end, tel, dtIngr, desig, sal,area));
+            funcionarios.push_back(new Gerente(cod, nome, end, tel, dtIngr, desig, sal, area));
         }
 
         else if (desig == "diretor")
@@ -111,7 +111,7 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
             getline(cin, areaFormacao);
             func->setAreaSupervisaoDiretor(areaFormacao);
 
-            funcionarios.push_back(new Diretor(cod, nome, end, tel, dtIngr, desig, sal,areaSupervisao,areaFormacao));
+            funcionarios.push_back(new Diretor(cod, nome, end, tel, dtIngr, desig, sal, areaSupervisao, areaFormacao));
         }
 
         else if (desig == "presidente")
@@ -299,7 +299,10 @@ void GerenciamentoFuncionarios::EscreverArquivoCadastroFuncionario()
         //escrever no arquivo todos os funcionarios cadastrados
         for (int i = 0; i < funcionarios.size(); i++)
         {   
-            arq << funcionarios[i]->toString() << endl;
+            /* if(funcionarios[i]->getDesignacao == classe)
+            {
+                arq << funcionarios[i]->toString() << endl;
+            } */
 
             /* arq << funcionarios[i]->getCodigo() << endl;
 
@@ -462,6 +465,26 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
     system(CLEAR);
 }
 
+void GerenciamentoFuncionarios::exibirRegistroFuncionario()
+{
+    int codigoBuscado;
+    cout << "Digite o código do funcionário a ser buscado: ";
+    cin >> codigoBuscado;
+    cin.ignore();
+
+    for (int i = 0; i < funcionarios.size(); i++)
+    {
+        if (funcionarios[i]->getCodigo() == codigoBuscado)
+        {
+            funcionarios[i]->exibirRegistroFuncionario();
+        }
+    }
+    
+    getchar();
+    cout << "Pressione ENTER para sair" << endl;
+    system(CLEAR);
+}
+
 void GerenciamentoFuncionarios::alterarRegistroFuncionario()
 {
     // variáveis auxiliares para a alteração de um funcionário
@@ -491,164 +514,179 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
             for (int i = 0; i < funcionarios.size(); i++)
             {            
                 // condição para alterar o funcionário: o código digitado pelo usuário ao código do funcionário a ser alterado
-                
-                int opcao;
-                cout << "Digite a informação que deseja alterar: " << endl;
-                cout << "\t1 - Nome" << endl;
-                cout << "\t2 - Endereço" << endl;
-                cout << "\t3 - Telefone" << endl;
-                cout << "\t4 - Data de ingresso" << endl;
-                cout << "\t5 - Designação" << endl;
-                cout << "\t6 - Salário" << endl;
-                cout << "\t0 - Sair" << endl;
-                
-                cin >> opcao;
-                cin.ignore();
-
-                switch (opcao)
+                int confirmacao = 0;
+                if (cod == funcionarios[i]->getCodigo()) 
                 {
-                    case 1:
-                        cout << "Digite o novo nome: ";
-                        getline(cin, str);
-                        funcionarios[i]->setNome(str);
-                        break;
-                    case 2:
-                        end.lerEndereco();
-                        funcionarios[i]->setEndereco(end);
-                        break;
-                    case 3:
-                        cout << "Digite o novo telefone: ";
-                        getline(cin, str);
-                        funcionarios[i]->setTelefone(str);
-                        break;
-                    case 4:
-                        dt.lerData();
-                        funcionarios[i]->setDataIngresso(dt);
-                        break;
-                    case 5:
-                        /* if (funcionarios[i]->getDesignacao() == "Presidente" 
-                            || funcionarios[i]->getDesignacao() == "Diretor")
-                        {
-                            cout << "Desculpe. Não podemos alterar o registro do " << funcionarios[i]->getDesignacao() << endl;
+                    confirmacao = 1;
+                    int opcao;
+                    cout << "Digite a informação que deseja alterar: " << endl;
+                    cout << "\t1 - Nome" << endl;
+                    cout << "\t2 - Endereço" << endl;
+                    cout << "\t3 - Telefone" << endl;
+                    cout << "\t4 - Data de ingresso" << endl;
+                    cout << "\t5 - Designação" << endl;
+                    cout << "\t6 - Salário" << endl;
+                    cout << "\t0 - Sair" << endl;
+                    
+                    cin >> opcao;
+                    cin.ignore();
+
+                    switch (opcao)
+                    {
+                        case 1:
+                            cout << "Digite o novo nome: ";
+                            getline(cin, str);
+                            funcionarios[i]->setNome(str);
                             break;
-                        } */
-                        cout << funcionarios[i]->getDesignacao() << endl;
-                        cout << "Digite a nova designação: ";
-                        getline(cin, str);
-                        transform(str.begin(), str.end(), str.begin(), ::tolower);
-
-                        // casting
-
-                        if (str == "operador")
-                        {
-                            Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
-                            str = "Operador";
-                            //Cria-se um novo funcionário com as novas informações
-                            funcionarios.push_back(new Operador(funcionarios[i]->getCodigo(),
-                                                                funcionarios[i]->getNome(), 
-                                                                funcionarios[i]->getEndereco(), 
-                                                                funcionarios[i]->getTelefone(),
-                                                                funcionarios[i]->getDataIngresso(), 
-                                                                str, funcionarios[i]->getSalario()));
-
-                            // Método para excluir os funcionários alterados
-                            funcionarios[i]->setCodigo(0);
-                            excluirRegistroFuncionario(0);
+                        case 2:
+                            end.lerEndereco();
+                            funcionarios[i]->setEndereco(end);
                             break;
-                        }
-
-                        else if (str == "gerente")
-                        {
-                            Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
-                            str = "Gerente";
-
-                            string areaSupervisaoGerente;
-
-                            cout << "Digite a área de supervisão do gerente: ";
-                            getline(cin, areaSupervisaoGerente);
-                            //Cria-se um novo funcionário com as novas informações
-                            funcionarios.push_back(new Gerente(funcionarios[i]->getCodigo(),
-                                                                funcionarios[i]->getNome(), 
-                                                                funcionarios[i]->getEndereco(), 
-                                                                funcionarios[i]->getTelefone(),
-                                                                funcionarios[i]->getDataIngresso(),
-                                                                str, funcionarios[i]->getSalario(),
-                                                                areaSupervisaoGerente));
-                            // Método para excluir os funcionários alterados
-                            funcionarios[i]->setCodigo(0);
-                            excluirRegistroFuncionario(0);
+                        case 3:
+                            cout << "Digite o novo telefone: ";
+                            getline(cin, str);
+                            funcionarios[i]->setTelefone(str);
                             break;
-                        }
-
-                        else if (str == "diretor")
-                        {
-                            Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
-                            str = "Diretor";
-
-                            string areaSupervisaoDiretor, areaFormacaoDiretor;
+                        case 4:
+                            dt.lerData();
+                            funcionarios[i]->setDataIngresso(dt);
+                            break;
+                        case 5:
+                            if (funcionarios[i]->getDesignacao() == "Presidente" 
+                                || funcionarios[i]->getDesignacao() == "Diretor")
+                            {
+                                cout << "Desculpe. Não podemos alterar o registro do " << funcionarios[i]->getDesignacao() << "." << endl;
+                                break;
+                            }
                             
-                            cout << "Digite a área de supervisão do diretor: ";
-                            getline(cin, areaSupervisaoDiretor);
+                            cout << "Digite a nova designação: ";
+                            getline(cin, str);
+                            transform(str.begin(), str.end(), str.begin(), ::tolower);
 
-                            cout << "Digite a área de formação do diretor: ";
-                            getline(cin, areaFormacaoDiretor);
-                            //Cria-se um novo funcionário com as novas informações
-                            funcionarios.push_back(new Diretor( funcionarios[i]->getCodigo(),
-                                                                funcionarios[i]->getNome(), 
-                                                                funcionarios[i]->getEndereco(), 
-                                                                funcionarios[i]->getTelefone(),
-                                                                funcionarios[i]->getDataIngresso(),
-                                                                str, funcionarios[i]->getSalario(),
-                                                                areaSupervisaoDiretor, areaFormacaoDiretor));
+                            // casting
 
-                            // Método para excluir os funcionários alterados
-                            funcionarios[i]->setCodigo(0);
-                            excluirRegistroFuncionario(0);
-                            break;
-                        }
+                            if (str == "operador")
+                            {
+                                Operador* func = dynamic_cast<Operador*>(funcionarios[i]);
+                                str = "Operador";
+                                //Cria-se um novo funcionário com as novas informações
+                                funcionarios.push_back(new Operador(funcionarios[i]->getCodigo(),
+                                                                    funcionarios[i]->getNome(), 
+                                                                    funcionarios[i]->getEndereco(), 
+                                                                    funcionarios[i]->getTelefone(),
+                                                                    funcionarios[i]->getDataIngresso(), 
+                                                                    str, funcionarios[i]->getSalario()));
 
-                        else if (str == "presidente")
-                        {
-                            Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
-                            str = "Presidente";
+                                // Método para excluir os funcionários alterados
+                                funcionarios[i]->setCodigo(0);
+                                excluirRegistroFuncionario(0);
+                                break;
+                            }
 
-                            string formacaoAcademica;
-                            string areaFormacaoPresidente;
+                            else if (str == "gerente")
+                            {
+                                Gerente* func = dynamic_cast<Gerente*>(funcionarios[i]);
+                                str = "Gerente";
 
-                            cout << "Digite a formação acadêmica do presidente: ";
-                            getline(cin, formacaoAcademica);
+                                string areaSupervisaoGerente;
 
-                            cout << "Digite a área de formação do presidente: ";
-                            getline(cin, areaFormacaoPresidente);
-                            //Cria-se um novo funcionário com as novas informações
-                            funcionarios.push_back(new Presidente(funcionarios[i]->getCodigo(),
+                                cout << "Digite a área de supervisão do gerente: ";
+                                getline(cin, areaSupervisaoGerente);
+                                //Cria-se um novo funcionário com as novas informações
+                                funcionarios.push_back(new Gerente(funcionarios[i]->getCodigo(),
                                                                     funcionarios[i]->getNome(), 
                                                                     funcionarios[i]->getEndereco(), 
                                                                     funcionarios[i]->getTelefone(),
                                                                     funcionarios[i]->getDataIngresso(),
                                                                     str, funcionarios[i]->getSalario(),
-                                                                    formacaoAcademica, areaFormacaoPresidente));
+                                                                    areaSupervisaoGerente));
+                                // Método para excluir os funcionários alterados
+                                funcionarios[i]->setCodigo(0);
+                                excluirRegistroFuncionario(0);
+                                break;
+                            }
 
-                            // Método para excluir os funcionários alterados
-                            funcionarios[i]->setCodigo(0);
-                            excluirRegistroFuncionario(0);
+                            else if (str == "diretor")
+                            {
+                                Diretor* func = dynamic_cast<Diretor*>(funcionarios[i]);
+                                str = "Diretor";
+
+                                string areaSupervisaoDiretor, areaFormacaoDiretor;
+                                
+                                cout << "Digite a área de supervisão do diretor: ";
+                                getline(cin, areaSupervisaoDiretor);
+
+                                cout << "Digite a área de formação do diretor: ";
+                                getline(cin, areaFormacaoDiretor);
+                                //Cria-se um novo funcionário com as novas informações
+                                funcionarios.push_back(new Diretor( funcionarios[i]->getCodigo(),
+                                                                    funcionarios[i]->getNome(), 
+                                                                    funcionarios[i]->getEndereco(), 
+                                                                    funcionarios[i]->getTelefone(),
+                                                                    funcionarios[i]->getDataIngresso(),
+                                                                    str, funcionarios[i]->getSalario(),
+                                                                    areaSupervisaoDiretor, areaFormacaoDiretor));
+
+                                // Método para excluir os funcionários alterados
+                                funcionarios[i]->setCodigo(0);
+                                excluirRegistroFuncionario(0);
+                                break;
+                            }
+
+                            else if (str == "presidente")
+                            {
+                                Presidente* func = dynamic_cast<Presidente*>(funcionarios[i]);
+                                str = "Presidente";
+
+                                string formacaoAcademica;
+                                string areaFormacaoPresidente;
+
+                                cout << "Digite a formação acadêmica do presidente: ";
+                                getline(cin, formacaoAcademica);
+
+                                cout << "Digite a área de formação do presidente: ";
+                                getline(cin, areaFormacaoPresidente);
+                                //Cria-se um novo funcionário com as novas informações
+                                funcionarios.push_back(new Presidente(funcionarios[i]->getCodigo(),
+                                                                        funcionarios[i]->getNome(), 
+                                                                        funcionarios[i]->getEndereco(), 
+                                                                        funcionarios[i]->getTelefone(),
+                                                                        funcionarios[i]->getDataIngresso(),
+                                                                        str, funcionarios[i]->getSalario(),
+                                                                        formacaoAcademica, areaFormacaoPresidente));
+
+                                // Método para excluir os funcionários alterados
+                                funcionarios[i]->setCodigo(0);
+                                excluirRegistroFuncionario(0);
+                                break;
+                            }
+                            
                             break;
-                        }
-                        
+                        case 6:
+                            cout << "Digite o novo salário: ";
+                            cin >> sal;
+                            cin.ignore();
+                            funcionarios[i]->setSalario(sal);
+                            break;
+                        case 0:
+                            return;
+                            break; //gambiarra
+                        default:
+                            cout << "Opção inválida!" << endl;
+                            break;
+                    }
+                }
+                else if (i == funcionarios.size() - 1 && cod != funcionarios[funcionarios.size()-1]->getCodigo())
+                {
+                    if (confirmacao == 1)
+                    {
                         break;
-                    case 6:
-                        cout << "Digite o novo salário: ";
-                        cin >> sal;
-                        cin.ignore();
-                        funcionarios[i]->setSalario(sal);
-                        break;
-                    case 0:
-                        return;
-                        break; //gambiarra
-                    default:
-                        cout << "Opção inválida!" << endl;
-                        break;
-                }   
+                    }
+                    else
+                    {
+                        cout << "Desculpe. Não encontramos um funcionário com esse código." << endl;
+                    }
+                }
             }
             cout << "Deseja fazer outra alteração nesse registro?" << endl;
             cout << "\t1 - Sim" << endl;
