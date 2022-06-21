@@ -446,11 +446,10 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
     // bool auxiliar
     bool novaAlteracao = true;
     bool sair = false;
-    bool primeiraVez = true;
     do
     {
         // perguntar apenas se o usuário deseja fazer nova alteração
-        if (novaAlteracao && primeiraVez) // != 0
+        if (novaAlteracao) // != 0
         {
             // leitura do código do funcionário a ser alterado
             cout << "Digite o código do funcionário cujo registro deve ser alterado." << endl;
