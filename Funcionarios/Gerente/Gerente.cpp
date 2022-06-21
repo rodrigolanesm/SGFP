@@ -5,6 +5,11 @@ Gerente::Gerente()
 
 }
 
+Gerente::~Gerente()
+{
+
+}
+
 Gerente::Gerente (int codigo, 
                  string nome, 
                  Endereco endereco, 
@@ -34,19 +39,9 @@ string Gerente::getAreaSupervisaoGerente()
     return areaSupervisaoGerente;
 }
 
-void Gerente::exibirDadosGerente()
+void Gerente::exibirRegistroFuncionario()
 {
-
-    cout << "Código: " << codigo << endl;
-    cout << "Nome: " << nome << endl;
-    cout << "Endereço: ";
-    endereco.exibirEndereco();
-    cout << "Telefone: " << telefone << endl;
-    //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
-    cout << "Data de Ingresso: ";
-    dataIngresso.printData();
-    cout << "Designação: " << designacao << endl;
-    cout << "Salário: " << salario << endl;
+    Funcionario::exibirRegistroFuncionario();
     cout << "Área de supervisão do gerente: " << getAreaSupervisaoGerente() << " " << endl;
 }
 
@@ -59,7 +54,7 @@ double Gerente::taxaAumento()
 
 string Gerente::toString()
 {
-    string str = Funcionario::toString() + AtributosEspecificos();
+    string str = Funcionario::toString();
     return str;
 }
 

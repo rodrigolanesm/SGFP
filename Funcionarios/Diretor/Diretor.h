@@ -10,7 +10,8 @@ class Diretor : public Funcionario
 {
 public:
     Diretor();
-    Diretor(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
+    ~Diretor();
+    Diretor(int codigo, string nome, Endereco endereco, string telefone, Data dataIngresso, string designacao,
         double salario,string areaSupervisaoDiretor, string areaFormacao);
 
     void setAreaSupervisaoDiretor(string areaSupervisaoDiretor);
@@ -18,7 +19,7 @@ public:
     
     string getAreaSupervisaoDiretor();
     string getAreaFormacao();
-    void exibirDadosDiretor();
+    void exibirRegistroFuncionario();
 
     double taxaAumento();
     

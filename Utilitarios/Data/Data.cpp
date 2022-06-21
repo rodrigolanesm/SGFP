@@ -20,6 +20,11 @@ Data::Data(int dia, int mes, int ano)
     this->ano = ano;
 }
 
+Data::~Data()
+{
+
+}
+
 //getters
 int Data::getDia()
 {

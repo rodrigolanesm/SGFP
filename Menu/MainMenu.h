@@ -21,6 +21,7 @@ class MainMenu
 {
 public:
     MainMenu();
+    ~MainMenu();
 
     void exibeMenu();
     void escolherOpcaoMenu();

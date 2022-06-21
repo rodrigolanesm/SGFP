@@ -19,6 +19,7 @@ public:
                 Data dataIngresso,
                 string designacao,
                 double salario);
+    /* virtual */ ~Funcionario();
 
     //setters da classe Funcionario
     virtual void setCodigo(int codigo);

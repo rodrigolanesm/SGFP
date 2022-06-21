@@ -5,6 +5,12 @@ Presidente::Presidente()
 {
 
 }
+
+Presidente::~Presidente()
+{
+
+}
+
 Presidente::Presidente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
     double salario,string formacaoAcademicaPresidente,string areaFormacaoPresidente):Funcionario(codigo,nome,endereco,telefone,dataIngresso,designacao,salario)
 {
@@ -32,18 +38,9 @@ void Presidente::setAreaFormacaoPresidente(string areaFormacaoPresidente)
     this->areaFormacaoPresidente = areaFormacaoPresidente;
 }
 
-void Presidente::exibirDadosPresidente()
+void Presidente::exibirRegistroFuncionario()
 {   
-    cout << "Código: " << codigo << endl;
-    cout << "Nome: " << nome << endl;
-    cout << "Endereço: ";
-    endereco.exibirEndereco();
-    cout << "Telefone: " << telefone << endl;
-    //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
-    cout << "Data de Ingresso: ";
-    dataIngresso.printData();
-    cout << "Designação: " << designacao << endl;
-    cout << "Salário: " << salario << endl;
+    Funcionario::exibirRegistroFuncionario();
     cout << "Formação acadêmica do Presidente: " << getFormacaoAcademicaPresidente() << endl;
     cout << "Área de formação do Presidente: " << getAreaFormacaoPresidente() << endl;
 
@@ -58,7 +55,7 @@ double Presidente::taxaAumento()
 
 string Presidente::toString()
 {
-    string str = Funcionario::toString() + AtributosEspecificos();
+    string str = Funcionario::toString();
     return str;
 }
 

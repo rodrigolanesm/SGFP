@@ -13,6 +13,8 @@
         "initializer_list": "cpp",
         "algorithm": "cpp",
         "iomanip": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "iosfwd": "cpp",
+        "sstream": "cpp"
     }
 }

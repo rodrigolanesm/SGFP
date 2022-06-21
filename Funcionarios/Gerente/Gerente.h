@@ -11,6 +11,7 @@ class Gerente : public Funcionario
 {
 public:
     Gerente();
+    ~Gerente();
     Gerente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
         double salario,string areaSupervisaoGerente);
 
@@ -18,7 +19,7 @@ public:
 
     string getAreaSupervisaoGerente();
 
-    void exibirDadosGerente();
+    void exibirRegistroFuncionario();
 
     double taxaAumento();
 

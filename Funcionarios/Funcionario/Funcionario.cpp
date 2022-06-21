@@ -28,6 +28,11 @@ Funcionario::Funcionario(int codigo,
     this->salario = salario;
 }
 
+Funcionario::~Funcionario()
+{
+
+}
+
 //setters
 
 void Funcionario::setCodigo(int codigo)
@@ -135,13 +140,19 @@ double Funcionario::getSalarioMensal()
 void Funcionario::exibirRegistroFuncionario()
 {
     cout << "Codigo: " << codigo << endl;
+    
     cout << "Nome: " << nome << endl;
+
     cout << "Endereco: ";
     endereco.exibirEndereco();
+
     cout << "Telefone: " << telefone << endl;
+
     cout << "Data de Ingresso: ";
     dataIngresso.printData();
+
     cout << "Designacao: " << designacao << endl;
+    
     cout << "Salario: " << salario << endl;
 }
 
@@ -237,6 +248,7 @@ string Funcionario::toString()
     string dia = to_string(getDataIngresso().getDia());
     string mes = to_string(getDataIngresso().getMes());
     string ano = to_string(getDataIngresso().getAno());
+    string sal = to_string(getSalario());
     string str;
     str = cod + "\n" +
           getNome() + "\n" +
@@ -251,6 +263,7 @@ string Funcionario::toString()
           mes + "\n" +
           ano + "\n" +
           getDesignacao() + "\n" +
+          sal + "\n" + 
           AtributosEspecificos();
 
     return str;

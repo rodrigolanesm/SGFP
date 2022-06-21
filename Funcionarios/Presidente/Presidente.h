@@ -11,6 +11,7 @@ class Presidente: public Funcionario
 
 public:
     Presidente();
+    ~Presidente();
     Presidente(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
         double salario,string formacaoAcademicaPresidente,string areaFormacaoPresidente);
 
@@ -19,7 +20,7 @@ public:
     
     string getFormacaoAcademicaPresidente();
     string getAreaFormacaoPresidente();
-    void exibirDadosPresidente();
+    void exibirRegistroFuncionario();
 
     double taxaAumento();
 

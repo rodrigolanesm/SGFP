@@ -5,6 +5,11 @@ MainMenu::MainMenu()
 
 }
 
+MainMenu::~MainMenu()
+{
+
+}
+
 void MainMenu::exibeMenu()
 {
     cout << "1 - Cadastrar funcionário" << endl;

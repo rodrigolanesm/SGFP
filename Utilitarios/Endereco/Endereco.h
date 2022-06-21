@@ -9,6 +9,7 @@ class Endereco
 public:
     Endereco();
     Endereco(string rua, string numero, string bairro, string cidade, string estado, string cep);
+    ~Endereco();
     //getters
     string getRua();
     string getNumero();

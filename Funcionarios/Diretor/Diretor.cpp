@@ -5,8 +5,13 @@ Diretor::Diretor()
 
 }
 
-Diretor::Diretor(int codigo,string nome,Endereco endereco,string telefone,Data dataIngresso,string designacao,
-        double salario,string areaSupervisaoDiretor, string areaFormacao) : Funcionario(codigo,nome,endereco,telefone,dataIngresso,designacao,salario)
+Diretor::~Diretor()
+{
+
+}
+
+Diretor::Diretor(int codigo, string nome, Endereco endereco, string telefone, Data dataIngresso, string designacao,
+        double salario, string areaSupervisaoDiretor, string areaFormacao) : Funcionario(codigo, nome, endereco, telefone, dataIngresso, designacao, salario)
 {
     this->areaFormacao = areaFormacao;
     this->areaSupervisaoDiretor = areaSupervisaoDiretor;
@@ -32,18 +37,9 @@ string Diretor::getAreaFormacao()
     return areaFormacao;
 }
 
-void Diretor::exibirDadosDiretor()
+void Diretor::exibirRegistroFuncionario()
 {   
-    cout << "Codigo: " << codigo << endl;
-    cout << "Nome: " << nome << endl;
-    cout << "Endereço: ";
-    endereco.exibirEndereco();
-    cout << "Telefone: " << telefone << endl;
-    //cout << "Data de Ingresso: " << dataIngresso.getDia() << "/" << dataIngresso.getMes() << "/" << dataIngresso.getAno() << endl;
-    cout << "Data de Ingresso: ";
-    dataIngresso.printData();
-    cout << "Designação: " << designacao << endl;
-    cout << "Salário: " << salario << endl;
+    Funcionario::exibirRegistroFuncionario();
     cout << "Área de supervisão do diretor: " << getAreaSupervisaoDiretor() << endl;
     cout << "Área de formação do diretor: " << getAreaFormacao() << endl;
 
@@ -58,7 +54,7 @@ double Diretor::taxaAumento()
 
 string Diretor::toString()
 {
-    string str = Funcionario::toString() + AtributosEspecificos();
+    string str = Funcionario::toString();
     return str;
 }
 

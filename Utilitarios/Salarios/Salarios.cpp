@@ -38,7 +38,7 @@ void Salarios::gerarHorasAleatorias()
             extras = 0;
         }
 
-        Sleep(1234);
+        Sleep(256);
     }
 }
 
@@ -183,7 +183,6 @@ void Salarios::imprimirFolhaSalarialEmpresa()
 
     do
     {
-
         cout << "Qual folha salarial deseja buscar?" << endl << endl
             << " 1 - Anual " << endl
             << " 2 - Mensal " << endl
@@ -228,9 +227,6 @@ void Salarios::imprimirFolhaSalarialEmpresa()
             cout << "O valor total da folha salarial deduzidos os impostos é de R$ " << fixed << setprecision(2) << folha << endl
                  << "O valor total da folha salarial com os impostos é de R$ " << fixed << setprecision(2) << folhaComImp << endl << endl;
             
-            cout << "Pressione ENTER para continuar" << endl;
-            getchar();
-            system(CLEAR);
 
             break;
 
@@ -265,6 +261,9 @@ void Salarios::imprimirFolhaSalarialEmpresa()
         default:
             break;
     }
+    cout << "Pressione ENTER para continuar" << endl;
+    getchar();
+    system(CLEAR);
 }
 
 void Salarios::concederAumentoSalarial(){

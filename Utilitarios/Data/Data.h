@@ -15,6 +15,7 @@ public:
     //construtor padrão
     Data();
     Data(int dia, int mes, int ano);
+    ~Data();
 
     //getters da classe Data
     int getDia();
