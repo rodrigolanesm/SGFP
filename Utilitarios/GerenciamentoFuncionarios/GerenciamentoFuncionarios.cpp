@@ -139,8 +139,8 @@ void GerenciamentoFuncionarios::cadastrarFuncionarios()
         cout << endl << "Funcionário cadastrado com sucesso!" << endl;
         cout << endl << endl;
 
-        cout << "Deseja cadastrar outro funcionário?" << endl;
-        cout << "Digite 1 para cadastrar um novo funcionário ou 0 para retornar ao menu principal: ";
+        cout << "Digite 1 para cadastrar um novo funcionário ou 0 para retornar ao menu principal." << endl;
+        cout << "Deseja cadastrar outro funcionário? ";
         cin >> sair;
         cout << endl;
         cin.ignore();
@@ -405,7 +405,7 @@ void GerenciamentoFuncionarios::listarFuncionariosTipo()
             ((Presidente*)funcionarios[i])->exibirRegistroFuncionario();
         
         }
-        
+        cout << endl;
     }
     cout << endl;
     cout << "Pressione ENTER para continuar" << endl;
@@ -425,11 +425,12 @@ void GerenciamentoFuncionarios::exibirRegistroFuncionario()
         if (funcionarios[i]->getCodigo() == codigoBuscado)
         {
             funcionarios[i]->exibirRegistroFuncionario();
+            cout << endl;
         }
     }
     
-    getchar();
     cout << "Pressione ENTER para sair" << endl;
+    getchar();
     system(CLEAR);
 }
 
@@ -443,11 +444,13 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
     double sal;
 
     // bool auxiliar
-    bool novaAlteracao = 1;
+    bool novaAlteracao = true;
+    bool sair = false;
+    bool primeiraVez = true;
     do
     {
         // perguntar apenas se o usuário deseja fazer nova alteração
-        if (novaAlteracao) // != 0
+        if (novaAlteracao && primeiraVez) // != 0
         {
             // leitura do código do funcionário a ser alterado
             cout << "Digite o código do funcionário cujo registro deve ser alterado." << endl;
@@ -457,15 +460,15 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
             cin.ignore();
         }
 
-        if (cod > 0) // != 0
+        if (cod) // != 0
         {
-            bool confirmacao = false;
+            bool existeFuncionario = false;   //confirma se existe um funcionário com um código digitado pelo usuário
             for (int i = 0; i < funcionarios.size(); i++)
             {            
                 // condição para alterar o funcionário: o código digitado pelo usuário ao código do funcionário a ser alterado
                 if (cod == funcionarios[i]->getCodigo()) 
                 {
-                    confirmacao = true;
+                    existeFuncionario = true;
                     int opcao;
                     cout << "Digite a informação que deseja alterar: " << endl;
                     cout << "\t1 - Nome" << endl;
@@ -617,30 +620,48 @@ void GerenciamentoFuncionarios::alterarRegistroFuncionario()
                             funcionarios[i]->setSalario(sal);
                             break;
                         case 0:
-                            return;
-                            break; //gambiarra
+                            sair = true;
+                            break;
                         default:
                             cout << "Opção inválida!" << endl;
                             break;
                     }
                 }
-                else if (i == funcionarios.size() - 1 && cod != funcionarios[funcionarios.size()-1]->getCodigo())
+                else if (i == funcionarios.size() - 1 && !existeFuncionario)
                 {
-                    if (!confirmacao)
-                    {
-                        cout << "Desculpe. Não encontramos um funcionário com esse código." << endl;
-                    }
+
+                    cout << "Desculpe. Não encontramos um funcionário com esse código." << endl;
+                    cout << "Quer tentar um outro código?" << endl
+                         << "\t1 - Sim" << endl
+                         << "\t0 - Não" << endl;
+                    cout << "\tDigite aqui: ";
+
+                    cin >> novaAlteracao;
+                    cin.ignore();
+
                 }
             }
-            cout << "Deseja fazer outra alteração nesse registro?" << endl;
-            cout << "\t1 - Sim" << endl;
-            cout << "\t0 - Não" << endl;
-            cin >> novaAlteracao;
+            if (existeFuncionario && !sair) // se encontrou o funcionário do código buscado
+            {
+                cout << "Deseja fazer outra alteração?" << endl;
+                cout << "\t1 - Sim" << endl;
+                cout << "\t0 - Não" << endl;
+                cin >> novaAlteracao;
+                cin.ignore();
+            }
+        }
+        else    // caso o código do funcionário seja igual a zero
+        {
+            break;
         }
         system(CLEAR);
-        novaAlteracao = 0;  //comando auxiliar para sair do loop caso o codigo digitado seja 0
+        //novaAlteracao = 0;  //comando auxiliar para sair do loop caso o codigo digitado seja 0
     }
     while (novaAlteracao);
+
+    cout << "Digite ENTER para continuar" << endl;
+    getchar();
+    system(CLEAR);
 }
 
 void GerenciamentoFuncionarios::excluirRegistroFuncionario()
