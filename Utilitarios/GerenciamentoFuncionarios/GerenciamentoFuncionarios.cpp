@@ -667,6 +667,7 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
     //excluir um funcionario, dado o seu código
     int cod;
     int opcao = 0;
+    int confirmacao = false;
 
     do
     {
@@ -709,8 +710,18 @@ void GerenciamentoFuncionarios::excluirRegistroFuncionario()
                     }
                     else
                     {
-                        funcionarios.erase(funcionarios.begin() + i);
-                        cout << "Funcionário excluído com sucesso!" << endl;
+                        //confirmar a exclusão
+                        cout << "Deseja realmente excluir esse funcionário?" << endl;
+                        cout << "\t1 - Sim" << endl;
+                        cout << "\t0 - Não" << endl;
+                        cin >> confirmacao;
+                        cin.ignore();
+
+                        if (confirmacao)
+                        {
+                            funcionarios.erase(funcionarios.begin() + i);
+                            cout << "Funcionário excluído com sucesso!" << endl;
+                        }
                         opcao = 0;
                         break;
                     }

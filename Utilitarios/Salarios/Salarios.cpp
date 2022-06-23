@@ -284,24 +284,28 @@ void Salarios::concederAumentoSalarial()
         {
             valorAumento = ((Operador*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
             funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+            cout << "Concedido aumento de 5% para Operador!" << endl;
         }
         
         else if (tipoComparacao == "gerente")
         {
             valorAumento = ((Gerente*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
             funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+            cout << "Concedido aumento de 10% para Gerente!" << endl;
         }
         
         else if (tipoComparacao == "diretor")
         {
             valorAumento = ((Diretor*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario(); 
             funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+            cout << "Concedido aumento de 20% para Diretor!" << endl;
         }
         
         else if (tipoComparacao == "presidente")
         {
             valorAumento = ((Presidente*)funcionarios[i])->taxaAumento() * funcionarios[i]->getSalario();
             funcionarios[i]->setSalario(valorAumento + funcionarios[i]->getSalario());
+            cout << "Concedido aumento de 30% para Presidente!" << endl;
         }
         
     }
