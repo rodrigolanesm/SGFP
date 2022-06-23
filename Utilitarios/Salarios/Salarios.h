@@ -30,6 +30,7 @@ public:
     void calcularFolhaSalarialFuncionario();
     void imprimirFolhaSalarialEmpresa();    //arquivo
     void concederAumentoSalarial();
+    void EscreverArquivoFolhaSalarial();
 private:
     int folhaSalarial[12] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };

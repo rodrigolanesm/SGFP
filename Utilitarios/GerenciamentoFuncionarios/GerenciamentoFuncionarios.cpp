@@ -173,7 +173,6 @@ void GerenciamentoFuncionarios::lerArquivoCadastroFuncionario()
 
         Funcionario *func;
 
-        bool sair = false;
         // criação de vários funcionários
         do
         {
@@ -895,18 +894,13 @@ void GerenciamentoFuncionarios::buscarFuncionarioCep(int i)
 {
     string cep, url, command;
 
-    /* cout << "Digite o cep: ";
-    getline (cin, cep); */
     cep = funcionarios[i]->getEndereco().getCep();
 
     url = "viacep.com.br/ws/" + cep + "/json/";
 
-    /* cout << "url: " << url << endl; */
-
     command = "wget -O cep.txt " + url + " -q";
-    /* cout << "command: " << command << endl; */
 
-    system(command.c_str()); // aqui ele entra num loop no codeblocks
+    system(command.c_str());
     parseCEP();
 
     cout << endl;
@@ -935,10 +929,8 @@ void GerenciamentoFuncionarios::parseCEP()
             pos2pt = linha.find(':');
             dado = linha.substr(pos2pt + 3, linha.size() - 2 - pos2pt - 3);
 
-            // dado = sub.substr(0, dado.size() - 2); // outra alternativa
-            // cout << linha << endl; // para teste
             cout << dado << endl;
-            switch (i) // poderia ser if else, mas switch case deixa mais elegante
+            switch (i)
             {
                 case 2:
                     rua = dado;
